@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Webcam
+    uniqueID: 1593355599
+    locked: 0
+  - name: 3D
+    uniqueID: 1424163133
+    locked: 0
+  - name: Buttons
+    uniqueID: 3576455117
+    locked: 0
