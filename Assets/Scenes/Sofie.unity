@@ -538,11 +538,43 @@ PrefabInstance:
       propertyPath: m_Name
       value: Exercise
       objectReference: {fileID: 0}
+    - target: {fileID: 4706565408930777425, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: placeholder
+      value: 
+      objectReference: {fileID: 866723749942688922}
+    - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: levelsObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: exerciseObject
+      value: 
+      objectReference: {fileID: 866723749942688921}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+--- !u!1 &866723749942688921 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3221907727837584767, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+  m_PrefabInstance: {fileID: 866723749942688920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &866723749942688922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4186569003224464884, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+  m_PrefabInstance: {fileID: 866723749942688920}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

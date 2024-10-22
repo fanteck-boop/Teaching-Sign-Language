@@ -11,7 +11,7 @@ public class ExerciseScript : MonoBehaviour
     private int currentLetterIndex = 0; // Tracks the current letter to match
 
     //Something
-    [SerializeField] private string placeholderText;
+    [SerializeField] private string placeholderText = "";
 
     // References to UI elements
     [SerializeField] private TMP_InputField inputField; // Input field where the user types
@@ -22,6 +22,10 @@ public class ExerciseScript : MonoBehaviour
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
 
+    //Exercises and Level references
+    [SerializeField] private GameObject exerciseObject;
+    [SerializeField] private GameObject levelsObject;
+    [SerializeField] private GameObject exerciseCompletedPanel;
 
     void Start()
     {
@@ -52,13 +56,14 @@ public class ExerciseScript : MonoBehaviour
                 // Reset the input field for the next letter
                 ResetInputField();
                 UpdateLetterDisplay();
-
             }
 
             else
             {
                 Debug.Log("Exercise completed!");
-                // You can add logic for when the exercise is finished
+                //Gamemanager add count to completed Exercises.
+                exerciseCompletedPanel.SetActive(true);
+                ResetExercise();
             }
         }
 
@@ -71,10 +76,7 @@ public class ExerciseScript : MonoBehaviour
     // Function to reset the input field
     private void ResetInputField()
     {
-        if (placeholder != null)
-        {
-            placeholder.text = placeholderText;
-        }
+        inputField.text = placeholderText;
     }
 
     // Function to update the letter display with the current letter
@@ -86,8 +88,19 @@ public class ExerciseScript : MonoBehaviour
         }
     }
 
-    private void CompleteExercise()
+    public void CompleteExercise()
     {
-        Debug.Log("Exercise done");
+        if (exerciseObject.activeSelf) // Check if exerciseObject is active
+        {
+            exerciseObject.SetActive(false); // Deactivate exerciseObject
+            levelsObject.SetActive(true); // Activate levelsObject
+        }
+    }
+
+    private void ResetExercise() //resets the exercise
+    {
+        currentLetterIndex = 0; // Reset to the first letter
+        ResetInputField(); // Clear the input field
+        UpdateLetterDisplay(); // Update the display to show the first letter
     }
 }
