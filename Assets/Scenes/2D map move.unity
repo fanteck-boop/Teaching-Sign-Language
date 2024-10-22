@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 22362165}
   - component: {fileID: 22362168}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: LVL 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 63644324}
   - component: {fileID: 63644327}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LVL 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,14 +354,26 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 63644327}
         m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: MoveToScene
-        m_Mode: 3
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 665017161}
+        m_TargetAssemblyTypeName: NavigationManager, Assembly-CSharp
+        m_MethodName: ButtonPress
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &63644325
@@ -427,7 +439,7 @@ GameObject:
   - component: {fileID: 220438217}
   - component: {fileID: 220438216}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvaslvl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -667,7 +679,7 @@ GameObject:
   - component: {fileID: 634497402}
   - component: {fileID: 634497405}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: LVL 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -799,6 +811,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62ccdbe00dad184f9fde3c3a7809a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &665017160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665017162}
+  - component: {fileID: 665017161}
+  m_Layer: 0
+  m_Name: NavMan
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &665017161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665017160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56924e43b743b5448be52bf29b8b48d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 63644322}
+  - {fileID: 823310193}
+  - {fileID: 634497400}
+  - {fileID: 22362163}
+  Canvaslvl: {fileID: 220438215}
+--- !u!4 &665017162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665017160}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 215.61212, y: -8.464953, z: 126.60464}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &729400540
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,7 +1009,7 @@ GameObject:
   - component: {fileID: 823310195}
   - component: {fileID: 823310198}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: LVL 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1716,3 +1778,4 @@ SceneRoots:
   - {fileID: 220438219}
   - {fileID: 1564281110}
   - {fileID: 1192607683}
+  - {fileID: 665017162}
