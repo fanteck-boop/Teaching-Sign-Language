@@ -5,9 +5,10 @@ using TMPro;
 
 public class ExerciseManager : MonoBehaviour
 {
-    [SerializedField] Prefab IntroExercise;
-    [SerializedField] Prefab SpellingExercise;
-    [SerializedField] Prefab ReadingExercise;
+    [SerializeField] GameObject IntroExercise;
+    [SerializeField] GameObject SpellingExercise;
+    [SerializeField] GameObject ReadingExercise;
+
 
     // Start is called before the first frame update
     void Start()

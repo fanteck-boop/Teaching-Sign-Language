@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 2715641665471845157}
   - component: {fileID: 9168499007169528952}
   m_Layer: 0
-  m_Name: Exercise
+  m_Name: ReadingExercise
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
