@@ -1,0 +1,6 @@
+py -m pip install mediapipe
+py -m pip install opencv-python
+py -m pip install tensorflow
+py -m pip install scikit-learn
+py -m pip install matplotlib
+py -m pip install protobuf
