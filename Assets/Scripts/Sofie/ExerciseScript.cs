@@ -6,12 +6,15 @@ using TMPro;
 
 public class ExerciseScript : MonoBehaviour
 {
+    //Reference to manager
+    public NavigationManager navManager;
+
     // Assign the letters and number of letters in the inspector
     [SerializeField] private List<string> letters; // List of letters
     private int currentLetterIndex = 0; // Tracks the current letter to match
 
     //Something
-    [SerializeField] private string placeholderText = "";
+    [SerializeField] private string placeholderText = "Skriv bogstav her";
 
     // References to UI elements
     [SerializeField] private TMP_InputField inputField; // Input field where the user types
@@ -24,13 +27,20 @@ public class ExerciseScript : MonoBehaviour
 
     //Exercises and Level references
     [SerializeField] private GameObject exerciseObject;
-    [SerializeField] private GameObject levelsObject;
     [SerializeField] private GameObject exerciseCompletedPanel;
+    [SerializeField] private GameObject levelsObject;
+
+    //Bool
+    private bool isCompleted = false;
 
     void Start()
     {
         // Add listener to the submit button
         checkAnswerButton.onClick.AddListener(CheckInput);
+
+        //Make sure exercises is inactive and toggles correctly
+        exerciseCompletedPanel.SetActive(false);
+        exerciseObject.SetActive(false);
 
         // Reset input field and start with the first letter
         ResetInputField();
@@ -60,8 +70,7 @@ public class ExerciseScript : MonoBehaviour
 
             else
             {
-                Debug.Log("Exercise completed!");
-                //Gamemanager add count to completed Exercises.
+                Debug.Log("Exercise done!");
                 exerciseCompletedPanel.SetActive(true);
                 ResetExercise();
             }
@@ -88,12 +97,20 @@ public class ExerciseScript : MonoBehaviour
         }
     }
 
-    public void CompleteExercise()
+    public void CompleteExercise() //Function to close exercise and activate Level menu
     {
+        if (isCompleted == false)
+        {
+            GameManager.Instance.AddExercisesCompleted();
+        }
+
+        isCompleted = true;
+
         if (exerciseObject.activeSelf) // Check if exerciseObject is active
         {
-            exerciseObject.SetActive(false); // Deactivate exerciseObject
-            levelsObject.SetActive(true); // Activate levelsObject
+            exerciseCompletedPanel.SetActive(false);
+            exerciseObject.SetActive(false);
+            navManager.ToggleLevelMenu();
         }
     }
 
