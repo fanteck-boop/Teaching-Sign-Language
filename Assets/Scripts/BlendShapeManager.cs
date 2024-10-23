@@ -1,0 +1,121 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BlendShapeManager : MonoBehaviour
+{
+    
+    public SkinnedMeshRenderer handRenderer;   // Reference to the hand's SkinnedMeshRenderer
+    public Animator handAnimator;              // Reference to the hand's Animator
+    public float displayDuration = 1.0f;       // Display duration for the blendshapes
+
+    // Dictionary to map each letter to its blendshape index or Animator flag
+    private Dictionary<char, (int blendShapeIndex, bool isAnimated)> letterData;
+
+
+    void Awake()
+    {
+        // Upon awake, initialize the dictionary mapping letters to their blendshape index / animation flag
+        letterData = new Dictionary<char, (int, bool)>
+        {
+            { 'A', (0, false) },
+            { 'B', (1, false) },
+            { 'C', (2, false) },
+            { 'D', (3, false) },
+            { 'E', (4, false) },
+            { 'F', (5, false) },
+            { 'G', (6, false) },
+            { 'H', (7, false) },
+            { 'I', (8, false) },
+            { 'J', (0, true) },  // 'J' requires an animation
+            { 'K', (10, false) },
+            { 'L', (11, false) },
+            { 'M', (12, false) },
+            { 'N', (13, false) },
+            { 'O', (14, false) },
+            { 'P', (15, false) },
+            { 'Q', (16, false) },
+            { 'R', (17, false) },
+            { 'S', (18, false) },
+            { 'T', (19, false) },
+            { 'U', (20, false) },
+            { 'V', (21, false) },
+            { 'W', (22, false) },
+            { 'X', (23, false) },
+            { 'Y', (24, false) },
+            { 'Z', (25, true) }, // 'Z' requires animation
+            { 'Æ', (26, false) },
+            { 'Ø', (27, true) }, // 'OE' requires animation
+            { 'Å', (28, true) } // 'AA' requires animation
+            
+        };
+    }
+
+    // Since we want there to be "pauses" between each letter when spelling a letter
+    // We make use of an Enumerator and couroutine. 
+    public IEnumerator SpellWord(string word)
+    {
+        word = word.ToUpper(); // Convert to uppercase to match dictionary keys
+
+        foreach (char letter in word)
+        {
+            if (letterData.ContainsKey(letter))
+            {
+                var (blendShapeIndex, isAnimated) = letterData[letter];
+
+                if (isAnimated)
+                {
+                    // Trigger the Animator for animated letters like 'J'
+                    PlayAnimationForLetter(letter);
+                }
+                else
+                {
+                    // Use blendshape for static letters
+                    SetBlendshape(blendShapeIndex, 100);
+                }
+
+                yield return new WaitForSeconds(displayDuration);
+                ResetBlendshapes();  // Reset between letters
+            }
+            else
+            {
+                Debug.LogWarning($"No blendshape or animation found for letter: {letter}");
+            }
+        }
+    }
+
+    // Function to reset all blendshapes
+    public void ResetBlendshapes()
+    {
+        foreach (var key in letterData.Keys)
+        {
+            handRenderer.SetBlendShapeWeight(letterData[key].blendShapeIndex, 0);
+        }
+    }
+
+    // Set a specific blendshape
+    public void SetBlendshape(int blendShapeIndex, float weight)
+    {
+        handRenderer.SetBlendShapeWeight(blendShapeIndex, weight);
+    }
+
+    // Play animation for animated letters like 'J' and 'Z'
+    private void PlayAnimationForLetter(char letter)
+    {
+        string triggerName = "Animate" + letter; // Example trigger: "AnimateJ"
+        handAnimator.SetTrigger(triggerName);
+    }
+
+
+// Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
