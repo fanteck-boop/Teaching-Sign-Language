@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Player progress
-    //private int exercisesCompleted = 0;
+    private int exercisesCompleted = 0;
       
 
 }
