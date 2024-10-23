@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ExerciseScript : MonoBehaviour
+public class Exercise : MonoBehaviour
 {
     //Reference to manager
     public NavigationManager navManager;
@@ -29,9 +29,6 @@ public class ExerciseScript : MonoBehaviour
     [SerializeField] private GameObject exerciseObject;
     [SerializeField] private GameObject exerciseCompletedPanel;
     [SerializeField] private GameObject levelsObject;
-
-    //Bool
-    private bool isCompleted = false;
 
     void Start()
     {
@@ -99,15 +96,9 @@ public class ExerciseScript : MonoBehaviour
 
     public void CompleteExercise() //Function to close exercise and activate Level menu
     {
-        if (isCompleted == false)
-        {
-            GameManager.Instance.AddExercisesCompleted();
-        }
-
-        isCompleted = true;
-
         if (exerciseObject.activeSelf) // Check if exerciseObject is active
         {
+            GameManager.Instance.CurrentExercises[exerciseObject.name] = true; // Set exercise status as completed
             exerciseCompletedPanel.SetActive(false);
             exerciseObject.SetActive(false);
             navManager.ToggleLevelMenu();
@@ -120,4 +111,5 @@ public class ExerciseScript : MonoBehaviour
         ResetInputField(); // Clear the input field
         UpdateLetterDisplay(); // Update the display to show the first letter
     }
+
 }
