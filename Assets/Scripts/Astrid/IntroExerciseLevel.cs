@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-abstract class IntroExerciseLevel : LevelTemplate // Ensure it inherits from LevelTemplate
+public class IntroExerciseLevel : LevelTemplate // Ensure it inherits from LevelTemplate
 {
     public char[] lettersToPractice;             // Letters to practice in this exercise
-    public float displayDuration = 2.0f;           // How long to display each letter
+    public float displayDuration = 0.1f;           // How long to display each letter
     public TMP_Text feedbackText;                   // TMP Text element for feedback to the player
     public TMP_InputField inputField;    // Input field for player input
     public BlendShapeManager BlendShapeManager;    // Reference to the BlendShapeManager
@@ -22,6 +22,13 @@ abstract class IntroExerciseLevel : LevelTemplate // Ensure it inherits from Lev
 
     void Start()
     {
+
+        if (inputField == null)
+        {
+            Debug.LogError("InputField is not assigned in the Inspector.");
+            return; // Exit if it's not assigned
+        }
+
         // Optional: Clear input field and set feedback text
         inputField.text = "";
         feedbackText.text = "";

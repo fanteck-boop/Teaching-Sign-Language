@@ -7,7 +7,7 @@ public class BlendShapeManager : MonoBehaviour
 
     public SkinnedMeshRenderer handRenderer;   // Reference to the hand's SkinnedMeshRenderer
     public Animator handAnimator;              // Reference to the hand's Animator
-    public float displayDuration = 1.0f;       // Display duration for the blendshapes
+    public float displayDuration = 0.1f;       // Display duration for the blendshapes
 
     // Dictionary to map each letter to its blendshape index or Animator flag
     private Dictionary<char, (int blendShapeIndex, bool isAnimated)> letterData;

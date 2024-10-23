@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract class LevelTemplate : MonoBehaviour
+public abstract class LevelTemplate : MonoBehaviour
 {
     public BlendShapeManager blendshapeManager;  // Reference to the BlendshapeManager
     public float levelCompleteDelay = 2.0f;      // Delay before returning to menu after completing a level

@@ -50,3 +50,6 @@ TagManager:
   - name: Buttons
     uniqueID: 3576455117
     locked: 0
+  - name: PNG
+    uniqueID: 1248333
+    locked: 0
