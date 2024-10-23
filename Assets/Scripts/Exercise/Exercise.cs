@@ -6,14 +6,14 @@ using TMPro;
 
 public class Exercise : MonoBehaviour
 {
-    //Reference to manager
+    // Reference to manager
     public NavigationManager navManager;
 
     // Assign the letters and number of letters in the inspector
     [SerializeField] private List<string> letters; // List of letters
     private int currentLetterIndex = 0; // Tracks the current letter to match
 
-    //Something
+    // Something
     [SerializeField] private string placeholderText = "Skriv bogstav her";
 
     // References to UI elements
@@ -25,7 +25,7 @@ public class Exercise : MonoBehaviour
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
 
-    //Exercises and Level references
+    // Exercises and Level references
     [SerializeField] private GameObject exerciseObject;
     [SerializeField] private GameObject exerciseCompletedPanel;
     [SerializeField] private GameObject levelsObject;
@@ -35,7 +35,7 @@ public class Exercise : MonoBehaviour
         // Add listener to the submit button
         checkAnswerButton.onClick.AddListener(CheckInput);
 
-        //Make sure exercises is inactive and toggles correctly
+        // Make sure exercises is inactive and toggles correctly
         exerciseCompletedPanel.SetActive(false);
         exerciseObject.SetActive(false);
 
@@ -53,8 +53,6 @@ public class Exercise : MonoBehaviour
         // Check if the input matches the current letter
         if (PlayerInput.ToLower() == letters[currentLetterIndex].ToLower())
         {
-            Debug.Log("Correct!");
-
             // Move to the next letter if available
             currentLetterIndex++;
 
@@ -64,18 +62,11 @@ public class Exercise : MonoBehaviour
                 ResetInputField();
                 UpdateLetterDisplay();
             }
-
             else
             {
-                Debug.Log("Exercise done!");
                 exerciseCompletedPanel.SetActive(true);
                 ResetExercise();
             }
-        }
-
-        else
-        {
-            Debug.Log("Incorrect, try again!");
         }
     }
 
@@ -94,22 +85,22 @@ public class Exercise : MonoBehaviour
         }
     }
 
-    public void CompleteExercise() //Function to close exercise and activate Level menu
+    public void CompleteExercise() // Function to close exercise and activate Level menu
     {
         if (exerciseObject.activeSelf) // Check if exerciseObject is active
         {
-            GameManager.Instance.CurrentExercises[exerciseObject.name] = true; // Set exercise status as completed
+            string key = exerciseObject.name + "Completed";
+            GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
             exerciseCompletedPanel.SetActive(false);
             exerciseObject.SetActive(false);
             navManager.ToggleLevelMenu();
         }
     }
 
-    private void ResetExercise() //resets the exercise
+    private void ResetExercise() // Resets the exercise
     {
         currentLetterIndex = 0; // Reset to the first letter
         ResetInputField(); // Clear the input field
         UpdateLetterDisplay(); // Update the display to show the first letter
     }
-
 }

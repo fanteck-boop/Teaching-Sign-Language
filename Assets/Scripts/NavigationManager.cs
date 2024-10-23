@@ -5,9 +5,6 @@ public class NavigationManager : MonoBehaviour
 {
     [SerializeField] private GameObject levelMenu;
 
-    // Assuming you have a dictionary to track exercises and their completion state
-    private Dictionary<string, bool> CurrentExercises = new Dictionary<string, bool>();
-
     public void ToggleLevelMenu()
     {
         // Check if levelMenu is currently active
@@ -47,7 +44,7 @@ public class NavigationManager : MonoBehaviour
                 Debug.Log("Exercise is in the current or a prior exercise collection"); 
                 // Check if exercise is "Introduction" or is completed
                 if (exercise.name == "Introduction" || 
-                    (CurrentExercises.TryGetValue("Introduction", out bool isCompleted) && isCompleted))
+                    (GameManager.Instance.CurrentExercises.TryGetValue("Introduction", out bool isCompleted) && isCompleted))
                 {
                     Debug.Log("Exercise is Introduction or Introduction is completed");
                     return false;
@@ -68,15 +65,23 @@ public class NavigationManager : MonoBehaviour
     {  
         string key = exercise.name + "Completed";
 
-        if (CurrentExercises.TryGetValue(key, out bool isCompleted))
+        if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && isCompleted)
         {
-            return isCompleted; // Simplified return
+            Debug.Log("Exercise is already completed.");
+            return true; // Simplified return
+        }
+        else
+        {
+            Debug.Log("Exercise is not already completed. "+ isCompleted);
+            return false;
         }
        
     }
 
     public void OpenExercise(GameObject exercise)
     {
+        Debug.Log("Button was clicked");
+
         if (CheckIfLocked(exercise) == false)
         {
             // Deactivate the level menu
@@ -84,6 +89,7 @@ public class NavigationManager : MonoBehaviour
 
             if (CheckIfCompleted(exercise) == false)
             {
+                Debug.Log("Is loading exercise.");
                 // Activate the exercise GameObject
                 exercise.gameObject.SetActive(true);
             }
