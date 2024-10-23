@@ -97,6 +97,7 @@ public class NavigationManager : MonoBehaviour
             {
                 // Display a message saying the exercise is already completed
                 Debug.Log("Exercise is already completed.");
+                exercise.gameObject.SetActive(true);
             }
         }
         else

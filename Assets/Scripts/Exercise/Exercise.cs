@@ -90,7 +90,10 @@ public class Exercise : MonoBehaviour
         if (exerciseObject.activeSelf) // Check if exerciseObject is active
         {
             string key = exerciseObject.name + "Completed";
-            GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
+            if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && !isCompleted)
+            {
+                GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
+            }
             exerciseCompletedPanel.SetActive(false);
             exerciseObject.SetActive(false);
             navManager.ToggleLevelMenu();
