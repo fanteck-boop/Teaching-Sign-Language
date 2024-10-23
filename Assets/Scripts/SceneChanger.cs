@@ -10,6 +10,6 @@ public class SceneChanger : MonoBehaviour
 
     public void MoveToScene2()
     {
-        SceneManager.LoadScene("2D map move");
+        SceneManager.LoadScene("LevelMap");
     }
 }
