@@ -945,7 +945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handRenderer: {fileID: 710852553}
-  handAnimator: {fileID: 0}
+  handAnimator: {fileID: 710852555}
   displayDuration: 1
 --- !u!95 &710852555
 Animator:
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handRenderer: {fileID: 710852553}
-  handAnimator: {fileID: 0}
+  handAnimator: {fileID: 710852555}
   displayDuration: 1
 --- !u!4 &1736650220
 Transform:

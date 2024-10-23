@@ -64,7 +64,7 @@ public class BlendShapeManager : MonoBehaviour
             {
                 var (blendShapeIndex, isAnimated) = letterData[letter];
 
-                if (isAnimated)
+                if (isAnimated) 
                 {
                     PlayAnimationForLetter(letter); // Trigger the Animator for animated letters like 'J' / 'Z'
                 }
@@ -97,14 +97,33 @@ public class BlendShapeManager : MonoBehaviour
     // Set a specific blendshape
     public void SetBlendshape(int blendShapeIndex, float weight)
     {
-        handRenderer.SetBlendShapeWeight(blendShapeIndex, weight);
+        handRenderer.SetBlendShapeWeight(blendShapeIndex, Mathf.Clamp(weight, 0, 100));
     }
 
 
-    // Play animation for animated letters like 'J' and 'Z'
+    // Play animation for animated letters like 'J' and 'Z
+
     private void PlayAnimationForLetter(char letter)
     {
         string triggerName = "Animate" + letter; // Example trigger: "AnimateJ"
+
+        if (letter == 'J')
+        {
+            handAnimator.SetFloat("AnimationIndex", 0);  // Set index for 'J' in the blend tree
+        }
+        else if (letter == 'Z')
+        {
+            handAnimator.SetFloat("AnimationIndex", 1);  // Set index for 'Z' in the blend tree
+        }
+        else if (letter == 'Ø')
+        {
+            handAnimator.SetFloat("AnimationIndex", 2);  // Set index for 'Z' in the blend tree
+        }
+        else if (letter == 'Å')
+        {
+            handAnimator.SetFloat("AnimationIndex", 3);  // Set index for 'Z' in the blend tree
+        }
+
         handAnimator.SetTrigger(triggerName);
     }
 
