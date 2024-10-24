@@ -406,7 +406,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255382582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 3.9123535, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -911,6 +911,22 @@ PrefabInstance:
       propertyPath: m_BlendShapeWeights.Array.data[3]
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6128140153830238031, guid: 1526fc0345ff3434bb6659e827db3b4d, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[15]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6128140153830238031, guid: 1526fc0345ff3434bb6659e827db3b4d, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[21]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6128140153830238031, guid: 1526fc0345ff3434bb6659e827db3b4d, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[22]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879528566716807029, guid: 1526fc0345ff3434bb6659e827db3b4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -927,11 +943,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1526fc0345ff3434bb6659e827db3b4d, type: 3}
   m_PrefabInstance: {fileID: 710852551}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &710852553 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6128140153830238031, guid: 1526fc0345ff3434bb6659e827db3b4d, type: 3}
-  m_PrefabInstance: {fileID: 710852551}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &710852554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,7 +955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4527c66866b37488e578e9079c9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handRenderer: {fileID: 710852553}
   handAnimator: {fileID: 710852555}
   displayDuration: 1
 --- !u!95 &710852555
@@ -1089,13 +1099,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b8c35396d855a14c9310320c8b2f00f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blendshapeManager: {fileID: 710852554}
-  levelCompleteDelay: 2
-  lettersToPractice: 
-  displayDuration: 2
+  animationManager: {fileID: 1736650219}
   feedbackText: {fileID: 324787280}
   inputField: {fileID: 255382583}
-  BlendShapeManager: {fileID: 1736650219}
+  levelCompleteDelay: 2
+  lettersToPractice: 
 --- !u!4 &917815950
 Transform:
   m_ObjectHideFlags: 0
@@ -1481,7 +1489,7 @@ GameObject:
   - component: {fileID: 1736650220}
   - component: {fileID: 1736650219}
   m_Layer: 0
-  m_Name: BlendShapeManager
+  m_Name: AnimationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1499,7 +1507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4527c66866b37488e578e9079c9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handRenderer: {fileID: 710852553}
   handAnimator: {fileID: 710852555}
   displayDuration: 1
 --- !u!4 &1736650220

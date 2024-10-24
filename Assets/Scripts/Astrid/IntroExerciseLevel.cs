@@ -5,46 +5,29 @@ using UnityEngine;
 
 public class IntroExerciseLevel : LevelTemplate // Ensure it inherits from LevelTemplate
 {
-    public char[] lettersToPractice;             // Letters to practice in this exercise
-    public float displayDuration = 0.1f;           // How long to display each letter
-    public TMP_Text feedbackText;                   // TMP Text element for feedback to the player
-    public TMP_InputField inputField;    // Input field for player input
-    public BlendShapeManager BlendShapeManager;    // Reference to the BlendShapeManager
-
-    private int currentLetterIndex = 0;            // Track the current letter being practiced
-
-    // Override this to start the gesture exercise
+    public string lettersToPractice = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";  // Letters to practice
+    
+    // For this exercise, we overide GetWord as we make use of letterToPractice instead.
     protected override string GetWord()
     {
-        // Returning an empty string since this level focuses on gestures, not spelling a word
-        return string.Empty;
+        return "";  // Return a string representing the word (or empty for this exercise)
+    }
+
+    // Track the current letter being practiced
+
+    private void Awake()
+    {
+        lettersToPractice = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
     }
 
     void Start()
     {
-
-        if (inputField == null)
-        {
-            Debug.LogError("InputField is not assigned in the Inspector.");
-            return; // Exit if it's not assigned
-        }
-
-        // Optional: Clear input field and set feedback text
-        inputField.text = "";
-        feedbackText.text = "";
         StartExercise();
     }
 
-    // Start the exercise by displaying the letters one by one
     public void StartExercise()
     {
-        // Define a string containing all the letters you want to test
-        string allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"; // Include your letters here
-
-        // Convert the string to a char array and set it to the lettersToPractice
-        lettersToPractice = allLetters.ToCharArray();
-
-        // Start practicing the letters
+        Debug.Log($"Letters to practice: {lettersToPractice}");
         if (lettersToPractice.Length > 0)
         {
             StartCoroutine(PracticeLetters());
@@ -55,32 +38,31 @@ public class IntroExerciseLevel : LevelTemplate // Ensure it inherits from Level
         }
     }
 
+    // 
+
     private IEnumerator PracticeLetters()
     {
+        Debug.Log("Starting practice letters...");
         while (currentLetterIndex < lettersToPractice.Length)
         {
             char currentLetter = lettersToPractice[currentLetterIndex];
-            yield return StartCoroutine(BlendShapeManager.SpellWord(currentLetter.ToString())); // Display the current letter's blendshape
 
-            // Display the letter for a certain duration
-            yield return new WaitForSeconds(displayDuration);
+            // Play the animation for the current letter
+            StartCoroutine(animationManager.PlayLetterAnimation(currentLetter));
 
-            // Clear the input field for the player to type
-            inputField.text = "";
-
-            // Wait for the player to type the corresponding letter
+            // Wait for player input immediately after starting the animation
             bool letterConfirmed = false;
 
             while (!letterConfirmed)
             {
-                // Check if the player has pressed enter
+                // Check if the player pressed Enter
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
-                    // Check if the typed letter matches the current letter
+                    // Check if the input matches the current letter
                     if (inputField.text.ToUpper() == currentLetter.ToString())
                     {
                         feedbackText.text = $"Correct! {currentLetter}";
-                        letterConfirmed = true; // Move to the next letter
+                        letterConfirmed = true;  // Move to the next letter
                         currentLetterIndex++;
                     }
                     else
@@ -88,21 +70,16 @@ public class IntroExerciseLevel : LevelTemplate // Ensure it inherits from Level
                         feedbackText.text = $"Incorrect! Try again.";
                     }
 
-                    // Clear input for the next attempt
-                    inputField.text = "";
+                    inputField.text = "";  // Clear the input field
                 }
 
-                yield return null; // Wait for the next frame before checking again
+                yield return null;  // Wait for the next frame
             }
         }
 
-        // Exercise complete, return to the menu or next level
-        ReturnToMenu();
-    }
 
-    private void ReturnToMenu()
-    {
+        // Exercise complete
         Debug.Log("Exercise complete! Returning to menu...");
-        // Add your scene transition logic here
+        // Add transition back to menu or next scene here
     }
 }

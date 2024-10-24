@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public abstract class LevelTemplate : MonoBehaviour
 {
-    public BlendShapeManager blendshapeManager;  // Reference to the BlendshapeManager
-    public float levelCompleteDelay = 2.0f;      // Delay before returning to menu after completing a level
-    protected abstract string GetWord();  // Each derived level specifies its word here
+    public AnimationManager animationManager;  // Reference to the AnimationManager
+    public TMP_Text feedbackText;              // Text to show feedback (e.g., correct/incorrect)
+    public TMP_InputField inputField;          // TMP InputField for player to type their guess
+    public float levelCompleteDelay = 2.0f;
+    // Delay before returning to menu after completing a level
 
+    protected abstract string GetWord();  // Abstract method: each derived class specifies its word
+    protected int currentLetterIndex = 0; // Tracks the current letter being spelled
 
     // Start is called before the first frame update
     void Start()
@@ -19,23 +24,55 @@ public abstract class LevelTemplate : MonoBehaviour
     public void StartLevel()
     {
         string word = GetWord();  // Retrieve the word for this level
-        StartCoroutine(SpellWordAndCompleteLevel(word));  // Start spelling the word using the BlendshapeManager
+        StartCoroutine(SpellWordAndCompleteLevel(word));  // Start spelling the word using the AnimationManager
     }
 
-    // Spell the word and then return to the menu after a delay
+    // Coroutine to spell the word and complete the level
     private IEnumerator SpellWordAndCompleteLevel(string word)
     {
-        // Spell the word
-        yield return StartCoroutine(blendshapeManager.SpellWord(word));
+        word = word.ToUpper();  // Convert the word to uppercase
 
-        // Wait for a delay before transitioning
+        // Loop through each letter in the word
+        while (currentLetterIndex < word.Length)
+        {
+            char currentLetter = word[currentLetterIndex];
+
+            // Play the animation for the current letter
+            yield return StartCoroutine(animationManager.PlayLetterAnimation(currentLetter));
+
+            // Wait for player to type the correct letter
+            bool letterConfirmed = false;
+
+            while (!letterConfirmed)
+            {
+                // Check if the player pressed Enter after typing
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    // Validate input with the current letter
+                    if (inputField.text.ToUpper() == currentLetter.ToString())
+                    {
+                        feedbackText.text = $"Correct! {currentLetter}";
+                        letterConfirmed = true;  // Move to the next letter
+                        currentLetterIndex++;
+                    }
+                    else
+                    {
+                        feedbackText.text = $"Incorrect! Try again.";
+                    }
+
+                    inputField.text = "";  // Clear the input field
+                }
+
+                yield return null;  // Wait for the next frame
+            }
+        }
+
+        // After the word is spelled, wait for a delay and return to the menu or next level
         yield return new WaitForSeconds(levelCompleteDelay);
-
-        // Go back to the menu or load the next scene
         ReturnToMenu();
     }
 
-    // Function to return to the main menu (you can customize this)
+    // Function to return to the menu (or load the next level)
     private void ReturnToMenu()
     {
         Debug.Log("Level complete! Returning to menu...");
