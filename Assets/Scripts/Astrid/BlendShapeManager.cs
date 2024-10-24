@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BlendShapeManager : MonoBehaviour
 {
-    
+
     public SkinnedMeshRenderer handRenderer;   // Reference to the hand's SkinnedMeshRenderer
     public Animator handAnimator;              // Reference to the hand's Animator
-    public float displayDuration = 1.0f;       // Display duration for the blendshapes
+    public float displayDuration = 0.1f;       // Display duration for the blendshapes
 
     // Dictionary to map each letter to its blendshape index or Animator flag
     private Dictionary<char, (int blendShapeIndex, bool isAnimated)> letterData;
@@ -51,6 +51,7 @@ public class BlendShapeManager : MonoBehaviour
         };
     }
 
+
     // Since we want there to be "pauses" between each letter when spelling a letter
     // We make use of an Enumerator and couroutine. 
     public IEnumerator SpellWord(string word)
@@ -63,15 +64,13 @@ public class BlendShapeManager : MonoBehaviour
             {
                 var (blendShapeIndex, isAnimated) = letterData[letter];
 
-                if (isAnimated)
+                if (isAnimated) 
                 {
-                    // Trigger the Animator for animated letters like 'J'
-                    PlayAnimationForLetter(letter);
+                    PlayAnimationForLetter(letter); // Trigger the Animator for animated letters like 'J' / 'Z'
                 }
                 else
-                {
-                    // Use blendshape for static letters
-                    SetBlendshape(blendShapeIndex, 100);
+                {  
+                    SetBlendshape(blendShapeIndex, 100);  // Use blendshape for static letters
                 }
 
                 yield return new WaitForSeconds(displayDuration);
@@ -79,10 +78,11 @@ public class BlendShapeManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"No blendshape or animation found for letter: {letter}");
+                Debug.LogWarning($"No blendshape or animation found for letter: {letter}"); // Error code
             }
         }
     }
+    
 
     // Function to reset all blendshapes
     public void ResetBlendshapes()
@@ -93,29 +93,41 @@ public class BlendShapeManager : MonoBehaviour
         }
     }
 
+
     // Set a specific blendshape
     public void SetBlendshape(int blendShapeIndex, float weight)
     {
-        handRenderer.SetBlendShapeWeight(blendShapeIndex, weight);
+        handRenderer.SetBlendShapeWeight(blendShapeIndex, Mathf.Clamp(weight, 0, 100));
     }
 
-    // Play animation for animated letters like 'J' and 'Z'
+
+    // Play animation for animated letters like 'J' and 'Z
+
     private void PlayAnimationForLetter(char letter)
     {
         string triggerName = "Animate" + letter; // Example trigger: "AnimateJ"
+
+        if (letter == 'J')
+        {
+            handAnimator.SetFloat("AnimationIndex", 0);  // Set index for 'J' in the blend tree
+        }
+        else if (letter == 'Z')
+        {
+            handAnimator.SetFloat("AnimationIndex", 1);  // Set index for 'Z' in the blend tree
+        }
+        else if (letter == 'Ø')
+        {
+            handAnimator.SetFloat("AnimationIndex", 2);  // Set index for 'Z' in the blend tree
+        }
+        else if (letter == 'Å')
+        {
+            handAnimator.SetFloat("AnimationIndex", 3);  // Set index for 'Z' in the blend tree
+        }
+
         handAnimator.SetTrigger(triggerName);
     }
 
-
-// Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
+
+// Examples of how it will be called in the level
+// StartCoroutine(blendshapeManager.SpellWord("KÆRØ"));

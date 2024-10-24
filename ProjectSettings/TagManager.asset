@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - 1
+  - 2
   layers:
   - Default
   - TransparentFX
@@ -49,4 +51,7 @@ TagManager:
     locked: 0
   - name: Buttons
     uniqueID: 3576455117
+    locked: 0
+  - name: PNG
+    uniqueID: 1248333
     locked: 0

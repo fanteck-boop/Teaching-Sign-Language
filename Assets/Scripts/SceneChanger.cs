@@ -3,9 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-
-    public void MoveToScene(int sceneID)
+    public void MoveToScene1()
     {
-        SceneManager.LoadScene(sceneID);
+        SceneManager.LoadScene("Sofie");
+    }
+
+    public void MoveToScene2()
+    {
+        SceneManager.LoadScene("LevelMap");
     }
 }

@@ -1,28 +1,109 @@
 using UnityEngine;
+using System.Collections.Generic; // Ensure you include this for Dictionary
 
 public class NavigationManager : MonoBehaviour
 {
-    public GameObject[] buttons;
-    public GameObject Canvaslvl; // Assuming this is a reference to a Canvas GameObject
+    [SerializeField] private GameObject levelMenu;
 
-    private void Start()
+    public void ToggleLevelMenu()
     {
-        // Assign button objects if not already done in the Inspector
-        if (buttons == null || buttons.Length == 0)
+        // Check if levelMenu is currently active
+        if (levelMenu.activeInHierarchy)
         {
-            buttons = GameObject.FindGameObjectsWithTag("Button"); // Replace "Button" with actual tag
+            // Deactivate the levelMenu GameObject
+            levelMenu.SetActive(false);
+
+            // Deactivate all children
+            foreach (Transform child in levelMenu.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Activate the levelMenu and its children
+            levelMenu.SetActive(true);
+
+            // Activate all children
+            foreach (Transform child in levelMenu.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
         }
     }
 
-    public void ButtonPress(int buttonIndex)
+    public bool CheckIfLocked(GameObject exercise)
     {
-        if (buttonIndex >= 1 && buttonIndex <= 4)
+        // Check if the tag can be converted to an int (custom logic needed)
+        if (int.TryParse(exercise.tag, out int intTag)) 
         {
-            Canvaslvl.SetActive(false); // Hide Canvaslvl
+            Debug.Log("Can be converted to int");
+
+            if (GameManager.Instance.CurrentExerciseCollection >= intTag)
+            {
+                Debug.Log("Exercise is in the current or a prior exercise collection"); 
+                // Check if exercise is "Introduction" or is completed
+                if (exercise.name == "Introduction" || 
+                    (GameManager.Instance.CurrentExercises.TryGetValue("Introduction", out bool isCompleted) && isCompleted))
+                {
+                    Debug.Log("Exercise is Introduction or Introduction is completed");
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.Log("Exercise is not in the current or a prior exercise collection"); 
+                return true;
+            }
         }
-        else if (buttonIndex == 5) // Check for button index 4 specifically
+        Debug.Log("Can not be converted to int");
+        return true; // If not a valid int or doesn't pass checks, treat as locked
+    }
+
+
+    public bool CheckIfCompleted(GameObject exercise)
+    {  
+        string key = exercise.name + "Completed";
+
+        if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && isCompleted)
         {
-            Canvaslvl.SetActive(true); // Show Canvaslvl
+            Debug.Log("Exercise is already completed.");
+            return true; // Simplified return
+        }
+        else
+        {
+            Debug.Log("Exercise is not already completed. "+ isCompleted);
+            return false;
+        }
+       
+    }
+
+    public void OpenExercise(GameObject exercise)
+    {
+        Debug.Log("Button was clicked");
+
+        if (CheckIfLocked(exercise) == false)
+        {
+            // Deactivate the level menu
+            ToggleLevelMenu();
+
+            if (CheckIfCompleted(exercise) == false)
+            {
+                Debug.Log("Is loading exercise.");
+                // Activate the exercise GameObject
+                exercise.gameObject.SetActive(true);
+            }
+            else
+            {
+                // Display a message saying the exercise is already completed
+                Debug.Log("Exercise is already completed.");
+                exercise.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            // Display a message saying the exercise is locked
+            Debug.Log("Exercise is locked.");
         }
     }
 }
