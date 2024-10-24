@@ -4,33 +4,34 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Singleton instance
+    // Singleton instance to ensure there is only one GameManager instance
     public static GameManager Instance { get; private set; }
 
-    // Player progress
-    private int currentExerciseCollection = 1; // Initialize the current exercise collection
+    // Tracks the current exercise collection the player is on
+    private int currentExerciseCollection = 1; 
 
-    // Property for accessing the current exercise collection
+    // Property for accessing the current exercise collection (get and set)
     public int CurrentExerciseCollection 
     { 
         get => currentExerciseCollection; 
         set => currentExerciseCollection = value; // Set the current collection value
     }
 
-    // Levels
+    // Dictionary to track the completion status of different exercises
     public Dictionary<string, bool> CurrentExercises { get; private set; }
 
+    // Called when the GameManager object is created
     private void Awake()
     {
-        // Singleton pattern
+        // Singleton pattern: ensures only one instance of GameManager exists
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scenes
+            DontDestroyOnLoad(gameObject); // Prevent GameManager from being destroyed when loading new scenes
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Destroy duplicate instances of GameManager
         }
 
         // Initialize the dictionary to track completed exercises
