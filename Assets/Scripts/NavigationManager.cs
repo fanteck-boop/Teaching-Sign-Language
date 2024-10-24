@@ -34,7 +34,13 @@ public class NavigationManager : MonoBehaviour
     public bool CheckIfLocked(GameObject exercise)
     {
         // Get the Exercise script component from the exercise GameObject
-        Exercise exerciseScript = exercise.GetComponent<Exercise>();
+
+        /*
+         * Dette skal laves om, således at den kan grabbe det rigtige script baseret på, om det er reading, spelling eller introduction
+         * Vi tænker at lave tags!, enten reading, spelling eller introduction, som den skal tjekke efter og derfra gennem if eller switch til
+         * enten at referere til enten ReadingExercise, SpellingExercise eller IntroductionExercise
+        */
+        ReadingExercise exerciseScript = exercise.GetComponent<ReadingExercise>();
 
         // Check if the exercise collection number is within or lower than the current collection
         if (GameManager.Instance.CurrentExerciseCollection >= exerciseScript.exerciseCollectionNumber)

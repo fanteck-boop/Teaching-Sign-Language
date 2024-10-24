@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // For TextMeshPro UI components
 
-public class Exercise : MonoBehaviour
+public class ReadingExercise : MonoBehaviour
 {
     // Reference to the NavigationManager script (to toggle the level menu)
     public NavigationManager navManager;
+    
 
     // List of letters for the exercise (set in the inspector)
     [SerializeField] private List<string> letters; // List of letters
