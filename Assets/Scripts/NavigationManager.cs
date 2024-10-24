@@ -54,9 +54,6 @@ public class NavigationManager : MonoBehaviour
         {
             return true; // Loked because it's in a future exercise collection
         }
-
-        // Default return value for locked in case of unexpected behavior
-        return true;
     }
 
     // Function to check if an exercise is completed by looking it up in the GameManager's dictionary
@@ -89,14 +86,14 @@ public class NavigationManager : MonoBehaviour
             if (!CheckIfCompleted(exercise))
             {
                 // Activate the exercise GameObject
-                exercise.gameObject.SetActive(true);
+                exercise.SetActive(true);
             }
             else
             {
                 // Display a message saying the exercise is already completed
                 // If already completed, just display the exercise
                 Debug.Log("Exercise is already completed.");
-                exercise.gameObject.SetActive(true);
+                exercise.SetActive(true);
             }
         }
         else

@@ -81,7 +81,7 @@ public class Exercise : MonoBehaviour
         inputField.text = placeholderText;
     }
 
-    // Function to update the letter display with the current letter
+    // This functions needs to be remade into a function thats works together with astrids.
     private void UpdateLetterDisplay()
     {
         if (currentLetterIndex < letters.Count)
