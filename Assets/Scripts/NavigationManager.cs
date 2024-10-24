@@ -1,19 +1,19 @@
 using UnityEngine;
-using System.Collections.Generic; // Ensure you include this for Dictionary
+using System.Collections.Generic; // Required for using Dictionary
 
 public class NavigationManager : MonoBehaviour
 {
+    // Reference to the level menu UI
     [SerializeField] private GameObject levelMenu;
 
+    // Function to toggle the visibility of the level menu and its children
     public void ToggleLevelMenu()
     {
         // Check if levelMenu is currently active
         if (levelMenu.activeInHierarchy)
         {
-            // Deactivate the levelMenu GameObject
+            // If active, deactivate the levelMenu and its children
             levelMenu.SetActive(false);
-
-            // Deactivate all children
             foreach (Transform child in levelMenu.transform)
             {
                 child.gameObject.SetActive(false);
@@ -21,10 +21,8 @@ public class NavigationManager : MonoBehaviour
         }
         else
         {
-            // Activate the levelMenu and its children
+            // If inactive, activate the levelMenu and its children
             levelMenu.SetActive(true);
-
-            // Activate all children
             foreach (Transform child in levelMenu.transform)
             {
                 child.gameObject.SetActive(true);
@@ -32,77 +30,78 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
+    // Function to check if an exercise is locked based on the exercise's collection number and progress
     public bool CheckIfLocked(GameObject exercise)
     {
-        // Check if the tag can be converted to an int (custom logic needed)
-        if (int.TryParse(exercise.tag, out int intTag)) 
-        {
-            Debug.Log("Can be converted to int");
+        // Get the Exercise script component from the exercise GameObject
+        Exercise exerciseScript = exercise.GetComponent<Exercise>();
 
-            if (GameManager.Instance.CurrentExerciseCollection >= intTag)
+        // Check if the exercise collection number is within or lower than the current collection
+        if (GameManager.Instance.CurrentExerciseCollection >= exerciseScript.exerciseCollectionNumber)
+        {
+            // Check if exercise is "Introduction" or "Introduction" is completed
+            if (exercise.name == "Introduction" || 
+                (GameManager.Instance.CurrentExercises.TryGetValue("IntroductionCompleted", out bool isIntroductionCompleted) && isIntroductionCompleted))
             {
-                Debug.Log("Exercise is in the current or a prior exercise collection"); 
-                // Check if exercise is "Introduction" or is completed
-                if (exercise.name == "Introduction" || 
-                    (GameManager.Instance.CurrentExercises.TryGetValue("Introduction", out bool isCompleted) && isCompleted))
-                {
-                    Debug.Log("Exercise is Introduction or Introduction is completed");
-                    return false;
-                }
+                return false; // Not locked 
             }
             else
             {
-                Debug.Log("Exercise is not in the current or a prior exercise collection"); 
-                return true;
+                return true; // Locked if "Introduction" is not completed
             }
-        }
-        Debug.Log("Can not be converted to int");
-        return true; // If not a valid int or doesn't pass checks, treat as locked
-    }
-
-
-    public bool CheckIfCompleted(GameObject exercise)
-    {  
-        string key = exercise.name + "Completed";
-
-        if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && isCompleted)
-        {
-            Debug.Log("Exercise is already completed.");
-            return true; // Simplified return
         }
         else
         {
-            Debug.Log("Exercise is not already completed. "+ isCompleted);
-            return false;
+            return true; // Loked because it's in a future exercise collection
+        }
+
+        // Default return value for locked in case of unexpected behavior
+        return true;
+    }
+
+    // Function to check if an exercise is completed by looking it up in the GameManager's dictionary
+    public bool CheckIfCompleted(GameObject exercise)
+    {  
+        string key = exercise.name + "Completed"; // The key used to get the key value pair corresponding to the exercise's name
+
+        // Try to get the completion status of the exercise from the GameManager's dictionary
+        if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && isCompleted)
+        {
+            return true; // Exercise is completed
+        }
+        else
+        {
+            return false;  // Exercise is not completed
         }
        
     }
 
+    // Function to open an exercise if it's not locked and check if it has been completed
     public void OpenExercise(GameObject exercise)
     {
-        Debug.Log("Button was clicked");
-
-        if (CheckIfLocked(exercise) == false)
+        // Check if the exercise is not locked
+        if (!CheckIfLocked(exercise))
         {
             // Deactivate the level menu
             ToggleLevelMenu();
 
-            if (CheckIfCompleted(exercise) == false)
+            // Check if the exercise is not completed yet
+            if (!CheckIfCompleted(exercise))
             {
-                Debug.Log("Is loading exercise.");
                 // Activate the exercise GameObject
                 exercise.gameObject.SetActive(true);
             }
             else
             {
                 // Display a message saying the exercise is already completed
+                // If already completed, just display the exercise
                 Debug.Log("Exercise is already completed.");
                 exercise.gameObject.SetActive(true);
             }
         }
         else
         {
-            // Display a message saying the exercise is locked
+            // If the exercise is locked, display a message
             Debug.Log("Exercise is locked.");
         }
     }

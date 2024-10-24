@@ -2,68 +2,73 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using TMPro; // For TextMeshPro UI components
 
 public class Exercise : MonoBehaviour
 {
-    // Reference to manager
+    // Reference to the NavigationManager script (to toggle the level menu)
     public NavigationManager navManager;
 
-    // Assign the letters and number of letters in the inspector
+    // List of letters for the exercise (set in the inspector)
     [SerializeField] private List<string> letters; // List of letters
-    private int currentLetterIndex = 0; // Tracks the current letter to match
+    private int currentLetterIndex = 0; // Keeps track of the current letter
 
-    // Something
+     // Placeholder text for the input field
     [SerializeField] private string placeholderText = "Skriv bogstav her";
 
-    // References to UI elements
-    [SerializeField] private TMP_InputField inputField; // Input field where the user types
-    [SerializeField] private Button checkAnswerButton; // Submit button
-    [SerializeField] private TextMeshProUGUI letterDisplay;
-    [SerializeField] private TextMeshProUGUI placeholder;
+    // UI element references (set in the inspector)
+    [SerializeField] private TMP_InputField inputField; // Text input field
+    [SerializeField] private Button checkAnswerButton; // Button to submit the input
+    [SerializeField] private TextMeshProUGUI letterDisplay; // UI element to display the current letter
+    [SerializeField] private TextMeshProUGUI placeholder; // UI element for placeholder text
 
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
 
-    // Exercises and Level references
+    // GameObject references for the exercise and the completion panel
     [SerializeField] private GameObject exerciseObject;
     [SerializeField] private GameObject exerciseCompletedPanel;
     [SerializeField] private GameObject levelsObject;
 
+    // The exercise collection number (set in the inspector or dynamically)
+    public int exerciseCollectionNumber = 1;
+
     void Start()
     {
-        // Add listener to the submit button
+        // Add listener to the submit button to call CheckInput() when clicked
         checkAnswerButton.onClick.AddListener(CheckInput);
 
-        // Make sure exercises is inactive and toggles correctly
+        // Make sure the exercise UI is hidden and shows the correct panels
         exerciseCompletedPanel.SetActive(false);
         exerciseObject.SetActive(false);
 
-        // Reset input field and start with the first letter
+        // Initialize the exercise by resetting the input field and showing the first letter
         ResetInputField();
         UpdateLetterDisplay();
     }
 
-    // Function to check the input when the user clicks the button
+    // Function to check the player's input when they click the submit button
     private void CheckInput()
     {
-        // Set PlayerInput to the current input from the field
+        // Get the current input from the input field
         PlayerInput = inputField.text;
 
-        // Check if the input matches the current letter
+        // Compare the player's input with the current letter
         if (PlayerInput.ToLower() == letters[currentLetterIndex].ToLower())
         {
-            // Move to the next letter if available
+            // If correct, move to the next letter
             currentLetterIndex++;
 
+            // Check if there are more letters to display
             if (currentLetterIndex < letters.Count)
             {
-                // Reset the input field for the next letter
+                // Reset the input field and show the next letter
                 ResetInputField();
                 UpdateLetterDisplay();
             }
             else
             {
+                // If all letters are completed, show the completion panel and reset the exercise
                 exerciseCompletedPanel.SetActive(true);
                 ResetExercise();
             }
@@ -85,22 +90,27 @@ public class Exercise : MonoBehaviour
         }
     }
 
-    public void CompleteExercise() // Function to close exercise and activate Level menu
+    // Function called when the exercise is completed
+    public void CompleteExercise()
     {
-        if (exerciseObject.activeSelf) // Check if exerciseObject is active
+        // Check if the exerciseObject is active
+        if (exerciseObject.activeSelf)
         {
+            // Mark the exercise as completed in the GameManager's dictionary
             string key = exerciseObject.name + "Completed";
             if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && !isCompleted)
             {
                 GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
             }
+            // Hide the completion panel and the exercise, and go back to the level menu
             exerciseCompletedPanel.SetActive(false);
             exerciseObject.SetActive(false);
             navManager.ToggleLevelMenu();
         }
     }
 
-    private void ResetExercise() // Resets the exercise
+    // Function to reset the exercise to the initial state
+    private void ResetExercise()
     {
         currentLetterIndex = 0; // Reset to the first letter
         ResetInputField(); // Clear the input field
