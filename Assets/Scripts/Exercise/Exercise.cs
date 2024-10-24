@@ -49,7 +49,7 @@ public class Exercise : MonoBehaviour
 
     // Function to check the player's input when they click the submit button
     private void CheckInput()
-    {
+    { 
         // Get the current input from the input field
         PlayerInput = inputField.text;
 
@@ -98,6 +98,8 @@ public class Exercise : MonoBehaviour
         {
             // Mark the exercise as completed in the GameManager's dictionary
             string key = exerciseObject.name + "Completed";
+
+            //checks if the key-value pair exists and if isCompleted is false
             if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && !isCompleted)
             {
                 GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
