@@ -40,7 +40,7 @@ public class NavigationManager : MonoBehaviour
          * Vi tænker at lave tags!, enten reading, spelling eller introduction, som den skal tjekke efter og derfra gennem if eller switch til
          * enten at referere til enten ReadingExercise, SpellingExercise eller IntroductionExercise
         */
-        ReadingExercise exerciseScript = exercise.GetComponent<ReadingExercise>();
+        ReadingExercise exerciseScript = exercise.GetComponent<ReadingExercise>(); //THIS IS THE MISTAKE
 
         // Check if the exercise collection number is within or lower than the current collection
         if (GameManager.Instance.CurrentExerciseCollection >= exerciseScript.exerciseCollectionNumber)
