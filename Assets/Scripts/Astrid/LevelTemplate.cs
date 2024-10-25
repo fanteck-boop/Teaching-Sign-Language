@@ -8,7 +8,7 @@ public abstract class LevelTemplate : MonoBehaviour
     public AnimationManager animationManager;  // Reference to the AnimationManager
     public TMP_Text feedbackText;              // Text to show feedback (e.g., correct/incorrect)
     public TMP_InputField inputField;          // TMP InputField for player to type their guess
-    public float levelCompleteDelay = 2.0f;
+    public float levelCompleteDelay = 2.0f;    // Scene transition delay
     // Delay before returning to menu after completing a level
 
     protected abstract string GetWord();  // Abstract method: each derived class specifies its word
@@ -51,7 +51,7 @@ public abstract class LevelTemplate : MonoBehaviour
                     // Validate input with the current letter
                     if (inputField.text.ToUpper() == currentLetter.ToString())
                     {
-                        feedbackText.text = $"Correct! {currentLetter}";
+                        feedbackText.text = $"Correct! It was {currentLetter}";
                         letterConfirmed = true;  // Move to the next letter
                         currentLetterIndex++;
                     }
