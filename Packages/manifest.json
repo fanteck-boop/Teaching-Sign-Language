@@ -2,6 +2,7 @@
   "dependencies": {
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.feature.development": "1.0.1",
+    "com.unity.purchasing.udp": "2.2.5",
     "com.unity.scripting.python": "6.0.1",
     "com.unity.scripting.python.windows": "1.2.0",
     "com.unity.textmeshpro": "3.0.6",
