@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - 1
+  - Spelling
+  - Reading
+  - Introduction
   layers:
   - Default
   - TransparentFX

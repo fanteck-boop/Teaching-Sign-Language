@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class SpellingExercise : MonoBehaviour
 {
-   
+    public int exerciseCollectionNumber;
 }
