@@ -130,7 +130,7 @@ def main():
                 # Landmark calculation
                 landmark_list = calc_landmark_list(debug_image, hand_landmarks)
                 #print("Landmark List:", landmark_list)
-                
+
                 # Convert landmark data to CSV format
                 csv_data = []
                 for landmark in landmark_list:
@@ -141,7 +141,12 @@ def main():
                 csv_string = ";".join(csv_data)
 
                 # Print the CSV string
-                print(csv_string)
+                #print(csv_string)
+
+                # Optionally, write to a CSV file
+                #with open('landmarks.csv', mode='w', newline='') as file:
+                #    writer = csv.writer(file)
+                #    writer.writerow(csv_data)  # Each landmark in a single row
 
                 # Conversion to relative coordinates / normalized coordinates
                 pre_processed_landmark_list = pre_process_landmark(
