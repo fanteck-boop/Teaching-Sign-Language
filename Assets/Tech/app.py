@@ -146,12 +146,12 @@ def main():
                 csv_string = ";".join(csv_data)
 
                 # Print the CSV string
-                #print(csv_string)
-
-                # Optionally, write to a CSV file
-                #with open('landmarks.csv', mode='w', newline='') as file:
-                #    writer = csv.writer(file)
-                #    writer.writerow(csv_data)  # Each landmark in a single row
+                #print(csv_string)  
+                
+                # write to a CSV file
+                with open('model/keypoint_classifier/landmarks.csv', mode='w', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow(csv_data)  # Each landmark in a single row
 
                 # Conversion to relative coordinates / normalized coordinates
                 pre_processed_landmark_list = pre_process_landmark(
