@@ -118,7 +118,7 @@ def main():
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
         image.flags.writeable = False
-        results = hands.process(image)
+        results = hands.process(image)  
         image.flags.writeable = True
 
         #  ####################################################################
@@ -129,7 +129,7 @@ def main():
                 brect = calc_bounding_rect(debug_image, hand_landmarks)
                 # Landmark calculation
                 landmark_list = calc_landmark_list(debug_image, hand_landmarks)
-                #print(landmark_list[0])
+                #print("Landmark List:", landmark_list)
                 # Conversion to relative coordinates / normalized coordinates
                 pre_processed_landmark_list = pre_process_landmark(
                     landmark_list)
@@ -140,6 +140,7 @@ def main():
                             pre_processed_point_history_list)
 
                 # Hand sign classification
+                print("Hand sign ID:",hand_sign_id)
                 hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
                 if hand_sign_id == "not apllicable":  # 2 or "not apllicable" to disable point
                     point_history.append(landmark_list[8])  # 人差指座標
