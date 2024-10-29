@@ -130,6 +130,19 @@ def main():
                 # Landmark calculation
                 landmark_list = calc_landmark_list(debug_image, hand_landmarks)
                 #print("Landmark List:", landmark_list)
+                
+                # Convert landmark data to CSV format
+                csv_data = []
+                for landmark in landmark_list:
+                 # Convert each landmark's coordinates to a string
+                 csv_data.append(f"{landmark[0]},{landmark[1]}")
+
+                # Join the data as a single string, you can choose the delimiter
+                csv_string = ";".join(csv_data)
+
+                # Print the CSV string
+                print(csv_string)
+
                 # Conversion to relative coordinates / normalized coordinates
                 pre_processed_landmark_list = pre_process_landmark(
                     landmark_list)
@@ -140,13 +153,12 @@ def main():
                             pre_processed_point_history_list)
 
                 # Hand sign classification
-                print("Hand sign ID:",hand_sign_id)
                 hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
                 if hand_sign_id == "not apllicable":  # 2 or "not apllicable" to disable point
                     point_history.append(landmark_list[8])  # 人差指座標
                 else:
                     point_history.append([0, 0])
-
+                #print("Hand sign ID",hand_sign_id)
                 # Finger gesture classification
                 finger_gesture_id = 0
                 point_history_len = len(pre_processed_point_history_list)
@@ -539,6 +551,6 @@ def draw_info(image, fps, mode, number):
                        cv.LINE_AA)
     return image
 
-
+    
 if __name__ == '__main__':
     main()
