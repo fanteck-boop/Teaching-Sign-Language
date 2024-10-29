@@ -191,6 +191,13 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
+
+            sock.SendData(f'Sent from Python: {csv_string}') # Send this string to other application
+            print(f'Sent from Python: {csv_string}')
+            data = sock.ReadReceivedData() # read data
+
+            if data != None: # if NEW data has been received since last ReadReceivedData function call
+                print(data) # print new received data
         else:
             point_history.append([0, 0])
 
@@ -566,10 +573,4 @@ def draw_info(image, fps, mode, number):
 if __name__ == '__main__':
     main()
 
-while True:
-    sock.SendData('Sent from Python: ' + str(logging_csv)) # Send this string to other application
 
-    data = sock.ReadReceivedData() # read data
-
-    if data != None: # if NEW data has been received since last ReadReceivedData function call
-        print(data) # print new received data
