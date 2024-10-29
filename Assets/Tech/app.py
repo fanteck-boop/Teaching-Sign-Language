@@ -14,7 +14,12 @@ import mediapipe as mp
 from utils import CvFpsCalc
 from model import KeyPointClassifier
 from model import PointHistoryClassifier
+import UdpComms as U
+import time
+import app
 
+# Create UDP socket to use for sending (and receiving)
+sock = U.UdpComms(udpIP="127.0.0.1", portTX=8000, portRX=8001, enableRX=True, suppressWarnings=True)
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -556,6 +561,15 @@ def draw_info(image, fps, mode, number):
                        cv.LINE_AA)
     return image
 
+
     
 if __name__ == '__main__':
     main()
+
+while True:
+    sock.SendData('Sent from Python: ' + str(logging_csv)) # Send this string to other application
+
+    data = sock.ReadReceivedData() # read data
+
+    if data != None: # if NEW data has been received since last ReadReceivedData function call
+        print(data) # print new received data
