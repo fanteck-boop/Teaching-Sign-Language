@@ -212,15 +212,24 @@ def main():
 
 
 def select_mode(key, mode):
-    number = -1
-    if 48 <= key <= 57:  # 0 ~ 9
+    number = -1  # Default to -1 if no valid key is pressed
+
+    # Numeric keys (0-9) for IDs 0-9
+    if 48 <= key <= 57:  # ASCII codes for '0' to '9'
         number = key - 48
-    if key == 110:  # n
+
+    # Alphabet keys (a-r) for IDs 10-27
+    elif 97 <= key <= 114:  # ASCII codes for 'a' to 'r'
+        number = key - 87  # 'a' maps to 10, 'b' to 11, ..., 'r' to 27
+
+    # Mode selection with different keys (m, comma, period)
+    elif key == 109:  # 'm' key for mode 0 
         mode = 0
-    if key == 107:  # k
+    elif key == 44:  # ',' key for mode 1 using keypoint
         mode = 1
-    if key == 104:  # h
+    elif key == 46:  # '.' key for mode 2 using point history
         mode = 2
+
     return number, mode
 
 
@@ -311,12 +320,12 @@ def pre_process_point_history(image, point_history):
 def logging_csv(number, mode, landmark_list, point_history_list):
     if mode == 0:
         pass
-    if mode == 1 and (0 <= number <= 9):
+    if mode == 1 and (0 <= number <= 27):
         csv_path = 'model/keypoint_classifier/keypoint.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
             writer.writerow([number, *landmark_list])
-    if mode == 2 and (0 <= number <= 9):
+    if mode == 2 and (0 <= number <= 27):
         csv_path = 'model/point_history_classifier/point_history.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
@@ -552,6 +561,7 @@ def draw_point_history(image, point_history):
 
 
 def draw_info(image, fps, mode, number):
+    # Display the frames per second (FPS) on the image
     cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
                1.0, (0, 0, 0), 4, cv.LINE_AA)
     cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
@@ -562,10 +572,18 @@ def draw_info(image, fps, mode, number):
         cv.putText(image, "MODE:" + mode_string[mode - 1], (10, 90),
                    cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
                    cv.LINE_AA)
+        
+        # Display the number or letter corresponding to the selected ID
         if 0 <= number <= 9:
             cv.putText(image, "NUM:" + str(number), (10, 110),
                        cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
                        cv.LINE_AA)
+        elif 10 <= number <= 27:
+            letter = chr(number + 87)  # Convert to corresponding letter ('a' = 10, 'b' = 11, ..., 'r' = 27)
+            cv.putText(image, "Letter:" + letter, (10, 110),
+                       cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
+                       cv.LINE_AA)
+
     return image
 
 
