@@ -149,9 +149,9 @@ def main():
                 #print(csv_string)  
                 
                 # write to a CSV file
-                with open('model/keypoint_classifier/landmarks.csv', mode='w', newline='') as file:
-                    writer = csv.writer(file)
-                    writer.writerow(csv_data)  # Each landmark in a single row
+                #with open('model/keypoint_classifier/landmarks.csv', mode='w', newline='') as file:
+                #    writer = csv.writer(file)
+                #    writer.writerow(csv_data)  # Each landmark in a single row
 
                 # Conversion to relative coordinates / normalized coordinates
                 pre_processed_landmark_list = pre_process_landmark(
@@ -165,7 +165,7 @@ def main():
                 # Hand sign classification
                 hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
                 if hand_sign_id == "not apllicable":  # 2 or "not apllicable" to disable point
-                    point_history.append(landmark_list[8])  # 人差指座標
+                    point_history.append(landmark_list[8])  
                 else:
                     point_history.append([0, 0])
                 #print("Hand sign ID",hand_sign_id)
@@ -192,8 +192,8 @@ def main():
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
 
-            sock.SendData(f'Sent from Python: {csv_string}') # Send this string to other application
-            print(f'Sent from Python: {csv_string}')
+            sock.SendData(f's from Python: {csv_string}') # Send this string to other application
+            #print(f'Sent from Python: {csv_string}')
             data = sock.ReadReceivedData() # read data
 
             if data != None: # if NEW data has been received since last ReadReceivedData function call
