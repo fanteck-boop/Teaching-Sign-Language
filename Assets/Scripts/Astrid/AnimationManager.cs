@@ -8,7 +8,6 @@ public class AnimationManager : MonoBehaviour
     public float displayDuration = 1.0f;    // How long each letter animation will play before the next
     private Dictionary<char, float> letterAnimations; // Dictionary mapping each letter to its animation index
 
-
     // Calling the courotine for the level scripts:
         // StartCoroutine(animationManager.PlayLetterAnimation('A'));
 
@@ -74,3 +73,4 @@ public class AnimationManager : MonoBehaviour
         }
     }
 }
+
