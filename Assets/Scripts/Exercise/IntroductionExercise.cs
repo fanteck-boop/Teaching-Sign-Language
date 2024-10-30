@@ -16,26 +16,24 @@ public class IntroductionExercise : MonoBehaviour
     [SerializeField] private TextMeshProUGUI letterDisplay; // UI element to display the current letter
 
     // GameObject references for the exercise and the completion panel and the introduction panel
-    [SerializeField] private GameObject exerciseObject;
-    [SerializeField] private GameObject exerciseCompletedPanel;
-    //[SerializeField] private GameObject exerciseStartPanel;
-    [SerializeField] private GameObject levelsObject;
+    [SerializeField] private GameObject exercisePanel;
+    [SerializeField] private GameObject completedPanel;
+    [SerializeField] private GameObject startPanel;
+    [SerializeField] private GameObject levelMenu;
 
-    // The exercise collection number (set in the inspector or dynamically)
+    // The exercise collection number (set in the inspector)
     public int exerciseCollectionNumber;
-
 
     public virtual void Start()
     {
         // Make sure the exercise UI is hidden and shows the correct panels
-        exerciseCompletedPanel.SetActive(false);
-        exerciseObject.SetActive(false);
-        //exerciseStartPanel.SetActive(false);
+        completedPanel.SetActive(false);
+        exercisePanel.SetActive(false);
+        startPanel.SetActive(false);
 
         // Initialize the exercise by showing the first letter
         UpdateLetter();
-        UpdateAnimation();
-
+        PlayHandAnimation();
     }
 
     public virtual void CheckInput()
@@ -48,12 +46,12 @@ public class IntroductionExercise : MonoBehaviour
         {
             // Reset the input field and show the next letter
             UpdateLetter();
-            UpdateAnimation();
+            PlayHandAnimation();
         }
         else
         {
             // If all letters are completed, show the completion panel and reset the exercise
-            exerciseCompletedPanel.SetActive(true);
+            completedPanel.SetActive(true);
             ResetExercise();
         }
     }
@@ -62,27 +60,28 @@ public class IntroductionExercise : MonoBehaviour
     {
         currentLetterIndex = 0; // Reset to the first letter
         UpdateLetter(); // Update the display to show the first letter
-        UpdateAnimation();
+        PlayHandAnimation(); //TEST OM DETTE ER NØDVENDIGT
 
     }
 
     public virtual void CompleteExercise()
     {
         // Check if the exerciseObject is active
-        if (exerciseObject.activeSelf)
+        if (exercisePanel.activeSelf)
         {
             // Mark the exercise as completed in the GameManager's dictionary
-            string key = exerciseObject.name + "Completed";
+            string key = exercisePanel.name + "Completed";
 
             //checks if the key-value pair exists and if isCompleted is false
             if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && !isCompleted)
             {
                 GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
             }
+
             // Hide the completion panel and the exercise, and go back to the level menu
-            exerciseCompletedPanel.SetActive(false);
-            exerciseObject.SetActive(false);
-            //exerciseStartPanel.SetActive(false);
+            completedPanel.SetActive(false);
+            exercisePanel.SetActive(false);
+            startPanel.SetActive(false);
             navManager.ToggleLevelMenu();
         }
 
@@ -96,11 +95,16 @@ public class IntroductionExercise : MonoBehaviour
         }
     }
 
-    public virtual void UpdateAnimation()
+    public virtual void PlayHandAnimation()
+    {
+        StartCoroutine(PlayLetterSequence());
+    }
+
+    private IEnumerator PlayLetterSequence()
     {
         foreach (char letter in letters[currentLetterIndex])
         {
-            StartCoroutine(animationManager.PlayLetterAnimation(letter));
+            yield return StartCoroutine(animationManager.PlayLetterAnimation(letter));
         }
     }
 
