@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7453638846900066927}
   - component: {fileID: 4987816692526102890}
   m_Layer: 5
-  m_Name: UI
+  m_Name: UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 2124532584541094562}
   - component: {fileID: 6597891787710244774}
   m_Layer: 5
-  m_Name: :3
+  m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 5073936742142194347}
   - component: {fileID: 5436000035118728746}
   m_Layer: 0
-  m_Name: IMG_4269
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 6320985644914285450}
   - component: {fileID: 2295778006947678671}
   m_Layer: 5
-  m_Name: Sppech bubble
+  m_Name: SpeechBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 1012398138453945352}
   - component: {fileID: 2012956082219845848}
   m_Layer: 5
-  m_Name: Cam
+  m_Name: CameraPlaceholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 8706165467542379926}
   - component: {fileID: 156632748517446261}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
