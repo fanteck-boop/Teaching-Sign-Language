@@ -45,11 +45,8 @@ class UdpComms():
         # Function to close socket
         self.udpSock.close()
 
-    def SendMark(self, strToSend):
+    def SendData(self, strToSend):
         # Use this function to send string to C#
-        self.udpSock.sendto(bytes(strToSend,'utf-8'), (self.udpIP, self.udpSendPort))
-    def SendID(self, strToSend):
-                # Use this function to send string to C#
         self.udpSock.sendto(bytes(strToSend,'utf-8'), (self.udpIP, self.udpSendPort))
 
     def ReceiveData(self):

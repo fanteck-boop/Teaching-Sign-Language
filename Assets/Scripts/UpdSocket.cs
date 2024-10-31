@@ -1,17 +1,3 @@
-/*
-Created by Youssef Elashry to allow two-way communication between Python3 and Unity to send and receive strings
-
-Feel free to use this in your individual or commercial projects BUT make sure to reference me as: Two-way communication between Python 3 and Unity (C#) - Y. T. Elashry
-It would be appreciated if you send me how you have used this in your projects (e.g. Machine Learning) at youssef.elashry@gmail.com
-
-Use at your own risk
-Use under the Apache License 2.0
-
-Modified by: 
-Youssef Elashry 12/2020 (replaced obsolete functions and improved further - works with Python as well)
-Based on older work by Sandra Fang 2016 - Unity3D to MATLAB UDP communication - [url]http://msdn.microsoft.com/de-de/library/bb979228.aspx#ID0E3BAC[/url]
-*/
-
 using UnityEngine;
 using System.Collections;
 using System;
@@ -33,17 +19,17 @@ public class UdpSocket : MonoBehaviour
     IPEndPoint remoteEndPoint;
     Thread receiveThread; // Receiving Thread
 
-
+    float[] landmarks;
+    int handSignID;
 
     void Awake()
     {
-        // Create remote endpoint (to Matlab) 
+        // Create remote endpoint (to Matlab)
         remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), txPort);
 
         // Create local client
         client = new UdpClient(rxPort);
 
-        // local endpoint define (where messages are received)
         // Create a new thread for reception of incoming messages
         receiveThread = new Thread(new ThreadStart(ReceiveData));
         receiveThread.IsBackground = true;
@@ -51,7 +37,6 @@ public class UdpSocket : MonoBehaviour
 
         // Initialize (seen in comments window)
         print("UDP Comms Initialised");
-
     }
 
     // Receive data, update packets received
@@ -63,9 +48,27 @@ public class UdpSocket : MonoBehaviour
             {
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
                 byte[] data = client.Receive(ref anyIP);
-                string text = Encoding.UTF8.GetString(data);
-                print(">> " + text);
-                ProcessInput(text);
+                string receivedData = Encoding.UTF8.GetString(data);
+
+                // Split the data based on the '|' delimiter
+                string[] parts = receivedData.Split('|');
+
+                // Extract landmarks and hand sign ID
+                string landmarksString = parts[0].Substring(parts[0].IndexOf(": ") + 2); // Remove "from Python: "
+                handSignID = int.Parse(parts[1].Trim());
+
+                // Parse landmarks from the string
+                string[] landmarkPairs = landmarksString.Split(';');
+                landmarks = new float[landmarkPairs.Length * 2];
+                for (int i = 0; i < landmarkPairs.Length; i++)
+                {
+                    string[] xy = landmarkPairs[i].Split(',');
+                    landmarks[2 * i] = float.Parse(xy[0]);
+                    landmarks[2 * i + 1] = float.Parse(xy[1]);
+                }
+
+                // Process the received data
+                ProcessInput(landmarks, handSignID);
             }
             catch (Exception err)
             {
@@ -74,14 +77,20 @@ public class UdpSocket : MonoBehaviour
         }
     }
 
-    private void ProcessInput(string input)
+    private void ProcessInput(float[] landmarks, int handSignID)
     {
-        // PROCESS INPUT RECEIVED STRING HERE
-
-        if (!isTxStarted) // First data arrived so tx started
+        // Print the landmarks and hand sign ID to the console
+        Debug.Log("Received Landmarks:");
+        for (int i = 0; i < landmarks.Length; i += 2)
         {
-            isTxStarted = true;
+            Debug.Log($"Landmark {i / 2}: X={landmarks[i]}, Y={landmarks[i + 1]}");
         }
+        Debug.Log("Hand Sign ID: " + handSignID);
+
+        // You can now use these values for further processing, such as:
+        // - Visualizing landmarks in Unity
+        // - Recognizing hand gestures using machine learning
+        // - Triggering actions based on hand sign ID
     }
 
     //Prevent crashes - close clients and threads properly!
@@ -92,5 +101,4 @@ public class UdpSocket : MonoBehaviour
 
         client.Close();
     }
-
 }
