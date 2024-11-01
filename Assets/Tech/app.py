@@ -192,8 +192,8 @@ def main():
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
 
-            sock.SendData(f's from Python: {csv_string}') # Send this string to other application
-            #print(f'Sent from Python: {csv_string}')
+            sock.SendData(f'from Python: {csv_string} | {hand_sign_id}') # Send this string to other application
+            #print(f' from Python: {csv_string : hand_sign_id}')
             data = sock.ReadReceivedData() # read data
 
             if data != None: # if NEW data has been received since last ReadReceivedData function call

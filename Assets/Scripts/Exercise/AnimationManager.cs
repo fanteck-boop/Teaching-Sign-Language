@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
-    public Animator handAnimator;           // Reference to the hand's Animator
-    public float displayDuration = 1.0f;    // How long each letter animation will play before the next
+    public Animator handAnimator; // Reference to the hand's Animator
+    public float displayDuration = 1.0f; // How long each letter animation will play before the next
     private Dictionary<char, float> letterAnimations; // Dictionary mapping each letter to its animation index
 
     // Calling the courotine for the level scripts:
-        // StartCoroutine(animationManager.PlayLetterAnimation('A'));
+    // StartCoroutine(animationManager.PlayLetterAnimation('A'));
 
-        void Awake()
+    void Awake()
     {
         // Upon awake, initialize the dictionary mapping letters to their blendshape index / animation flag
         // Initialize the dictionary with animation index values for each letter
@@ -43,14 +43,14 @@ public class AnimationManager : MonoBehaviour
             { 'X', 23 },
             { 'Y', 24 },
             { 'Z', 25 },
-            { 'Æ', 26 }, // Animation for Æ
-            { 'Ø', 27 }, // Animation for Ø
-            { 'Å', 28 }  // Animation for Å
+            { 'Ã†', 26 }, // Animation for ?
+            { 'Ã˜', 27 }, // Animation for ?
+            { 'Ã…', 28 }  // Animation for ?
         };
     }
 
-        // Since we want there to be "pauses" between each letter when spelling a letter
-        // We make use of an Enumerator and couroutine. 
+    // Since we want there to be "pauses" between each letter when spelling a letter
+    // We make use of an Enumerator and couroutine. 
     public IEnumerator PlayLetterAnimation(char letter)
     {
         letter = char.ToUpper(letter);  // Ensure the letter is uppercase
@@ -58,19 +58,17 @@ public class AnimationManager : MonoBehaviour
         if (letterAnimations.ContainsKey(letter))
         {
             float animationIndex = letterAnimations[letter];
-            handAnimator.SetFloat("AnimationIndex", animationIndex);  // Set the animator index
-
-            // Play the animation in a loop until the player types the correct letter
+            handAnimator.SetFloat("AnimationIndex", animationIndex);
             handAnimator.SetTrigger("PlayLetterAnimation");
 
-            yield return new WaitForSeconds(displayDuration);  // Pause for the display duration before resetting
-
-            handAnimator.ResetTrigger("PlayLetterAnimation");  // Reset the animation trigger between letters
+            yield return new WaitForSeconds(displayDuration); // Pause for display duration
+            handAnimator.ResetTrigger("PlayLetterAnimation");
         }
         else
         {
             Debug.LogWarning($"No animation found for letter: {letter}");
         }
     }
-}
 
+    
+}
