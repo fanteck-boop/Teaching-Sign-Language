@@ -4,108 +4,36 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro; // For TextMeshPro UI components
 
-public class IntroductionExercise : MonoBehaviour
+public class IntroductionExercise : Exercise
 {
-    //managers
-    public NavigationManager navManager;
-    public AnimationManager animationManager;
 
-    //
-    [SerializeField] protected List<string> letters; // List of letters
-    protected int currentLetterIndex = 0;
-    [SerializeField] private TextMeshProUGUI letterDisplay; // UI element to display the current letter
-
-    // GameObject references for the exercise and the completion panel and the introduction panel
-    [SerializeField] private GameObject exercisePanel;
-    [SerializeField] private GameObject completedPanel;
-    [SerializeField] private GameObject startPanel;
-    [SerializeField] private GameObject levelMenu;
-
-    // The exercise collection number (set in the inspector)
-    public int exerciseCollectionNumber;
-
-    public virtual void Start()
+    public void Start()
     {
-        // Make sure the exercise UI is hidden and shows the correct panels
-        completedPanel.SetActive(false);
-        exercisePanel.SetActive(false);
-        startPanel.SetActive(false);
-
-        // Initialize the exercise by showing the first letter
-        UpdateLetter();
-        PlayHandAnimation();
+        OrderPanels(); 
     }
 
-    public virtual void CheckInput()
+    public override void CheckInput()
     {
-        //if handgesture matches current letter, do this:
-        currentLetterIndex++;
-
-        //Here goes the code for checking the input the player gives against the actual answer
-        if (currentLetterIndex < letters.Count)
+        // Check if the current input matches the current character in the word
+        if (currentWordIndex < words.Count)
         {
-            // Reset the input field and show the next letter
-            UpdateLetter();
+            UpdateLetter(); // Display next character or word, if applicable
             PlayHandAnimation();
         }
         else
         {
-            // If all letters are completed, show the completion panel and reset the exercise
+            // Show completion panel if all words are completed
             completedPanel.SetActive(true);
             ResetExercise();
         }
     }
 
-    public virtual void ResetExercise()
+    public override void ResetExercise()
     {
-        currentLetterIndex = 0; // Reset to the first letter
-        UpdateLetter(); // Update the display to show the first letter
-        PlayHandAnimation(); //TEST OM DETTE ER NØDVENDIGT
-
-    }
-
-    public virtual void CompleteExercise()
-    {
-        // Check if the exerciseObject is active
-        if (exercisePanel.activeSelf)
-        {
-            // Mark the exercise as completed in the GameManager's dictionary
-            string key = exercisePanel.name + "Completed";
-
-            //checks if the key-value pair exists and if isCompleted is false
-            if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && !isCompleted)
-            {
-                GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
-            }
-
-            // Hide the completion panel and the exercise, and go back to the level menu
-            completedPanel.SetActive(false);
-            exercisePanel.SetActive(false);
-            startPanel.SetActive(false);
-            navManager.ToggleLevelMenu();
-        }
-
-    }
-
-    public virtual void UpdateLetter()
-    {
-        if (currentLetterIndex < letters.Count)
-        {
-            letterDisplay.text = letters[currentLetterIndex];
-        }
-    }
-
-    public virtual void PlayHandAnimation()
-    {
-        StartCoroutine(PlayLetterSequence());
-    }
-
-    private IEnumerator PlayLetterSequence()
-    {
-        foreach (char letter in letters[currentLetterIndex])
-        {
-            yield return StartCoroutine(animationManager.PlayLetterAnimation(letter));
-        }
+        currentWordIndex = 0; // Reset to the first word
+        currentCharIndex = 0; // Reset to the first character of the word
+        UpdateLetter(); // Display the first character of the first word
+        PlayHandAnimation();
     }
 
 }
