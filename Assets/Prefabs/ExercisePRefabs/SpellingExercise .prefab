@@ -1009,7 +1009,7 @@ GameObject:
   - component: {fileID: 6109469469931655864}
   - component: {fileID: 7877539462284130982}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CurrentWordText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1247,7 +1247,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7922844158918438230}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3512,7 +3512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4686568661631524898
 Transform:
   m_ObjectHideFlags: 0
@@ -3543,7 +3543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a94b1d6c6d94e0f8ecff9bebab4c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exerciseCollectionNumber: 0
+  navManager: {fileID: 0}
+  animationManager: {fileID: 0}
+  words: []
+  letterDisplay: {fileID: 7077030734588867951}
+  exerciseCollectionNumber: 1
+  currentWordText: {fileID: 7877539462284130982}
 --- !u!1 &7477734996970824983
 GameObject:
   m_ObjectHideFlags: 0
@@ -3660,7 +3665,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 3743333869734800423}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3834,7 +3839,7 @@ GameObject:
   - component: {fileID: 8531182744377053397}
   - component: {fileID: 7077030734588867951}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LetterDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

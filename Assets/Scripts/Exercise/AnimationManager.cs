@@ -59,10 +59,11 @@ public class AnimationManager : MonoBehaviour
         {
             float animationIndex = letterAnimations[letter];
             handAnimator.SetFloat("AnimationIndex", animationIndex);
-            handAnimator.SetTrigger("PlayLetterAnimation");
 
-            yield return new WaitForSeconds(displayDuration); // Pause for display duration
-            handAnimator.ResetTrigger("PlayLetterAnimation");
+            yield return new WaitForSeconds(handAnimator.GetCurrentAnimatorStateInfo(0).length + displayDuration); // Pause for display duration
+
+            float idleIndex = 29f;
+            handAnimator.SetFloat("AnimationIndex", idleIndex);
         }
         else
         {

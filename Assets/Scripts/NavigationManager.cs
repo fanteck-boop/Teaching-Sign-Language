@@ -59,8 +59,6 @@ public class NavigationManager : MonoBehaviour
             exerciseCollectionNumber = introductionScript.exerciseCollectionNumber;
         }
 
-        
-
         // Check if the exercise collection number is within or lower than the current collection
         if (GameManager.Instance.CurrentExerciseCollection >= exerciseCollectionNumber)
         {
