@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Prevent GameManager from being destroyed when loading new scenes
+            Debug.Log("HEllo");
         }
         else
         {

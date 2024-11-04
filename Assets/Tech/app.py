@@ -14,7 +14,12 @@ import mediapipe as mp
 from utils import CvFpsCalc
 from model import KeyPointClassifier
 from model import PointHistoryClassifier
+import UdpComms as U
+import time
+import app
 
+# Create UDP socket to use for sending (and receiving)
+sock = U.UdpComms(udpIP="127.0.0.1", portTX=8000, portRX=8001, enableRX=True, suppressWarnings=True)
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -118,7 +123,7 @@ def main():
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
         image.flags.writeable = False
-        results = hands.process(image)
+        results = hands.process(image)  
         image.flags.writeable = True
 
         #  ####################################################################
@@ -129,7 +134,25 @@ def main():
                 brect = calc_bounding_rect(debug_image, hand_landmarks)
                 # Landmark calculation
                 landmark_list = calc_landmark_list(debug_image, hand_landmarks)
-                #print(landmark_list[0])
+                #print("Landmark List:", landmark_list)
+
+                # Convert landmark data to CSV format
+                csv_data = []
+                for landmark in landmark_list:
+                 # Convert each landmark's coordinates to a string
+                 csv_data.append(f"{landmark[0]},{landmark[1]}")
+
+                # Join the data as a single string, you can choose the delimiter
+                csv_string = ";".join(csv_data)
+
+                # Print the CSV string
+                #print(csv_string)  
+                
+                # write to a CSV file
+                #with open('model/keypoint_classifier/landmarks.csv', mode='w', newline='') as file:
+                #    writer = csv.writer(file)
+                #    writer.writerow(csv_data)  # Each landmark in a single row
+
                 # Conversion to relative coordinates / normalized coordinates
                 pre_processed_landmark_list = pre_process_landmark(
                     landmark_list)
@@ -142,10 +165,10 @@ def main():
                 # Hand sign classification
                 hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
                 if hand_sign_id == "not apllicable":  # 2 or "not apllicable" to disable point
-                    point_history.append(landmark_list[8])  # 人差指座標
+                    point_history.append(landmark_list[8])  
                 else:
                     point_history.append([0, 0])
-
+                #print("Hand sign ID",hand_sign_id)
                 # Finger gesture classification
                 finger_gesture_id = 0
                 point_history_len = len(pre_processed_point_history_list)
@@ -168,6 +191,13 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
+
+            sock.SendData(f'from Python: {csv_string} | {hand_sign_id}') # Send this string to other application
+            #print(f' from Python: {csv_string : hand_sign_id}')
+            data = sock.ReadReceivedData() # read data
+
+            if data != None: # if NEW data has been received since last ReadReceivedData function call
+                print(data) # print new received data
         else:
             point_history.append([0, 0])
 
@@ -182,15 +212,24 @@ def main():
 
 
 def select_mode(key, mode):
-    number = -1
-    if 48 <= key <= 57:  # 0 ~ 9
+    number = -1  # Default to -1 if no valid key is pressed
+
+    # Numeric keys (0-9) for IDs 0-9
+    if 48 <= key <= 57:  # ASCII codes for '0' to '9'
         number = key - 48
-    if key == 110:  # n
+
+    # Alphabet keys (a-r) for IDs 10-27
+    elif 97 <= key <= 114:  # ASCII codes for 'a' to 'r'
+        number = key - 87  # 'a' maps to 10, 'b' to 11, ..., 'r' to 27
+
+    # Mode selection with different keys (m, comma, period)
+    elif key == 109:  # 'm' key for mode 0 
         mode = 0
-    if key == 107:  # k
+    elif key == 44:  # ',' key for mode 1 using keypoint
         mode = 1
-    if key == 104:  # h
+    elif key == 46:  # '.' key for mode 2 using point history
         mode = 2
+
     return number, mode
 
 
@@ -281,12 +320,12 @@ def pre_process_point_history(image, point_history):
 def logging_csv(number, mode, landmark_list, point_history_list):
     if mode == 0:
         pass
-    if mode == 1 and (0 <= number <= 9):
+    if mode == 1 and (0 <= number <= 27):
         csv_path = 'model/keypoint_classifier/keypoint.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
             writer.writerow([number, *landmark_list])
-    if mode == 2 and (0 <= number <= 9):
+    if mode == 2 and (0 <= number <= 27):
         csv_path = 'model/point_history_classifier/point_history.csv'
         with open(csv_path, 'a', newline="") as f:
             writer = csv.writer(f)
@@ -522,6 +561,7 @@ def draw_point_history(image, point_history):
 
 
 def draw_info(image, fps, mode, number):
+    # Display the frames per second (FPS) on the image
     cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
                1.0, (0, 0, 0), 4, cv.LINE_AA)
     cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX,
@@ -532,12 +572,23 @@ def draw_info(image, fps, mode, number):
         cv.putText(image, "MODE:" + mode_string[mode - 1], (10, 90),
                    cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
                    cv.LINE_AA)
+        
+        # Display the number or letter corresponding to the selected ID
         if 0 <= number <= 9:
             cv.putText(image, "NUM:" + str(number), (10, 110),
                        cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
                        cv.LINE_AA)
+        elif 10 <= number <= 27:
+            letter = chr(number + 87)  # Convert to corresponding letter ('a' = 10, 'b' = 11, ..., 'r' = 27)
+            cv.putText(image, "Letter:" + letter, (10, 110),
+                       cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1,
+                       cv.LINE_AA)
+
     return image
 
 
+    
 if __name__ == '__main__':
     main()
+
+

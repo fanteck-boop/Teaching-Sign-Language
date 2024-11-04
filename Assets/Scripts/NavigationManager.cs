@@ -3,8 +3,18 @@ using System.Collections.Generic; // Required for using Dictionary
 
 public class NavigationManager : MonoBehaviour
 {
+    //Script referencer
+    SpellingExercise spellingScript;
+
+    ReadingExercise readingScript;
+
+    IntroductionExercise introductionScript;
+
     // Reference to the level menu UI
     [SerializeField] private GameObject levelMenu;
+
+    //
+    private int exerciseCollectionNumber;
 
     // Function to toggle the visibility of the level menu and its children
     public void ToggleLevelMenu()
@@ -33,17 +43,26 @@ public class NavigationManager : MonoBehaviour
     // Function to check if an exercise is locked based on the exercise's collection number and progress
     public bool CheckIfLocked(GameObject exercise)
     {
-        // Get the Exercise script component from the exercise GameObject
+        if (exercise.CompareTag("Spelling"))
+        {
+            spellingScript = exercise.GetComponent<SpellingExercise>();
+            exerciseCollectionNumber = spellingScript.exerciseCollectionNumber;
+        }
+        else if (exercise.CompareTag("Reading"))
+        {
+            readingScript = exercise.GetComponent<ReadingExercise>();
+            exerciseCollectionNumber = readingScript.exerciseCollectionNumber;
+        }
+        else if (exercise.CompareTag("Introduction"))
+        {
+            introductionScript = exercise.GetComponent<IntroductionExercise>();
+            exerciseCollectionNumber = introductionScript.exerciseCollectionNumber;
+        }
 
-        /*
-         * Dette skal laves om, således at den kan grabbe det rigtige script baseret på, om det er reading, spelling eller introduction
-         * Vi tænker at lave tags!, enten reading, spelling eller introduction, som den skal tjekke efter og derfra gennem if eller switch til
-         * enten at referere til enten ReadingExercise, SpellingExercise eller IntroductionExercise
-        */
-        ReadingExercise exerciseScript = exercise.GetComponent<ReadingExercise>(); //THIS IS THE MISTAKE
+        
 
         // Check if the exercise collection number is within or lower than the current collection
-        if (GameManager.Instance.CurrentExerciseCollection >= exerciseScript.exerciseCollectionNumber)
+        if (GameManager.Instance.CurrentExerciseCollection >= exerciseCollectionNumber)
         {
             // Check if exercise is "Introduction" or "Introduction" is completed
             if (exercise.name == "Introduction" || 
