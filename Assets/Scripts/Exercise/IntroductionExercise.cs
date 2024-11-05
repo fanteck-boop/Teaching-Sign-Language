@@ -32,8 +32,6 @@ public class IntroductionExercise : Exercise
     {
         currentWordIndex = 0; // Reset to the first word
         currentCharIndex = 0; // Reset to the first character of the word
-        UpdateLetter(); // Display the first character of the first word
-        PlayHandAnimation();
     }
 
 }

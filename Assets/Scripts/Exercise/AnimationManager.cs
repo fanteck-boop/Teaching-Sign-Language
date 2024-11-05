@@ -59,17 +59,19 @@ public class AnimationManager : MonoBehaviour
         {
             float animationIndex = letterAnimations[letter];
             handAnimator.SetFloat("AnimationIndex", animationIndex);
+            handAnimator.SetBool("PlayAnimation", true);
 
-            yield return new WaitForSeconds(handAnimator.GetCurrentAnimatorStateInfo(0).length + displayDuration); // Pause for display duration
+            // Wait for the duration of the current animation
+            yield return new WaitForSeconds(handAnimator.GetCurrentAnimatorStateInfo(0).length);
+            //yield return new WaitForEndOfFrame();
 
-            float idleIndex = 29f;
-            handAnimator.SetFloat("AnimationIndex", idleIndex);
+            // Optionally, set PlayAnimation to false after the animation completes to reset it
+            handAnimator.SetBool("PlayAnimation", false);
         }
         else
         {
             Debug.LogWarning($"No animation found for letter: {letter}");
         }
-    }
-
+    }      
     
 }

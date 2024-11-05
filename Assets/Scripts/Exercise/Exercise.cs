@@ -20,6 +20,7 @@ public class Exercise : MonoBehaviour
     protected GameObject exercisePanel;
     protected GameObject completedPanel;
     protected GameObject startPanel;
+    [SerializeField] protected GameObject exercise;
 
     // The exercise collection number (set in the inspector)
     public int exerciseCollectionNumber;
@@ -65,7 +66,6 @@ public class Exercise : MonoBehaviour
 
     private IEnumerator PlayLetterSequence()
     {
-        // Get the current word based on currentWordIndex
         if (currentWordIndex < words.Count)
         {
             string currentWord = words[currentWordIndex];
@@ -73,8 +73,10 @@ public class Exercise : MonoBehaviour
             // Iterate over each character in the current word
             foreach (char letter in currentWord)
             {
+                yield return new WaitForEndOfFrame();
                 // Play the animation for the current character
                 yield return StartCoroutine(animationManager.PlayLetterAnimation(letter));
+
             }
         }
         else
@@ -82,6 +84,9 @@ public class Exercise : MonoBehaviour
             Debug.LogError("currentWordIndex is out of bounds for the words list.");
         }
     }
+
+
+
 
     public void CompleteExercise()
     {
@@ -100,7 +105,8 @@ public class Exercise : MonoBehaviour
             // Hide the completion panel and the exercise, and go back to the level menu
             completedPanel.SetActive(false);
             exercisePanel.SetActive(false);
-            startPanel.SetActive(false);
+            startPanel.SetActive(true);
+            exercise.SetActive(false);
             navManager.ToggleLevelMenu();
         }
 

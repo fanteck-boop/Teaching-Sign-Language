@@ -3519,11 +3519,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navManager: {fileID: 0}
   animationManager: {fileID: 749147980639953417}
-  letters:
+  words:
   - A
   - B
   - C
   letterDisplay: {fileID: 5629362154744779278}
+  exercise: {fileID: 7133654518457533286}
   exerciseCollectionNumber: 1
 --- !u!1 &7326451799106101740
 GameObject:
@@ -3838,7 +3839,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handAnimator: {fileID: 2320655067845292172}
-  displayDuration: 1
 --- !u!1 &8158240405146151403
 GameObject:
   m_ObjectHideFlags: 0

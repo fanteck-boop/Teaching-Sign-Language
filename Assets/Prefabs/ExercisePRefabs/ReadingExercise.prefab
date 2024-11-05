@@ -1148,7 +1148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2715641665471845157
 Transform:
   m_ObjectHideFlags: 0
@@ -1182,11 +1182,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navManager: {fileID: 0}
   animationManager: {fileID: 6427215143746104707}
-  letters:
-  - a
+  words:
+  - A
   - B
   - C
   letterDisplay: {fileID: 0}
+  exercise: {fileID: 3221907727837584767}
   exerciseCollectionNumber: 1
   inputField: {fileID: 8129378353796267568}
   checkAnswerButton: {fileID: 1422207851725985160}
@@ -2688,7 +2689,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handAnimator: {fileID: 5021385963969120173}
-  displayDuration: 1
 --- !u!1 &6257909271093024571
 GameObject:
   m_ObjectHideFlags: 0
