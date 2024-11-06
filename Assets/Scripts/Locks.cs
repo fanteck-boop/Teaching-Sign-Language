@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
+public class Locks : MonoBehaviour
+{
+    public GameObject lockedIcon;        // Reference to the locked state icon
+    public GameObject unlockedIcon;      // Reference to the unlocked state icon
+    public TextMeshProUGUI lockIconText;
+    public Button[] exercisesToUnlock;
+    public int completedExercises;
+    public int requiredExercises;
+
+    public void AddCompletedExercises()
+    {
+        completedExercises++;
+        UpdateCompletionCount();
+    }
+
+    private void UpdateCompletionCount()
+    {
+        lockIconText.text = $"{completedExercises} / {requiredExercises}";
+
+        if (completedExercises >= requiredExercises)
+        {
+            UnlockExercises();
+        }
+    }
+
+    private void UnlockExercises()
+    {
+        lockedIcon.SetActive(false);
+        unlockedIcon.SetActive(true);
+
+        foreach (Button exerciseButton in exercisesToUnlock)
+        {
+            if (exerciseButton != null)
+                exerciseButton.interactable = true;  // Make the button interactable
+        }
+    }
+}

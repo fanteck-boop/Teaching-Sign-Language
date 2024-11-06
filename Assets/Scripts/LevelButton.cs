@@ -16,7 +16,7 @@ public class LeveButton : MonoBehaviour
         GameObject buttonUnlocked = transform.Find("Unlocked").gameObject;
         GameObject buttonCompleted = transform.Find("Completed").gameObject;
 
-        if (CollectionNumber = 1 && gameObjects.name == "Intro button")
+        if (CollectionNumber == 1 && gameObject.name == "Intro button")
         {
             if (buttonUnlocked != null) buttonUnlocked.SetActive(true);
             if (buttonCompleted != null) buttonCompleted.SetActive(false);
