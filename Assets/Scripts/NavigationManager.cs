@@ -26,9 +26,9 @@ public class NavigationManager : MonoBehaviour
 
     public void Start()
     {
-        currentLock = levelMenu.transform.Find("Canvas/Collection1/Locks1").GameObject;
-        currentLockText = currentLock.Find("Locked/Text").GetComponent<TextMeshProUGUI>();
-        currentLockUnlocked = currentLock.Find("UnLocked").GameObject;
+        //currentLock = levelMenu.transform.Find("Canvas/Collection1/Locks1").GameObject;
+        //currentLockText = currentLock.Find("Locked/Text").GetComponent<TextMeshProUGUI>();
+        //currentLockUnlocked = currentLock.Find("UnLocked").GameObject;
 
         if (currentLock != null) currentLock.SetActive(true);
         if (currentLockUnlocked != null) currentLockUnlocked.SetActive(false);
@@ -36,9 +36,9 @@ public class NavigationManager : MonoBehaviour
     }
     
 
-    public void UpdateCurrentLock(gameObject exerciseName)
+    public void UpdateCurrentLock(GameObject exerciseName)
     {
-        if (exerciseName == "Introduction")
+        if (exerciseName.name == "Introduction")
         currentLockUnlocked.SetActive(true); 
 
     }*/
