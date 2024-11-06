@@ -26,6 +26,7 @@ public class ReadingExercise : Exercise
 
         // Initialize the exercise by resetting the input field and showing the first letter
         ResetInputField();
+        PlayHandAnimation();
     }
 
     // Function to check the player's input when they click the submit button
@@ -45,6 +46,7 @@ public class ReadingExercise : Exercise
             {
                 // Reset the input field and show the next letter
                 ResetInputField();
+                Debug.Log(words[currentWordIndex]);
                 PlayHandAnimation();
             }
             else
