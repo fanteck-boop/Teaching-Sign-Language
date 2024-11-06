@@ -19,6 +19,8 @@ public class NavigationManager : MonoBehaviour
     //
     private int exerciseCollectionNumber;
 
+    /*
+    private GameObject currentLock;
     private TextMeshProUGUI currentLockText;
     private GameObject currentLockUnlocked;
 
@@ -32,13 +34,14 @@ public class NavigationManager : MonoBehaviour
         if (currentLockUnlocked != null) currentLockUnlocked.SetActive(false);
 
     }
+    
 
     public void UpdateCurrentLock(GameObject exerciseName)
     {
         if (exerciseName.name == "Introduction")
         currentLockUnlocked.SetActive(true); 
 
-    }
+    }*/
 
     // Function to toggle the visibility of the level menu and its children
     public void ToggleLevelMenu()
