@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic; // Required for using Dictionary
+using UnityEngine.UI;
+using TMPro; // For TextMeshPro UI components
 
 public class NavigationManager : MonoBehaviour
 {
@@ -12,9 +14,32 @@ public class NavigationManager : MonoBehaviour
 
     // Reference to the level menu UI
     [SerializeField] private GameObject levelMenu;
+    public GameObject currentLock;
 
     //
     private int exerciseCollectionNumber;
+
+    private GameObject currentLock;
+    private TextMeshProUGUI currentLockText;
+    private GameObject currentLockUnlocked;
+
+    public void Start()
+    {
+        currentLock = levelMenu.transform.Find("Canvas/Collection1/Locks1").GameObject;
+        currentLockText = currentLock.Find("Locked/Text").GetComponent<TextMeshProUGUI>();
+        currentLockUnlocked = currentLock.Find("UnLocked").GameObject;
+
+        if (currentLock != null) currentLock.SetActive(true);
+        if (currentLockUnlocked != null) currentLockUnlocked.SetActive(false);
+
+    }
+
+    public void UpdateCurrentLock(gameObject exerciseName)
+    {
+        if (exerciseName == "Introduction")
+        currentLockUnlocked.SetActive(true); 
+
+    }
 
     // Function to toggle the visibility of the level menu and its children
     public void ToggleLevelMenu()
@@ -125,4 +150,7 @@ public class NavigationManager : MonoBehaviour
             Debug.Log("Exercise is locked.");
         }
     }
+
+
+
 }

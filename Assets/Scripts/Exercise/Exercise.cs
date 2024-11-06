@@ -66,26 +66,39 @@ public class Exercise : MonoBehaviour
 
     private IEnumerator PlayLetterSequence()
     {
+        Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
+
+        // Check if there are words left to animate
         if (currentWordIndex < words.Count)
         {
             string currentWord = words[currentWordIndex];
+            int currentCharIndexAni = 0;
 
-            // Iterate over each character in the current word
-            foreach (char letter in currentWord)
+            // Iterate using currentCharIndexAni to track each character in the word
+            while (currentCharIndexAni < currentWord.Length)
             {
-                yield return new WaitForEndOfFrame();
-                // Play the animation for the current character
-                yield return StartCoroutine(animationManager.PlayLetterAnimation(letter));
+                char currentChar = currentWord[currentCharIndexAni];  // Corrected to use currentCharIndexAni
 
+                // Play the animation for the current character using the index
+                yield return StartCoroutine(animationManager.PlayLetterAnimation(currentChar));
+
+                // Increment the character index to move to the next character
+                currentCharIndexAni++;
+               
             }
+
+            // Reset currentCharIndexAni for the next word
+            currentCharIndexAni = 0;
+
+            // After finishing all characters in the word, return to idle state
+            //animationManager.StopLetterAnimation();
+            Debug.Log("Stopped letter animation, transitioning to idle state.");
         }
         else
         {
-            Debug.LogError("currentWordIndex is out of bounds for the words list.");
+            Debug.LogError($"currentWordIndex {currentWordIndex} is out of bounds for the words list (count: {words.Count}).");
         }
     }
-
-
 
 
     public void CompleteExercise()
@@ -101,7 +114,6 @@ public class Exercise : MonoBehaviour
             {
                 GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
             }
-
             // Hide the completion panel and the exercise, and go back to the level menu
             completedPanel.SetActive(false);
             exercisePanel.SetActive(false);
