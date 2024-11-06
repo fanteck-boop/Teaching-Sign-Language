@@ -12,8 +12,8 @@ public class Exercise : MonoBehaviour
 
     //
     [SerializeField] protected List<string> words; // List of letters
-    protected int currentWordIndex = 0; // Index of the current character in the current word
-    protected int currentCharIndex = 0; // Index of the current word in the list
+    protected int currentWordIndex = 0; // Index of the current word in the list
+    protected int currentCharIndex = 0; // Index of the current character in the current word
     [SerializeField] protected TextMeshProUGUI letterDisplay; // UI element to display the current letter
 
     // GameObject references for the exercise and the completion panel and the introduction panel
@@ -24,6 +24,9 @@ public class Exercise : MonoBehaviour
 
     // The exercise collection number (set in the inspector)
     public int exerciseCollectionNumber;
+
+    //Lock reference
+    public Locks associatedLock;
 
     public void OrderPanels()
     {
@@ -38,7 +41,7 @@ public class Exercise : MonoBehaviour
         if (startPanel != null) startPanel.SetActive(true);
     }
 
-    public void UpdateLetter()
+    public virtual void UpdateLetter()
     {
         // Get the current word
         string currentWord = words[currentWordIndex];
@@ -88,7 +91,7 @@ public class Exercise : MonoBehaviour
             }
 
             // Reset currentCharIndexAni for the next word
-            currentCharIndexAni = 0;
+            //currentCharIndexAni = 0;
 
             // After finishing all characters in the word, return to idle state
             //animationManager.StopLetterAnimation();
@@ -113,6 +116,7 @@ public class Exercise : MonoBehaviour
             if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && !isCompleted)
             {
                 GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
+                associatedLock.AddCompletedExercises();
             }
             // Hide the completion panel and the exercise, and go back to the level menu
             completedPanel.SetActive(false);
