@@ -372,7 +372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1407576351556390012
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3582,19 +3582,11 @@ MonoBehaviour:
   words:
   - A
   - B
-  - D
   - C
-  - E
-  - F
-  - A
-  - B
-  - C
-  - D
-  - E
-  - F
   letterDisplay: {fileID: 5629362154744779278}
   exercise: {fileID: 7133654518457533286}
   exerciseCollectionNumber: 1
+  associatedLock: {fileID: 0}
 --- !u!1 &7326451799106101740
 GameObject:
   m_ObjectHideFlags: 0
@@ -4385,23 +4377,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3393037730418880614, guid: 9c8f542657c334e67b35476ec185df23, type: 3}
       propertyPath: m_LocalScale.x
-      value: 53.4
+      value: 59.4
       objectReference: {fileID: 0}
     - target: {fileID: 3393037730418880614, guid: 9c8f542657c334e67b35476ec185df23, type: 3}
       propertyPath: m_LocalScale.y
-      value: 53.4
+      value: 59.4
       objectReference: {fileID: 0}
     - target: {fileID: 3393037730418880614, guid: 9c8f542657c334e67b35476ec185df23, type: 3}
       propertyPath: m_LocalScale.z
-      value: 53.4
+      value: 59.4
       objectReference: {fileID: 0}
     - target: {fileID: 3393037730418880614, guid: 9c8f542657c334e67b35476ec185df23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -878.4609
+      value: -1057.502
       objectReference: {fileID: 0}
     - target: {fileID: 3393037730418880614, guid: 9c8f542657c334e67b35476ec185df23, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -662.77
+      value: -718.47485
       objectReference: {fileID: 0}
     - target: {fileID: 3393037730418880614, guid: 9c8f542657c334e67b35476ec185df23, type: 3}
       propertyPath: m_LocalPosition.z

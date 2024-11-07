@@ -36,6 +36,7 @@ public class Exercise : MonoBehaviour
         startPanel = transform.Find("Canvas/Start").gameObject;
 
         // Ensure the exercise UI starts with the correct panels visible
+        if (exercise != null) exercise.SetActive(false);
         if (completedPanel != null) completedPanel.SetActive(false);
         if (exercisePanel != null) exercisePanel.SetActive(false);
         if (startPanel != null) startPanel.SetActive(true);
@@ -132,6 +133,20 @@ public class Exercise : MonoBehaviour
     {}
 
     public virtual void ResetExercise()
-    {}
+    {
+        currentWordIndex = 0; // Index of the current word in the list
+        currentCharIndex = 0;
+    }
+
+    public void StartExercise()
+    {
+        // Hide the start panel and show the exercise panel
+        startPanel.SetActive(false);
+        exercisePanel.SetActive(true);
+        completedPanel.SetActive(false);
+
+        // Reset the exercise to the initial state
+        ResetExercise();
+    }
 
 }

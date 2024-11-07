@@ -34,4 +34,11 @@ public class IntroductionExercise : Exercise
         currentCharIndex = 0; // Reset to the first character of the word
     }
 
+    public void StartHandAnimation()
+    {
+        // Play the hand animation
+        UpdateLetter(); // Display next character or word, if applicable
+        PlayHandAnimation();
+    }
+
 }
