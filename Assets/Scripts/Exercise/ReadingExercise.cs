@@ -52,7 +52,7 @@ public class ReadingExercise : Exercise
             else
             {
                 // If all letters are completed, show the completion panel and reset the exercise
-                completedPanel.SetActive(true);
+                GoToCompletionPanel();
                 ResetExercise();
             }
         }
@@ -70,6 +70,25 @@ public class ReadingExercise : Exercise
         currentWordIndex = 0; // Reset to the first letter
         currentCharIndex = 0; // Reset to the first letter
         ResetInputField(); // Clear the input field
+    }
+
+    public override void GoToCompletionPanel()
+    {
+        exercisePanel.SetActive(false);
+        completedPanel.SetActive(true);
+        animationManager.StopLetterAnimation();
+    }
+
+    public override void StartExercise()
+    {
+        // Hide the start panel and show the exercise panel
+        animationManager.StopLetterAnimation();
+        startPanel.SetActive(false);
+        exercisePanel.SetActive(true);
+
+        // Reset the exercise to the initial state
+        ResetExercise();
+        PlayHandAnimation();
     }
 
 }

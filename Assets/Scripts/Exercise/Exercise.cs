@@ -147,6 +147,7 @@ public class Exercise : MonoBehaviour
     public virtual void StartExercise()
     {
         // Hide the start panel and show the exercise panel
+        animationManager.StopLetterAnimation();
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
 

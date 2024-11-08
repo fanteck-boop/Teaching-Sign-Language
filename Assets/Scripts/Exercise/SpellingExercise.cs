@@ -62,5 +62,14 @@ public class SpellingExercise : Exercise
         completedPanel.SetActive(true);
     }
 
-    //OVERRIDE START EXERCISE!!
+    public override void StartExercise()
+    {
+        // Hide the start panel and show the exercise panel
+        startPanel.SetActive(false);
+        exercisePanel.SetActive(true);
+
+        // Reset the exercise to the initial state
+        ResetExercise();
+        DisplayLetter();
+    }
 }
