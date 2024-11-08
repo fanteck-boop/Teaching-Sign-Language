@@ -11,23 +11,27 @@ public class SpellingExercise : Exercise
     {
         OrderPanels();
     }
-
+    
     public override void CheckInput()
     {
-        // Display the current word and letter
-        UpdateWordDisplay();
+        //Logic for checking input
+        DisplayLetter();
+        DisplayWord();
+        if (wordCompleted == true)
+        {
+            UpdateWord(); //Updates index to go to the next word in the word list
 
-        // Check if the current word and character are within bounds
-        if (currentWordIndex < words.Count)
-        {
-            // Display the current letter in letterDisplay
-            UpdateLetter();
-        }
-        else
-        {
-            // If all words are completed, show the completion panel and reset the exercise
-            completedPanel.SetActive(true);
-            CompleteExercise();
+            if (currentWordIndex < words.Count)
+            {
+                // Display the letter for the next word
+                DisplayLetter();
+            }
+            else
+            {
+                // No more words left, mark the exercise as complete
+                GoToCompletionPanel();
+                return; // Exit the function as there are no more words to process
+            }
         }
     }
 
@@ -35,12 +39,12 @@ public class SpellingExercise : Exercise
     {
         currentWordIndex = 0; // Reset to the first word
         currentCharIndex = 0; // Reset to the first character
-        UpdateWordDisplay(); // Display the first word again
-        UpdateLetter(); // Display the first letter again
+        DisplayWord(); // Display the first word again
+        DisplayLetter(); // Display the first letter again
     }
 
     // Display the full current word in currentWordText
-    private void UpdateWordDisplay()
+    private void DisplayWord()
     {
         if (currentWordIndex < words.Count)
         {
@@ -51,4 +55,12 @@ public class SpellingExercise : Exercise
             currentWordText.text = ""; // Clear text if no more words
         }
     }
+
+    public override void GoToCompletionPanel()
+    {
+        exercisePanel.SetActive(false);
+        completedPanel.SetActive(true);
+    }
+
+    //OVERRIDE START EXERCISE!!
 }

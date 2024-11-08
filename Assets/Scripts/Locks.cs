@@ -10,6 +10,8 @@ public class Locks : MonoBehaviour
     public GameObject unlockedIcon;      // Reference to the unlocked state icon
     public TextMeshProUGUI lockIconText;
     public Button[] exercisesToUnlock;
+    public GameObject[] lockedIcons;
+    public GameObject[] unlockedIcons;
     public int completedExercises;
     public int requiredExercises;
 
@@ -39,5 +41,23 @@ public class Locks : MonoBehaviour
             if (exerciseButton != null)
                 exerciseButton.interactable = true;  // Make the button interactable
         }
+
+        // Set all locked icons in the array to inactive
+        foreach (GameObject icon in lockedIcons)
+        {
+                icon.SetActive(false);
+        }
+
+        // Set all unlocked icons in the array to active
+        foreach (GameObject icon in unlockedIcons)
+        {
+                icon.SetActive(true);
+        }
+    }
+
+    public void MarkIconAsCompleted(GameObject unlockedIcon, GameObject completedIcon)
+    {
+        unlockedIcon.SetActive(false);
+        completedIcon.SetActive(true);
     }
 }

@@ -909,8 +909,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: IntroductionExercise, Assembly-CSharp
+      - m_Target: {fileID: 8096589364962359594}
+        m_TargetAssemblyTypeName: Exercise, Assembly-CSharp
         m_MethodName: CompleteExercise
         m_Mode: 1
         m_Arguments:
@@ -1383,33 +1383,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4269842300647864164}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5359476335783550060}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 8096589364962359594}
-        m_TargetAssemblyTypeName: SpellingExercise, Assembly-CSharp
-        m_MethodName: CheckInput
+        m_TargetAssemblyTypeName: Exercise, Assembly-CSharp
+        m_MethodName: StartExercise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1417,7 +1393,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &2675851794756124465
 GameObject:
@@ -3297,16 +3273,18 @@ MonoBehaviour:
   navManager: {fileID: 0}
   animationManager: {fileID: 0}
   words:
-  - F
-  - E
-  - D
-  - E
-  - F
-  - D
+  - A
+  - B
+  - C
+  - A
+  - B
+  - C
+  currentWordIndex: 0
+  currentCharIndex: 0
   letterDisplay: {fileID: 7077030734588867951}
   exercise: {fileID: 7288079293200023607}
-  exerciseCollectionNumber: 1
   associatedLock: {fileID: 0}
+  isCompleted: 0
   currentWordText: {fileID: 7877539462284130982}
 --- !u!1 &7312732307597550441
 GameObject:
@@ -3325,7 +3303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5163272033740288293
 RectTransform:
   m_ObjectHideFlags: 0

@@ -6,14 +6,14 @@ using TMPro; // For TextMeshPro UI components
 
 public class Exercise : MonoBehaviour
 {
-    //managers
+    //Managers
     [SerializeField] protected NavigationManager navManager;
     [SerializeField] protected AnimationManager animationManager;
 
-    //
+    //Word variables
     [SerializeField] protected List<string> words; // List of letters
-    protected int currentWordIndex = 0; // Index of the current word in the list
-    protected int currentCharIndex = 0; // Index of the current character in the current word
+    [SerializeField] protected int currentWordIndex = 0; // Index of the current word in the list
+    [SerializeField] protected int currentCharIndex = 0; // Index of the current character in the current word
     [SerializeField] protected TextMeshProUGUI letterDisplay; // UI element to display the current letter
 
     // GameObject references for the exercise and the completion panel and the introduction panel
@@ -22,11 +22,16 @@ public class Exercise : MonoBehaviour
     protected GameObject startPanel;
     [SerializeField] protected GameObject exercise;
 
-    // The exercise collection number (set in the inspector)
-    public int exerciseCollectionNumber;
-
     //Lock reference
     public Locks associatedLock;
+    [SerializeField] private bool isCompleted = false;
+
+    //Icons
+    [SerializeField] public GameObject unlockedIcon;
+    [SerializeField] private GameObject completedIcon;
+
+
+    protected bool wordCompleted = false;
 
     public void OrderPanels()
     {
@@ -42,25 +47,29 @@ public class Exercise : MonoBehaviour
         if (startPanel != null) startPanel.SetActive(true);
     }
 
-    public virtual void UpdateLetter()
+    public virtual void DisplayLetter()
     {
         // Get the current word
+        Debug.Log(currentWordIndex);
         string currentWord = words[currentWordIndex];
+        Debug.Log("current word:" + currentWord);
+        Debug.Log("current char index:" + currentCharIndex);
+        Debug.Log("current word length:" + currentWord.Length);
 
         // Display the current character in the word
         if (currentCharIndex < currentWord.Length)
         {
             char currentChar = currentWord[currentCharIndex];
+            Debug.Log("current char:" + currentChar);
             letterDisplay.text = currentChar.ToString();
             currentCharIndex++; // Move to the next character
         }
         else
         {
-            // Move to the next word and reset the character index
+            wordCompleted = true;
             currentCharIndex = 0;
-            currentWordIndex++;
-            CheckInput();
         }
+
     }
 
     public void PlayHandAnimation()
@@ -75,7 +84,7 @@ public class Exercise : MonoBehaviour
         // Check if there are words left to animate
         if (currentWordIndex < words.Count)
         {
-            string currentWord = words[currentWordIndex];
+            string currentWord = words[currentWordIndex]; //Finds the word
             int currentCharIndexAni = 0;
 
             // Iterate using currentCharIndexAni to track each character in the word
@@ -90,13 +99,6 @@ public class Exercise : MonoBehaviour
                 currentCharIndexAni++;
                
             }
-
-            // Reset currentCharIndexAni for the next word
-            //currentCharIndexAni = 0;
-
-            // After finishing all characters in the word, return to idle state
-            //animationManager.StopLetterAnimation();
-            Debug.Log("Stopped letter animation, transitioning to idle state.");
         }
         else
         {
@@ -108,15 +110,11 @@ public class Exercise : MonoBehaviour
     public void CompleteExercise()
     {
         // Check if the exerciseObject is active
-        if (exercisePanel.activeSelf)
+        if (completedPanel.activeSelf)
         {
-            // Mark the exercise as completed in the GameManager's dictionary
-            string key = gameObject.name + "Completed";
-
-            //checks if the key-value pair exists and if isCompleted is false
-            if (GameManager.Instance.CurrentExercises.TryGetValue(key, out bool isCompleted) && !isCompleted)
+            if (isCompleted == false)
             {
-                GameManager.Instance.CurrentExercises[key] = true; // Set exercise status as completed
+                isCompleted = true;
                 associatedLock.AddCompletedExercises();
             }
             // Hide the completion panel and the exercise, and go back to the level menu
@@ -124,13 +122,21 @@ public class Exercise : MonoBehaviour
             exercisePanel.SetActive(false);
             startPanel.SetActive(true);
             exercise.SetActive(false);
+            associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
             navManager.ToggleLevelMenu();
         }
 
     }
 
+    public void UpdateWord()
+    {
+        currentWordIndex++;
+        wordCompleted = false;
+    }
+
     public virtual void CheckInput()
-    {}
+    {
+    }
 
     public virtual void ResetExercise()
     {
@@ -138,15 +144,21 @@ public class Exercise : MonoBehaviour
         currentCharIndex = 0;
     }
 
-    public void StartExercise()
+    public virtual void StartExercise()
     {
         // Hide the start panel and show the exercise panel
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
-        completedPanel.SetActive(false);
 
         // Reset the exercise to the initial state
         ResetExercise();
+        PlayHandAnimation();
+        DisplayLetter();
+    }
+
+    public virtual void GoToCompletionPanel()
+    {
+
     }
 
 }
