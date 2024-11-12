@@ -3,7 +3,22 @@ guid: 245d58691efaf754ea0b99cd3661957f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body_Mat
+    second: {fileID: 2100000, guid: 386e786cbb5987248b4dbaf2a89999cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Face_Mat
+    second: {fileID: 2100000, guid: ee01bde7e54c86242af0f18a516a669b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Scarf_Mat
+    second: {fileID: 2100000, guid: eb8312bc2320bf94bad09ba015c67dde, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
