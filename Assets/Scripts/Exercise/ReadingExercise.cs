@@ -23,10 +23,6 @@ public class ReadingExercise : Exercise
         checkAnswerButton.onClick.AddListener(CheckInput);
 
         OrderPanels();
-
-        // Initialize the exercise by resetting the input field and showing the first letter
-        ResetInputField();
-        PlayHandAnimation();
     }
 
     // Function to check the player's input when they click the submit button
@@ -53,7 +49,6 @@ public class ReadingExercise : Exercise
             {
                 // If all letters are completed, show the completion panel and reset the exercise
                 GoToCompletionPanel();
-                ResetExercise();
             }
         }
     }
@@ -70,24 +65,22 @@ public class ReadingExercise : Exercise
         currentWordIndex = 0; // Reset to the first letter
         currentCharIndex = 0; // Reset to the first letter
         ResetInputField(); // Clear the input field
+        animationManager.StopLetterAnimation();
     }
 
     public override void GoToCompletionPanel()
     {
         exercisePanel.SetActive(false);
         completedPanel.SetActive(true);
-        animationManager.StopLetterAnimation();
+        ResetExercise();
     }
 
     public override void StartExercise()
     {
         // Hide the start panel and show the exercise panel
-        animationManager.StopLetterAnimation();
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
-
-        // Reset the exercise to the initial state
-        ResetExercise();
+        ResetInputField();
         PlayHandAnimation();
     }
 

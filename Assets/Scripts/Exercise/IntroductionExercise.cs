@@ -9,7 +9,8 @@ public class IntroductionExercise : Exercise
     //Done for now
     public void Start()
     {
-        OrderPanels(); 
+        OrderPanels();
+        Debug.Log("HELLLOOOO");
     }
 
     public override void CheckInput()
@@ -37,15 +38,8 @@ public class IntroductionExercise : Exercise
 
     public override void GoToCompletionPanel()
     {
+        ResetExercise();
         exercisePanel.SetActive(false);
         completedPanel.SetActive(true);
-        animationManager.StopLetterAnimation();
     }
-
-    public override void ResetExercise()
-    {
-        currentWordIndex = 0; // Reset to the first word
-        currentCharIndex = 0; // Reset to the first character of the word
-    }
-
 }

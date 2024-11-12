@@ -16,7 +16,7 @@ public class SpellingExercise : Exercise
     {
         //Logic for checking input
         DisplayLetter();
-        DisplayWord();
+        //DisplayWord();
         if (wordCompleted == true)
         {
             UpdateWord(); //Updates index to go to the next word in the word list
@@ -25,6 +25,7 @@ public class SpellingExercise : Exercise
             {
                 // Display the letter for the next word
                 DisplayLetter();
+                DisplayWord();
             }
             else
             {
@@ -39,8 +40,6 @@ public class SpellingExercise : Exercise
     {
         currentWordIndex = 0; // Reset to the first word
         currentCharIndex = 0; // Reset to the first character
-        DisplayWord(); // Display the first word again
-        DisplayLetter(); // Display the first letter again
     }
 
     // Display the full current word in currentWordText
@@ -71,5 +70,20 @@ public class SpellingExercise : Exercise
         // Reset the exercise to the initial state
         ResetExercise();
         DisplayLetter();
+        DisplayWord();
+    }
+    
+    public override void Exit()
+    {
+        // Start the reset process
+        ResetExercise();
+
+        // Now hide the exercise panel and reset the UI.
+        exercisePanel.SetActive(false);
+        startPanel.SetActive(true);
+        exercise.SetActive(false);
+
+        // Navigate back to the level menu
+        navManager.ToggleLevelMenu();
     }
 }
