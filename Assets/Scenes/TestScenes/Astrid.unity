@@ -839,11 +839,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &710852555 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 7553345333419154912, guid: 9c8f542657c334e67b35476ec185df23, type: 3}
-  m_PrefabInstance: {fileID: 8979985610156195235}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &803006990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -908,12 +903,24 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4137847184768802244, guid: 245d58691efaf754ea0b99cd3661957f, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4137847184768802244, guid: 245d58691efaf754ea0b99cd3661957f, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.data[2]
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 245d58691efaf754ea0b99cd3661957f, type: 3}
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
     - target: {fileID: 1630794972795428178, guid: 245d58691efaf754ea0b99cd3661957f, type: 3}
       propertyPath: m_BlendShapeWeights.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2854563699051640978, guid: 245d58691efaf754ea0b99cd3661957f, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1476,11 +1483,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1736650218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc4527c66866b37488e578e9079c9b3a, type: 3}
+  m_Script: {fileID: 11500000, guid: 046642dfb07564da9a5db0a0750b8e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handAnimator: {fileID: 710852555}
-  displayDuration: 1
+  handAnimator: {fileID: 0}
+  displayDuration: 3
 --- !u!4 &1736650220
 Transform:
   m_ObjectHideFlags: 0
