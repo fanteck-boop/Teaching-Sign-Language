@@ -14,15 +14,27 @@ public class ReadingExercise : Exercise
     [SerializeField] private Button checkAnswerButton; // Button to submit the input
     [SerializeField] private TextMeshProUGUI placeholder; // UI element for placeholder text
 
+    //Correct wrong logic
+    [SerializeField] private GameObject checkMark;
+    [SerializeField] private GameObject wrongMark;
+    [SerializeField] private AudioClip correctSound; // Sound for correct answer
+    [SerializeField] private AudioClip wrongSound; // Sound for incorrect answer
+    [SerializeField] private float feedbackDuration = 1.5f; // Duration for showing feedback
+    [SerializeField] private AudioSource audioSource;
+
+
+
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
 
+    //Bool
+    private bool isCorrect;
+
     public void Start()
     {
-        // Add listener to the submit button to call CheckInput() when clicked
-        checkAnswerButton.onClick.AddListener(CheckInput);
-
         OrderPanels();
+        checkMark.SetActive(false);
+        wrongMark.SetActive(false);
     }
 
     // Function to check the player's input when they click the submit button
@@ -34,6 +46,9 @@ public class ReadingExercise : Exercise
         // Compare the player's input with the current letter
         if (PlayerInput.ToLower() == words[currentWordIndex].ToLower())
         {
+            isCorrect = true;
+            Debug.Log("1" + isCorrect);
+            ShowFeedback(isCorrect);
             // If correct, move to the next letter
             currentWordIndex++;
 
@@ -50,6 +65,11 @@ public class ReadingExercise : Exercise
                 // If all letters are completed, show the completion panel and reset the exercise
                 GoToCompletionPanel();
             }
+        }
+        else //Show wrong
+        {
+            isCorrect = false;
+            ShowFeedback(isCorrect);
         }
     }
 
@@ -82,6 +102,41 @@ public class ReadingExercise : Exercise
         exercisePanel.SetActive(true);
         ResetInputField();
         PlayHandAnimation();
+    }
+
+    public void ShowFeedback(bool isCorrect)
+    {
+        StartCoroutine(ShowFeedbackCoroutine(isCorrect));
+    }
+
+    private IEnumerator ShowFeedbackCoroutine(bool isCorrect)
+    {
+        // First, deactivate both marks to reset any previous feedback
+        checkMark.SetActive(false);
+        wrongMark.SetActive(false);
+
+        Debug.Log("2" + isCorrect);
+
+        if (isCorrect == true)
+        {
+            checkMark.SetActive(true);
+            audioSource.clip = correctSound;
+            audioSource.Play();
+        }
+        else if (isCorrect == false)
+        {
+            wrongMark.SetActive(true);
+            audioSource.clip = wrongSound;
+            audioSource.Play();
+        }
+
+        yield return new WaitForSeconds(feedbackDuration);
+
+        checkMark.SetActive(false);
+        wrongMark.SetActive(false);
+        isCorrect = false;
+
+        Debug.Log("3" + isCorrect);
     }
 
 }

@@ -30,6 +30,9 @@ public class Exercise : MonoBehaviour
     [SerializeField] public GameObject unlockedIcon;
     [SerializeField] private GameObject completedIcon;
 
+    //Bool
+    private bool isWordAChar = true;
+
 
     protected bool wordCompleted = false;
 
@@ -88,6 +91,11 @@ public class Exercise : MonoBehaviour
     {
         Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
 
+        if (isWordAChar == false)
+        {
+            animationManager.GoToIdle();
+        }
+
         // Check if there are words left to animate
         if (currentWordIndex < words.Count)
         {
@@ -105,6 +113,14 @@ public class Exercise : MonoBehaviour
                 // Increment the character index to move to the next character
                 currentCharIndexAni++;
                
+            }
+            if (words[currentWordIndex].Length > 1)
+            {
+                isWordAChar = false;
+            }
+            else
+            {
+                isWordAChar = true;
             }
         }
         else
