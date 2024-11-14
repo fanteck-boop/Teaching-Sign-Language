@@ -28,7 +28,7 @@ public class AnimationManager : MonoBehaviour
     public IEnumerator PlayLetterAnimation(char letter)
     {
         letter = char.ToUpper(letter); // Ensure the letter is uppercase
-        yield return new WaitForSeconds(displayDuration);
+        yield return new WaitForSeconds(displayDuration * 2);
 
         if (letterAnimations.TryGetValue(letter, out string stateName))
         {
@@ -37,7 +37,7 @@ public class AnimationManager : MonoBehaviour
             handAnimator.CrossFade(stateName, crossFadeTime);  // Adjust the transition duration as needed
 
             // Wait for the specified duration to allow the pose to display fully
-            yield return new WaitForSeconds(displayDuration);
+            //yield return new WaitForSeconds(displayDuration);
         }
         else
         {

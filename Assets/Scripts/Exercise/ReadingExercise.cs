@@ -86,6 +86,8 @@ public class ReadingExercise : Exercise
         currentCharIndex = 0; // Reset to the first letter
         ResetInputField(); // Clear the input field
         animationManager.StopLetterAnimation();
+        checkMark.SetActive(false);
+        wrongMark.SetActive(false);
     }
 
     public override void GoToCompletionPanel()
