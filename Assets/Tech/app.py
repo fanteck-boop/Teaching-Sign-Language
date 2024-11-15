@@ -116,12 +116,11 @@ def main():
         ret, image = cap.read()
         if not ret:
             break
-        image = cv.flip(image, 1)  # ミラー表示
+        image = cv.flip(image, 1)  # Mirror display
         debug_image = copy.deepcopy(image)
 
         # Detection implementation #############################################################
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
-
         image.flags.writeable = False
         results = hands.process(image)  
         image.flags.writeable = True
@@ -142,20 +141,14 @@ def main():
                  # Convert each landmark's coordinates to a string
                  csv_data.append(f"{landmark[0]},{landmark[1]}")
 
-                # Join the data as a single string, you can choose the delimiter
+                # Join the data as a single string
                 csv_string = ";".join(csv_data)
-
-                # Print the CSV string
                 #print(csv_string)  
-                
-                # write to a CSV file
-                #with open('model/keypoint_classifier/landmarks.csv', mode='w', newline='') as file:
-                #    writer = csv.writer(file)
-                #    writer.writerow(csv_data)  # Each landmark in a single row
 
                 # Conversion to relative coordinates / normalized coordinates
                 pre_processed_landmark_list = pre_process_landmark(
                     landmark_list)
+                
                 pre_processed_point_history_list = pre_process_point_history(
                     debug_image, point_history)
                 # Write to the dataset file
