@@ -22,6 +22,10 @@ public class ReadingExercise : Exercise
     [SerializeField] private float feedbackDuration = 1.5f; // Duration for showing feedback
     [SerializeField] private AudioSource audioSource;
 
+    //Loading mechanics
+    public Button replayButton;
+    [SerializeField] private GameObject loadingIcon;
+
 
 
     // Property for the player's input
@@ -139,6 +143,55 @@ public class ReadingExercise : Exercise
         isCorrect = false;
 
         Debug.Log("3" + isCorrect);
+    }
+
+    protected override IEnumerator PlayLetterSequence()
+    {
+        Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
+
+        if (isWordAChar == false)
+        {
+            animationManager.GoToIdle();
+        }
+
+        // Check if there are words left to animate
+        if (currentWordIndex < words.Count)
+        {
+            string currentWord = words[currentWordIndex]; //Finds the word
+            int currentCharIndexAni = 0;
+
+            // Iterate using currentCharIndexAni to track each character in the word
+            while (currentCharIndexAni < currentWord.Length)
+            {
+                loadingIcon.SetActive(true);
+                replayButton.interactable = false;
+                char currentChar = currentWord[currentCharIndexAni];  // Corrected to use currentCharIndexAni
+
+                // Play the animation for the current character using the index
+                yield return StartCoroutine(animationManager.PlayLetterAnimation(currentChar));
+
+                // Increment the character index to move to the next character
+                currentCharIndexAni++;
+
+            }
+            float delayTime = 1.5f;
+            yield return new WaitForSeconds(delayTime);
+            loadingIcon.SetActive(false);
+            replayButton.interactable = true;
+
+            if (words[currentWordIndex].Length > 1)
+            {
+                isWordAChar = false;
+            }
+            else
+            {
+                isWordAChar = true;
+            }
+        }
+        else
+        {
+            Debug.LogError($"currentWordIndex {currentWordIndex} is out of bounds for the words list (count: {words.Count}).");
+        }
     }
 
 }

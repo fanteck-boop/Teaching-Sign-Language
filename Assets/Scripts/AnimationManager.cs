@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimationManager : MonoBehaviour
 {
     public Animator handAnimator; // Reference to the hand's Animator
-    public float displayDuration = 3.0f; // How long each letter animation will play before the next
+    private float displayDuration = 1.6f; // How long each letter animation will play before the next
     private Dictionary<char, string> letterAnimations; // Dictionary mapping each letter to its state name
     private float crossFadeTime = 0.2f;
 
@@ -28,16 +28,13 @@ public class AnimationManager : MonoBehaviour
     public IEnumerator PlayLetterAnimation(char letter)
     {
         letter = char.ToUpper(letter); // Ensure the letter is uppercase
-        yield return new WaitForSeconds(displayDuration * 2);
+        yield return new WaitForSeconds(displayDuration);
 
         if (letterAnimations.TryGetValue(letter, out string stateName))
         {
 
             // Transition to the specific animation state using CrossFade
             handAnimator.CrossFade(stateName, crossFadeTime);  // Adjust the transition duration as needed
-
-            // Wait for the specified duration to allow the pose to display fully
-            //yield return new WaitForSeconds(displayDuration);
         }
         else
         {

@@ -22,6 +22,7 @@ public class Exercise : MonoBehaviour
     protected GameObject startPanel;
     [SerializeField] protected GameObject exercise;
 
+    //
     //Lock reference
     public Locks associatedLock;
     [SerializeField] private bool isCompleted = false;
@@ -31,9 +32,7 @@ public class Exercise : MonoBehaviour
     [SerializeField] private GameObject completedIcon;
 
     //Bool
-    private bool isWordAChar = true;
-
-
+    protected bool isWordAChar = true;
     protected bool wordCompleted = false;
 
     public void OrderPanels()
@@ -87,7 +86,7 @@ public class Exercise : MonoBehaviour
 
     }
 
-    private IEnumerator PlayLetterSequence()
+    protected virtual IEnumerator PlayLetterSequence()
     {
         Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
 
