@@ -30,6 +30,9 @@ public class Exercise : MonoBehaviour
     [SerializeField] public GameObject unlockedIcon;
     [SerializeField] private GameObject completedIcon;
 
+    //Bool
+    private bool isWordAChar = true;
+
 
     protected bool wordCompleted = false;
 
@@ -77,9 +80,21 @@ public class Exercise : MonoBehaviour
         StartCoroutine(PlayLetterSequence());
     }
 
+    public void ReplayAnimation()
+    {
+        animationManager.StopLetterAnimation();
+        StartCoroutine(PlayLetterSequence());
+
+    }
+
     private IEnumerator PlayLetterSequence()
     {
         Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
+
+        if (isWordAChar == false)
+        {
+            animationManager.GoToIdle();
+        }
 
         // Check if there are words left to animate
         if (currentWordIndex < words.Count)
@@ -99,6 +114,14 @@ public class Exercise : MonoBehaviour
                 currentCharIndexAni++;
                
             }
+            if (words[currentWordIndex].Length > 1)
+            {
+                isWordAChar = false;
+            }
+            else
+            {
+                isWordAChar = true;
+            }
         }
         else
         {
@@ -116,13 +139,14 @@ public class Exercise : MonoBehaviour
             {
                 isCompleted = true;
                 associatedLock.AddCompletedExercises();
+                associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
             }
             // Hide the completion panel and the exercise, and go back to the level menu
+            ResetExercise();
             completedPanel.SetActive(false);
             exercisePanel.SetActive(false);
             startPanel.SetActive(true);
             exercise.SetActive(false);
-            associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
             navManager.ToggleLevelMenu();
         }
 
@@ -141,18 +165,17 @@ public class Exercise : MonoBehaviour
     public virtual void ResetExercise()
     {
         currentWordIndex = 0; // Index of the current word in the list
+        Debug.Log(currentWordIndex);
         currentCharIndex = 0;
+        Debug.Log(currentCharIndex);
+        animationManager.StopLetterAnimation();
     }
 
     public virtual void StartExercise()
     {
         // Hide the start panel and show the exercise panel
-        animationManager.StopLetterAnimation();
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
-
-        // Reset the exercise to the initial state
-        ResetExercise();
         PlayHandAnimation();
         DisplayLetter();
     }
@@ -160,6 +183,28 @@ public class Exercise : MonoBehaviour
     public virtual void GoToCompletionPanel()
     {
 
+    }
+
+    public virtual void Exit()
+    {
+        StartCoroutine(ExitExercise());
+    }
+
+    public IEnumerator ExitExercise()
+    {
+        // Start the reset process
+        ResetExercise();
+
+        // Optionally, wait for a frame to ensure the reset is processed, or for the animator to reset.
+        yield return new WaitForEndOfFrame();
+
+        // Now hide the exercise panel and reset the UI.
+        exercisePanel.SetActive(false);
+        startPanel.SetActive(true);
+        exercise.SetActive(false);
+
+        // Navigate back to the level menu
+        navManager.ToggleLevelMenu();
     }
 
 }
