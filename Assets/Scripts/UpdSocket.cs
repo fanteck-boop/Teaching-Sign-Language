@@ -21,7 +21,10 @@ public class UdpSocket : MonoBehaviour
 
     float[] landmarks;
     int handSignID;
-
+    public float[] GetLandmarks()
+    {
+        return landmarks;
+    }
     void Awake()
     {
         // Create remote endpoint (to Matlab)
