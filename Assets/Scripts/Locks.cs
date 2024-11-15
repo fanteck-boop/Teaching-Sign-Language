@@ -15,6 +15,11 @@ public class Locks : MonoBehaviour
     public int completedExercises;
     public int requiredExercises;
 
+    public void Start()
+    {
+        lockIconText.text = $"{completedExercises} / {requiredExercises}";
+    }
+
     public void AddCompletedExercises()
     {
         completedExercises++;
