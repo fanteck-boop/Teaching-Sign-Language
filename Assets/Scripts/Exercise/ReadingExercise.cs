@@ -41,6 +41,15 @@ public class ReadingExercise : Exercise
         wrongMark.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            // Code to execute when Enter key is pressed
+            CheckInput();
+        }
+    }
+
     // Function to check the player's input when they click the submit button
     public override void CheckInput()
     { 
