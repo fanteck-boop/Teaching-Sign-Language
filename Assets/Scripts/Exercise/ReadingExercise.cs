@@ -60,7 +60,6 @@ public class ReadingExercise : Exercise
         if (PlayerInput.ToLower() == words[currentWordIndex].ToLower())
         {
             isCorrect = true;
-            Debug.Log("1" + isCorrect);
             ShowFeedback(isCorrect);
             // If correct, move to the next letter
             currentWordIndex++;
@@ -70,8 +69,8 @@ public class ReadingExercise : Exercise
             {
                 // Reset the input field and show the next letter
                 ResetInputField();
-                Debug.Log(words[currentWordIndex]);
                 PlayHandAnimation();
+                UpdateProgress();
             }
             else
             {
@@ -117,6 +116,7 @@ public class ReadingExercise : Exercise
         exercisePanel.SetActive(true);
         ResetInputField();
         PlayHandAnimation();
+        UpdateProgress();
     }
 
     public void ShowFeedback(bool isCorrect)
@@ -130,7 +130,6 @@ public class ReadingExercise : Exercise
         checkMark.SetActive(false);
         wrongMark.SetActive(false);
 
-        Debug.Log("2" + isCorrect);
 
         if (isCorrect == true)
         {
@@ -150,8 +149,6 @@ public class ReadingExercise : Exercise
         checkMark.SetActive(false);
         wrongMark.SetActive(false);
         isCorrect = false;
-
-        Debug.Log("3" + isCorrect);
     }
 
     protected override IEnumerator PlayLetterSequence()
