@@ -15,6 +15,8 @@ public class Exercise : MonoBehaviour
     [SerializeField] protected int currentWordIndex = 0; // Index of the current word in the list
     [SerializeField] protected int currentCharIndex = 0; // Index of the current character in the current word
     [SerializeField] protected TextMeshProUGUI letterDisplay; // UI element to display the current letter
+    [SerializeField] protected TextMeshProUGUI progressText; // UI element to display the current letter
+
 
     // GameObject references for the exercise and the completion panel and the introduction panel
     protected GameObject exercisePanel;
@@ -164,9 +166,8 @@ public class Exercise : MonoBehaviour
     public virtual void ResetExercise()
     {
         currentWordIndex = 0; // Index of the current word in the list
-        Debug.Log(currentWordIndex);
         currentCharIndex = 0;
-        Debug.Log(currentCharIndex);
+        UpdateProgress();
         animationManager.StopLetterAnimation();
     }
 
@@ -177,6 +178,7 @@ public class Exercise : MonoBehaviour
         exercisePanel.SetActive(true);
         PlayHandAnimation();
         DisplayLetter();
+        UpdateProgress();
     }
 
     public virtual void GoToCompletionPanel()
@@ -205,5 +207,11 @@ public class Exercise : MonoBehaviour
         // Navigate back to the level menu
         navManager.ToggleLevelMenu();
     }
+
+    public void UpdateProgress()
+    {
+        progressText.text = $"Opgave {currentWordIndex + 1} / {words.Count}";
+    }
+
 
 }
