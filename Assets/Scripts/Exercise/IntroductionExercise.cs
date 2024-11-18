@@ -10,7 +10,6 @@ public class IntroductionExercise : Exercise
     public void Start()
     {
         OrderPanels();
-        Debug.Log("HELLLOOOO");
     }
 
     public override void CheckInput()
@@ -25,6 +24,7 @@ public class IntroductionExercise : Exercise
             {
                 // Display the letter for the next word
                 DisplayLetter();
+                UpdateProgress();
             }
             else
             {
