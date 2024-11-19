@@ -25,6 +25,7 @@ public class IntroductionExercise : Exercise
                 // Display the letter for the next word
                 DisplayLetter();
                 UpdateProgress();
+                PlayHandAnimation(); //Plays the animations for that word.
             }
             else
             {
@@ -33,13 +34,45 @@ public class IntroductionExercise : Exercise
                 return; // Exit the function as there are no more words to process
             }
         }
-        PlayHandAnimation(); //Plays the animations for that word.
     }
 
     public override void GoToCompletionPanel()
     {
-        ResetExercise();
+        // Start the reset process
+        //ResetExercise();
+
         exercisePanel.SetActive(false);
         completedPanel.SetActive(true);
     }
+
+    public override void CompleteExercise()
+    {
+        StartCoroutine(CompleteExerciseCoroutine());
+    }
+
+    public IEnumerator CompleteExerciseCoroutine()
+    {
+        // Check if the exerciseObject is active
+        if (completedPanel.activeSelf)
+        {
+            if (isCompleted == false)
+            {
+                isCompleted = true;
+                associatedLock.AddCompletedExercises();
+                associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
+            }
+            // Hide the completion panel and the exercise, and go back to the level menu
+            ResetExercise();
+            // Optionally, wait for a frame to ensure the reset is processed, or for the animator to reset.
+            yield return new WaitForEndOfFrame();
+
+            completedPanel.SetActive(false);
+            exercisePanel.SetActive(false);
+            startPanel.SetActive(true);
+            exercise.SetActive(false);
+            navManager.ToggleLevelMenu();
+        }
+    }
+
+
 }

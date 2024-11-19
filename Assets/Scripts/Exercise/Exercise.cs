@@ -27,11 +27,12 @@ public class Exercise : MonoBehaviour
     //
     //Lock reference
     public Locks associatedLock;
-    [SerializeField] private bool isCompleted = false;
+    [SerializeField] protected bool isCompleted = false;
 
     //Icons
-    [SerializeField] public GameObject unlockedIcon;
-    [SerializeField] private GameObject completedIcon;
+    [SerializeField] protected GameObject unlockedIcon;
+    [SerializeField] protected GameObject completedIcon;
+    [SerializeField] protected Button replayButton;
 
     //Bool
     protected bool isWordAChar = true;
@@ -106,6 +107,7 @@ public class Exercise : MonoBehaviour
             // Iterate using currentCharIndexAni to track each character in the word
             while (currentCharIndexAni < currentWord.Length)
             {
+                replayButton.interactable = false;
                 char currentChar = currentWord[currentCharIndexAni];  // Corrected to use currentCharIndexAni
 
                 // Play the animation for the current character using the index
@@ -115,6 +117,7 @@ public class Exercise : MonoBehaviour
                 currentCharIndexAni++;
                
             }
+            replayButton.interactable = true;
             if (words[currentWordIndex].Length > 1)
             {
                 isWordAChar = false;
@@ -131,7 +134,7 @@ public class Exercise : MonoBehaviour
     }
 
 
-    public void CompleteExercise()
+    public virtual void CompleteExercise()
     {
         // Check if the exerciseObject is active
         if (completedPanel.activeSelf)
@@ -143,14 +146,13 @@ public class Exercise : MonoBehaviour
                 associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
             }
             // Hide the completion panel and the exercise, and go back to the level menu
-            ResetExercise();
+            //ResetExercise();
             completedPanel.SetActive(false);
             exercisePanel.SetActive(false);
             startPanel.SetActive(true);
             exercise.SetActive(false);
             navManager.ToggleLevelMenu();
         }
-
     }
 
     public void UpdateWord()

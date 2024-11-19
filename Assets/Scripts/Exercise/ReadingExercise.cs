@@ -23,7 +23,6 @@ public class ReadingExercise : Exercise
     [SerializeField] private AudioSource audioSource;
 
     //Loading mechanics
-    public Button replayButton;
     [SerializeField] private GameObject loadingIcon;
 
 

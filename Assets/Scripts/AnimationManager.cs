@@ -45,7 +45,7 @@ public class AnimationManager : MonoBehaviour
     // Optional: Stop the letter animation and reset to a neutral pose (idle pose)
     public void StopLetterAnimation()
     {
-        //StopAllCoroutines();
+        Debug.Log("All coroutines stopped");
         // Crossfade to the idle state
         handAnimator.Play("Idle"); // Transition to idle
         Debug.Log("Hand animation stopped");
