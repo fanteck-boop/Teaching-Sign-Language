@@ -16,7 +16,6 @@ public class SpellingExercise : Exercise
     {
         //Logic for checking input
         DisplayLetter();
-        //DisplayWord();
         if (wordCompleted == true)
         {
             UpdateWord(); //Updates index to go to the next word in the word list
@@ -26,6 +25,7 @@ public class SpellingExercise : Exercise
                 // Display the letter for the next word
                 DisplayLetter();
                 DisplayWord();
+                UpdateProgress();
             }
             else
             {
@@ -40,6 +40,7 @@ public class SpellingExercise : Exercise
     {
         currentWordIndex = 0; // Reset to the first word
         currentCharIndex = 0; // Reset to the first character
+        UpdateProgress();
     }
 
     // Display the full current word in currentWordText
@@ -71,6 +72,7 @@ public class SpellingExercise : Exercise
         ResetExercise();
         DisplayLetter();
         DisplayWord();
+        UpdateProgress();
     }
     
     public override void Exit()

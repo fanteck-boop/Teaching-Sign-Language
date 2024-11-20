@@ -55,17 +55,12 @@ public class Exercise : MonoBehaviour
     public virtual void DisplayLetter()
     {
         // Get the current word
-        Debug.Log(currentWordIndex);
         string currentWord = words[currentWordIndex];
-        Debug.Log("current word:" + currentWord);
-        Debug.Log("current char index:" + currentCharIndex);
-        Debug.Log("current word length:" + currentWord.Length);
 
         // Display the current character in the word
         if (currentCharIndex < currentWord.Length)
         {
             char currentChar = currentWord[currentCharIndex];
-            Debug.Log("current char:" + currentChar);
             letterDisplay.text = currentChar.ToString();
             currentCharIndex++; // Move to the next character
         }

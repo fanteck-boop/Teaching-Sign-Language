@@ -96,6 +96,7 @@ public class ReadingExercise : Exercise
         currentWordIndex = 0; // Reset to the first letter
         currentCharIndex = 0; // Reset to the first letter
         ResetInputField(); // Clear the input field
+        UpdateProgress();
         animationManager.StopLetterAnimation();
         checkMark.SetActive(false);
         wrongMark.SetActive(false);
