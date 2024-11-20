@@ -16,9 +16,8 @@ public class DictionaryManager : MonoBehaviour
 
     private void Start()
     {
-        // Initially hide the dictionary panel
-        dictionaryPanel.SetActive(false);
-        infoPanel.SetActive(false);
+        dictionaryPanel.SetActive(true);
+        infoPanel.SetActive(true);
 
 
         // Assign OnClick listeners to each letter button
