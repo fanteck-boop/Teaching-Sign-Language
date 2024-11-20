@@ -8,7 +8,7 @@ using TMPro;
 public class DictionaryManager : MonoBehaviour
 {
     public GameObject dictionaryPanel;
-    public GameObject informationPanel;
+    public GameObject infoPanel;
     public VideoPlayer videoPlayer;
     public VideoClip[] letterClips;
     public Button[] letterButtons;
@@ -18,7 +18,8 @@ public class DictionaryManager : MonoBehaviour
     {
         // Initially hide the dictionary panel
         dictionaryPanel.SetActive(false);
-        informationPanel.SetActive(false);
+        infoPanel.SetActive(false);
+
 
         // Assign OnClick listeners to each letter button
         for (int i = 0; i < letterButtons.Length; i++)
@@ -31,12 +32,18 @@ public class DictionaryManager : MonoBehaviour
     // Toggles the visibility of the dictionary panel
     public void ToggleDictionary()
     {
-        dictionaryPanel.SetActive(!dictionaryPanel.activeSelf);
-    }
-
-    public void ToggleInfopage()
-    {
-        informationPanel.SetActive(!informationPanel.activeSelf);
+        Debug.Log("Dictionary Toggle Button Clicked!"); // Debug log for troubleshooting
+        if (dictionaryPanel.activeSelf || infoPanel.activeSelf)
+        {
+            // If any panel is active, hide both
+            dictionaryPanel.SetActive(false);
+            infoPanel.SetActive(false);
+        }
+        else
+        {
+            // If neither is active, open the dictionary panel
+            dictionaryPanel.SetActive(true);
+        }
     }
 
     // Plays the video clip corresponding to the clicked letter
