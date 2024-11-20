@@ -10,6 +10,7 @@ public class PanelSwitcher_Dictionary : MonoBehaviour
 
     public void SwitchPanel()
     {
+        Debug.Log("Button clicked!");
         if (currentPanel != null && nextPanel != null)
         {
             currentPanel.SetActive(false); // Deactivate the current panel
