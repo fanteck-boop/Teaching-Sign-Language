@@ -4,31 +4,24 @@ using UnityEngine;
 
 public class LineCode : MonoBehaviour
 {
-    public LineRenderer lineRenderer;
+
+    LineRenderer lineRenderer;
+
     public Transform origin;
     public Transform destination;
 
+    // Start is called before the first frame update
     void Start()
     {
-        if (lineRenderer == null)
-        {
-            lineRenderer = GetComponent<LineRenderer>();
-        }
-
-        if (lineRenderer != null)
-        {
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 1.0f;
-        }
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
     }
 
+    // Update is called once per frame
     void Update()
     {
-        if (lineRenderer != null && origin != null && destination != null)
-        {
-            lineRenderer.SetPosition(0, origin.position);
-            lineRenderer.SetPosition(1, destination.position);
-
-        }
+        lineRenderer.SetPosition(0, origin.position);
+        lineRenderer.SetPosition(1, destination.position);
     }
 }
