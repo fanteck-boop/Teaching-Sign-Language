@@ -20,6 +20,12 @@ public class AnimationManager : MonoBehaviour
             { 'D', "AnimateD" },
             { 'E', "AnimateE" },
             { 'F', "AnimateF" },
+            { 'G', "AnimateG" },
+            { 'H', "AnimateH" },
+            { 'I', "AnimateI" },
+            { 'K', "AnimateK" },
+            { 'L', "AnimateL" },
+            { 'M', "AnimateM" }
             // Add more letters and corresponding state names here
         };
     }
