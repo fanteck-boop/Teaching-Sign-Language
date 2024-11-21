@@ -79,55 +79,61 @@ public class Exercise : MonoBehaviour
 
     public void ReplayAnimation()
     {
-        animationManager.StopLetterAnimation();
+
+        animationManager.GoToIdle();
+        Debug.Log("1");
         StartCoroutine(PlayLetterSequence());
+        Debug.Log("6");
 
     }
+    
+   protected virtual IEnumerator PlayLetterSequence()
+   {
+       Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
 
-    protected virtual IEnumerator PlayLetterSequence()
-    {
-        Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
-
-        if (isWordAChar == false)
-        {
-            animationManager.GoToIdle();
+       if (isWordAChar == false)
+       {
+           animationManager.GoToIdle();
+            Debug.Log("3");
         }
 
-        // Check if there are words left to animate
-        if (currentWordIndex < words.Count)
-        {
-            string currentWord = words[currentWordIndex]; //Finds the word
-            int currentCharIndexAni = 0;
+       // Check if there are words left to animate
+       if (currentWordIndex < words.Count)
+       {
+           string currentWord = words[currentWordIndex]; //Finds the word
+           int currentCharIndexAni = 0;
 
-            // Iterate using currentCharIndexAni to track each character in the word
-            while (currentCharIndexAni < currentWord.Length)
-            {
-                replayButton.interactable = false;
+           // Iterate using currentCharIndexAni to track each character in the word
+           while (currentCharIndexAni < currentWord.Length)
+           {
+               replayButton.interactable = false;
+                Debug.Log("4");
                 char currentChar = currentWord[currentCharIndexAni];  // Corrected to use currentCharIndexAni
 
-                // Play the animation for the current character using the index
-                yield return StartCoroutine(animationManager.PlayLetterAnimation(currentChar));
+               // Play the animation for the current character using the index
+               yield return StartCoroutine(animationManager.PlayLetterAnimation(currentChar));
 
-                // Increment the character index to move to the next character
-                currentCharIndexAni++;
-               
-            }
-            replayButton.interactable = true;
+               // Increment the character index to move to the next character
+               currentCharIndexAni++;
+
+           }
+           replayButton.interactable = true;
+            Debug.Log("5");
             if (words[currentWordIndex].Length > 1)
-            {
-                isWordAChar = false;
-            }
-            else
-            {
-                isWordAChar = true;
-            }
-        }
-        else
-        {
-            Debug.LogError($"currentWordIndex {currentWordIndex} is out of bounds for the words list (count: {words.Count}).");
-        }
-    }
-
+           {
+               isWordAChar = false;
+           }
+           else
+           {
+               isWordAChar = true;
+           }
+       }
+       else
+       {
+           Debug.LogError($"currentWordIndex {currentWordIndex} is out of bounds for the words list (count: {words.Count}).");
+       }
+   }
+    
 
     public virtual void CompleteExercise()
     {
@@ -163,9 +169,13 @@ public class Exercise : MonoBehaviour
     public virtual void ResetExercise()
     {
         currentWordIndex = 0; // Index of the current word in the list
+        Debug.Log(currentWordIndex);
         currentCharIndex = 0;
+        Debug.Log(currentCharIndex);
         UpdateProgress();
         animationManager.StopLetterAnimation();
+  
+
     }
 
     public virtual void StartExercise()
@@ -173,6 +183,7 @@ public class Exercise : MonoBehaviour
         // Hide the start panel and show the exercise panel
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
+        animationManager.ResetAnimationState();
         PlayHandAnimation();
         DisplayLetter();
         UpdateProgress();
@@ -199,7 +210,7 @@ public class Exercise : MonoBehaviour
         // Now hide the exercise panel and reset the UI.
         exercisePanel.SetActive(false);
         startPanel.SetActive(true);
-        exercise.SetActive(false);
+        //exercise.SetActive(false);
 
         // Navigate back to the level menu
         navManager.ToggleLevelMenu();

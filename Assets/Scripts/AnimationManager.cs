@@ -30,6 +30,52 @@ public class AnimationManager : MonoBehaviour
         };
     }
 
+    private bool cancelAnimation = false;
+
+    public IEnumerator PlayLetterAnimation(char letter)
+    {
+        letter = char.ToUpper(letter); // Ensure the letter is uppercase
+
+        // Check if a valid animation exists for the letter
+        if (letterAnimations.TryGetValue(letter, out string stateName))
+        {
+            // Play the animation state
+            handAnimator.CrossFade(stateName, crossFadeTime);
+
+            // Wait for the display duration, but allow cancellation
+            float timer = 0;
+            while (timer < displayDuration)
+            {
+                if (cancelAnimation)
+                {
+                    yield break; // Stop immediately if canceled
+                }
+                timer += Time.deltaTime;
+                yield return null;
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"No animation found for letter: {letter}");
+        }
+    }
+
+    // Function to cancel animations and reset to Idle
+    public void StopLetterAnimation()
+    {
+        cancelAnimation = true; // Set the cancel flag to true
+        StopAllCoroutines(); // Stop all coroutines
+        handAnimator.Play("Idle"); // Transition to Idle immediately
+        Debug.Log("Hand animation stopped");
+    }
+
+    // Reset the cancel flag when starting a new animation sequence
+    public void ResetAnimationState()
+    {
+        cancelAnimation = false;
+    }
+
+    /*
     // Coroutine to play a letter animation (based on the state name)
     public IEnumerator PlayLetterAnimation(char letter)
     {
@@ -49,14 +95,15 @@ public class AnimationManager : MonoBehaviour
     }
 
     // Optional: Stop the letter animation and reset to a neutral pose (idle pose)
-    public void StopLetterAnimation()
+
+    */
+    public void ReplayAnimation()
     {
-        Debug.Log("All coroutines stopped");
         // Crossfade to the idle state
-        handAnimator.Play("Idle"); // Transition to idle
+        GoToIdle();
         Debug.Log("Hand animation stopped");
     }
-
+    
     public void GoToIdle()
     {
         handAnimator.CrossFade("Idle", crossFadeTime); // Transition to idle
