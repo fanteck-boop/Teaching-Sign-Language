@@ -2470,7 +2470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7684415999057751783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3125,7 +3125,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 89dee868113144666ba030c10e38fa3f, type: 3}
+  m_Texture: {fileID: 2800000, guid: 5c38da73740124067bc91fe736a36aca, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -3503,7 +3503,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6260051111738356472
 RectTransform:
   m_ObjectHideFlags: 0
