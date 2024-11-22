@@ -7427,7 +7427,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -7491,9 +7491,9 @@ MonoBehaviour:
   - {fileID: 32900000, guid: 56f65f9110908ad42b273aaae058a48d, type: 3}
   - {fileID: 32900000, guid: c35982e751aac8040912329c90182c8d, type: 3}
   - {fileID: 32900000, guid: d075b8f1e6d6f394cb39a4ce1c39e2e8, type: 3}
-  - {fileID: 32900000, guid: 46b45cc68ec10cd429f14cc0f111e993, type: 3}
   - {fileID: 32900000, guid: f8bac9a4f3160b9468bf9c31bea7f2bc, type: 3}
   - {fileID: 32900000, guid: 628f5a3001ce9d74faf5fe9cb7dfc583, type: 3}
+  - {fileID: 32900000, guid: 46b45cc68ec10cd429f14cc0f111e993, type: 3}
   letterButtons:
   - {fileID: 6860659148049790761}
   - {fileID: 1673767246125377458}

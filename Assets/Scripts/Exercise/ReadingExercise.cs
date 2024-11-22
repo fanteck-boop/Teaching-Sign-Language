@@ -115,7 +115,7 @@ public class ReadingExercise : Exercise
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
         ResetInputField();
-        animationManager.ResetAnimationState();
+        //animationManager.ResetAnimationState();
         PlayHandAnimation();
         UpdateProgress();
 
