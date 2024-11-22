@@ -30,29 +30,34 @@ public class AnimationManager : MonoBehaviour
         };
     }
 
-    private bool cancelAnimation = false;
+    //private bool cancelAnimation = false;
 
     public IEnumerator PlayLetterAnimation(char letter)
     {
+        //Debug.Log(cancelAnimation);
         letter = char.ToUpper(letter); // Ensure the letter is uppercase
+
+        yield return new WaitForSeconds(displayDuration);
 
         // Check if a valid animation exists for the letter
         if (letterAnimations.TryGetValue(letter, out string stateName))
         {
+            Debug.Log(stateName);
             // Play the animation state
             handAnimator.CrossFade(stateName, crossFadeTime);
 
-            // Wait for the display duration, but allow cancellation
-            float timer = 0;
-            while (timer < displayDuration)
+            // Wait for the animation to play completely
+            /*float elapsedTime = 0f;
+            while (elapsedTime < displayDuration)
             {
                 if (cancelAnimation)
                 {
-                    yield break; // Stop immediately if canceled
+                    Debug.Log("Animation cancelled.");
+                    yield break;
                 }
-                timer += Time.deltaTime;
+                elapsedTime += Time.deltaTime;
                 yield return null;
-            }
+            }*/
         }
         else
         {
@@ -63,21 +68,21 @@ public class AnimationManager : MonoBehaviour
     // Function to cancel animations and reset to Idle
     public void StopLetterAnimation()
     {
-        cancelAnimation = true; // Set the cancel flag to true
-        StopAllCoroutines(); // Stop all coroutines
-        handAnimator.Play("Idle"); // Transition to Idle immediately
-        Debug.Log("Hand animation stopped");
+        //cancelAnimation = true;
+        handAnimator.Play("Idle"); // Transition to idle smoothly
+        //cancelAnimation = false;
+        Debug.Log("Hand animation stopped and reset to idle");
     }
 
     // Reset the cancel flag when starting a new animation sequence
-    public void ResetAnimationState()
+    /*public void ResetAnimationState()
     {
         cancelAnimation = false;
     }
 
-    /*
+    
     // Coroutine to play a letter animation (based on the state name)
-    public IEnumerator PlayLetterAnimation(char letter)
+    public IEnumerator RePlayLetterAnimation(char letter)
     {
         letter = char.ToUpper(letter); // Ensure the letter is uppercase
         yield return new WaitForSeconds(displayDuration);
@@ -96,13 +101,12 @@ public class AnimationManager : MonoBehaviour
 
     // Optional: Stop the letter animation and reset to a neutral pose (idle pose)
 
-    */
+    
     public void ReplayAnimation()
     {
-        // Crossfade to the idle state
         GoToIdle();
         Debug.Log("Hand animation stopped");
-    }
+    }*/
     
     public void GoToIdle()
     {
