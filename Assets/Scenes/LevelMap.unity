@@ -31393,6 +31393,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.5921569
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.7294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.9254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6824701857419203826, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
       propertyPath: m_Name
       value: Hand cam
