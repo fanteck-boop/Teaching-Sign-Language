@@ -87,5 +87,6 @@ public class SpellingExercise : Exercise
 
         // Navigate back to the level menu
         navManager.ToggleLevelMenu();
+        
     }
 }

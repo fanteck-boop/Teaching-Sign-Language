@@ -481,6 +481,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1699064423}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &22362166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2450,11 +2462,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!4 &121465756 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4123204532296083913, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
-  m_PrefabInstance: {fileID: 2093906324}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &121544783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,6 +2717,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1699064423}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &138029191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2938,6 +2957,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: handcam
+      value: 
+      objectReference: {fileID: 1699064423}
     - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
       propertyPath: checkMark
       value: 
@@ -3441,6 +3464,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1699064423}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &185391532
 MonoBehaviour:
@@ -6037,6 +6072,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHand with cam
       objectReference: {fileID: 0}
+    - target: {fileID: 5505380847350251161, guid: d74c4e8b821478549824fa5d1f0fc927, type: 3}
+      propertyPath: handModel
+      value: 
+      objectReference: {fileID: 1848180000}
+    - target: {fileID: 5505380847350251161, guid: d74c4e8b821478549824fa5d1f0fc927, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1699064424}
     - target: {fileID: 7154155048010795372, guid: d74c4e8b821478549824fa5d1f0fc927, type: 3}
       propertyPath: m_LocalPosition.x
       value: -985.04
@@ -7152,6 +7195,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1699064423}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &459333599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7487,7 +7542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &477974561
 Transform:
   m_ObjectHideFlags: 0
@@ -12219,6 +12274,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1699064423}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &860998227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14890,6 +14957,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: handcam
+      value: 
+      objectReference: {fileID: 1699064423}
     - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
       propertyPath: checkMark
       value: 
@@ -21353,6 +21424,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: handcam
+      value: 
+      objectReference: {fileID: 1699064423}
+    - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
       propertyPath: checkMark
       value: 
       objectReference: {fileID: 1479220897}
@@ -23107,6 +23182,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1699064423}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1630958107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24850,6 +24937,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1699064423}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &1690759543 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7394016484953281822, guid: 281716615add740a1a8c2bf250aa8c5d, type: 3}
@@ -24949,6 +25048,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1699064423 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6824701857419203826, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+  m_PrefabInstance: {fileID: 2093906324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1699064424 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4565509880156970856, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
+  m_PrefabInstance: {fileID: 2093906324}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1700554772
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25125,6 +25234,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
+      propertyPath: handcam
+      value: 
+      objectReference: {fileID: 1699064423}
     - target: {fileID: 9168499007169528952, guid: c5b998d2adb994631bb56928a5c0c65a, type: 3}
       propertyPath: checkMark
       value: 
@@ -25484,7 +25597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1720933211
 Transform:
   m_ObjectHideFlags: 0
@@ -28052,6 +28165,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0.1000061, y: 2.5999985}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1848180000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7287887190791160431, guid: d74c4e8b821478549824fa5d1f0fc927, type: 3}
+  m_PrefabInstance: {fileID: 333472723}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1852215648
 GameObject:
   m_ObjectHideFlags: 0
@@ -31351,19 +31469,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1853375461}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4123204532296083913, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5
+      value: 989.5
       objectReference: {fileID: 0}
     - target: {fileID: 4123204532296083913, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.7
+      value: 661.3
       objectReference: {fileID: 0}
     - target: {fileID: 4123204532296083913, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.07
+      value: -85.84988
       objectReference: {fileID: 0}
     - target: {fileID: 4123204532296083913, guid: fd35d42ddad7c54479266a641af0392c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -32365,7 +32483,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a7f86cca1810a4934807c72b2377cb9c, type: 3}
     - target: {fileID: 838435107552294703, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 968781243224750877, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -32413,7 +32531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2495621615279641187, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2653701083420714757, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_Camera
@@ -32421,7 +32539,7 @@ PrefabInstance:
       objectReference: {fileID: 1279169653}
     - target: {fileID: 2730778324865915587, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2769416971982730887, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -32517,7 +32635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4297576306633949456, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4409688423880651120, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_Camera
@@ -32665,7 +32783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5887091409178008932, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6301413993143639384, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_LocalScale.x
@@ -32735,6 +32853,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6352662689841032744, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
+      propertyPath: handcam
+      value: 
+      objectReference: {fileID: 1699064423}
     - target: {fileID: 6352662689841032744, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: navManager
       value: 
@@ -32829,7 +32951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7348687799153612585, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7369340373097997057, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: m_IsActive
@@ -32988,6 +33110,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8154246393196923748, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
+      propertyPath: handcam
+      value: 
+      objectReference: {fileID: 1699064423}
+    - target: {fileID: 8154246393196923748, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: navManager
       value: 
       objectReference: {fileID: 665017161}
@@ -33023,6 +33149,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
+    - target: {fileID: 8533799215644328900, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
+      propertyPath: handcam
+      value: 
+      objectReference: {fileID: 1699064423}
     - target: {fileID: 8533799215644328900, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       propertyPath: navManager
       value: 
@@ -33115,9 +33245,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 259571085141972426, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       insertIndex: 2
       addedObject: {fileID: 182028411}
-    - targetCorrespondingSourceObject: {fileID: 259571085141972426, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 121465756}
     - targetCorrespondingSourceObject: {fileID: 3241692185075340441, guid: c305c4a6060314feca2ec7d4cf34466d, type: 3}
       insertIndex: 2
       addedObject: {fileID: 110106074}
@@ -33322,6 +33449,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1693314322}
+  - {fileID: 2093906324}
   - {fileID: 333472723}
   - {fileID: 1279169651}
   - {fileID: 1088494089}

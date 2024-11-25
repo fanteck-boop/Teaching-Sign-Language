@@ -192,7 +192,7 @@ public class Exercise : MonoBehaviour
         StartCoroutine(ExitExercise());
     }
 
-    public IEnumerator ExitExercise()
+    public virtual IEnumerator ExitExercise()
     {
         // Start the reset process
         ResetExercise();

@@ -24,6 +24,7 @@ public class ReadingExercise : Exercise
 
     //Loading mechanics
     [SerializeField] private GameObject loadingIcon;
+    public GameObject handcam;
 
 
 
@@ -199,6 +200,48 @@ public class ReadingExercise : Exercise
         else
         {
             Debug.LogError($"currentWordIndex {currentWordIndex} is out of bounds for the words list (count: {words.Count}).");
+        }
+    }
+
+    public override IEnumerator ExitExercise()
+    {
+        // Start the reset process
+        ResetExercise();
+
+        // Optionally, wait for a frame to ensure the reset is processed, or for the animator to reset.
+        //yield return new WaitForSeconds(0.5f);
+        yield return new WaitForEndOfFrame();
+
+        // Now hide the exercise panel and reset the UI.
+        exercisePanel.SetActive(false);
+        startPanel.SetActive(true);
+        exercise.SetActive(false);
+
+        handcam.SetActive(true);
+
+        // Navigate back to the level menu
+        navManager.ToggleLevelMenu();
+    }
+
+    public override void CompleteExercise()
+    {
+        // Check if the exerciseObject is active
+        if (completedPanel.activeSelf)
+        {
+            if (isCompleted == false)
+            {
+                isCompleted = true;
+                associatedLock.AddCompletedExercises();
+                associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
+            }
+            // Hide the completion panel and the exercise, and go back to the level menu
+            //ResetExercise();
+            completedPanel.SetActive(false);
+            exercisePanel.SetActive(false);
+            startPanel.SetActive(true);
+            exercise.SetActive(false);
+            handcam.SetActive(true);
+            navManager.ToggleLevelMenu();
         }
     }
 
