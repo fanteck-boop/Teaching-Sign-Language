@@ -6,18 +6,14 @@ using TMPro; // For TextMeshPro UI components
 
 public class IntroductionExercise : Exercise
 {
-    //Done for now
-    public void Start()
-    {
-        OrderPanels();
-    }
-
     public override void CheckInput()
     {
         //Logic for checking input
         DisplayLetter();
         if (wordCompleted == true)
         {
+            isCorrect = true;
+            ShowFeedback(isCorrect);
             UpdateWord(); //Updates index to go to the next word in the word list
 
             if (currentWordIndex < words.Count)

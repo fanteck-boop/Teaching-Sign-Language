@@ -14,14 +14,6 @@ public class ReadingExercise : Exercise
     [SerializeField] private Button checkAnswerButton; // Button to submit the input
     [SerializeField] private TextMeshProUGUI placeholder; // UI element for placeholder text
 
-    //Correct wrong logic
-    [SerializeField] private GameObject checkMark;
-    [SerializeField] private GameObject wrongMark;
-    [SerializeField] private AudioClip correctSound; // Sound for correct answer
-    [SerializeField] private AudioClip wrongSound; // Sound for incorrect answer
-    [SerializeField] private float feedbackDuration = 1.5f; // Duration for showing feedback
-    [SerializeField] private AudioSource audioSource;
-
     //Loading mechanics
     [SerializeField] private GameObject loadingIcon;
     public GameObject handcam;
@@ -30,16 +22,6 @@ public class ReadingExercise : Exercise
 
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
-
-    //Bool
-    private bool isCorrect;
-
-    public void Start()
-    {
-        OrderPanels();
-        checkMark.SetActive(false);
-        wrongMark.SetActive(false);
-    }
 
     private void Update()
     {
@@ -116,42 +98,9 @@ public class ReadingExercise : Exercise
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
         ResetInputField();
-        //animationManager.ResetAnimationState();
         PlayHandAnimation();
         UpdateProgress();
 
-    }
-
-    public void ShowFeedback(bool isCorrect)
-    {
-        StartCoroutine(ShowFeedbackCoroutine(isCorrect));
-    }
-
-    private IEnumerator ShowFeedbackCoroutine(bool isCorrect)
-    {
-        // First, deactivate both marks to reset any previous feedback
-        checkMark.SetActive(false);
-        wrongMark.SetActive(false);
-
-
-        if (isCorrect == true)
-        {
-            checkMark.SetActive(true);
-            audioSource.clip = correctSound;
-            audioSource.Play();
-        }
-        else if (isCorrect == false)
-        {
-            wrongMark.SetActive(true);
-            audioSource.clip = wrongSound;
-            audioSource.Play();
-        }
-
-        yield return new WaitForSeconds(feedbackDuration);
-
-        checkMark.SetActive(false);
-        wrongMark.SetActive(false);
-        isCorrect = false;
     }
 
     protected override IEnumerator PlayLetterSequence()

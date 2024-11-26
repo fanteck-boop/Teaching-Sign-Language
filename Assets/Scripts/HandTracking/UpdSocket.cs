@@ -20,7 +20,7 @@ public class UdpSocket : MonoBehaviour
     Thread receiveThread; // Receiving Thread
 
     float[] landmarks;
-    int handSignID;
+    public int handSignID;
     public float[] GetLandmarks()
     {
         return landmarks;
@@ -83,12 +83,12 @@ public class UdpSocket : MonoBehaviour
     private void ProcessInput(float[] landmarks, int handSignID)
     {
         // Print the landmarks and hand sign ID to the console
-        Debug.Log("Received Landmarks:");
+        //Debug.Log("Received Landmarks:");
         for (int i = 0; i < landmarks.Length; i += 2)
         {
-            Debug.Log($"Landmark {i / 2}: X={landmarks[i]}, Y={landmarks[i + 1]}");
+            //Debug.Log($"Landmark {i / 2}: X={landmarks[i]}, Y={landmarks[i + 1]}");
         }
-        Debug.Log("Hand Sign ID: " + handSignID);
+        //Debug.Log("Hand Sign ID: " + handSignID);
 
         // You can now use these values for further processing, such as:
         // - Visualizing landmarks in Unity
