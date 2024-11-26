@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "I \nintro-opgaverne vil \"navn\" vise dig et tegn for et bogstav og fort\xE6lle,
+  m_text: "I \nintro-opgaverne vil Alfie vise dig et tegn for et bogstav og fort\xE6lle,
     hvilket bogstav det er. Derefter skal du selv pr\xF8ve at lave tegnet. N\xE5r
     du laver det rigtige tegn, bliver du vist det n\xE6ste bogstav. "
   m_isRightToLeft: 0
@@ -10930,7 +10930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8453468662719953211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11155,10 +11155,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "I l\xE6se-opgaverne \nvil \"navn\" vise dig \nen r\xE6kke tegn uden at
-    fort\xE6lle, hvilke bogstaver det er. N\xE5r \"navn\" er f\xE6rdig med at tegne,
-    skal du skrive i det hvide felt, hvilke bogstaver du tror, der blev tegnet. Hvis
-    du l\xE6ser rigtigt, g\xE5r \"navn\" videre til det n\xE6ste ord."
+  m_text: "I l\xE6se-opgaverne \nvil Alfie vise dig \nen r\xE6kke tegn uden at fort\xE6lle,
+    hvilke bogstaver det er. N\xE5r Alfie er f\xE6rdig med at tegne, skal du skrive
+    i det hvide felt, hvilke bogstaver du tror, der blev tegnet. Hvis du l\xE6ser
+    rigtigt, g\xE5r Alfie videre til det n\xE6ste ord."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a761dd67545684b2b92fbace8951070b, type: 2}
   m_sharedMaterial: {fileID: -584055247241080723, guid: a761dd67545684b2b92fbace8951070b, type: 2}
@@ -11242,7 +11242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &885758802196886795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12728,11 +12728,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "I \nstave-opgaverne \nvil \"navn\" holde et \nskilt med en r\xE6kke bogstaver.
-    Din opgave \ner at stave ordet ved at lave de tegn, som \"navn\" beder dig om.
-    N\xE5r du laver det rigtige tegn for et bogstav, g\xE5r \"navn\" videre til det
-    n\xE6ste. Dette forts\xE6tter, indtil du har stavet hele ordet, hvorefter \"navn\"
-    \nviser dig et nyt \nord at stave."
+  m_text: "I \nstave-opgaverne \nvil Alfie holde et \nskilt med en r\xE6kke bogstaver.
+    Din opgave \ner at stave ordet ved at lave de tegn, som Alfie beder dig om. N\xE5r
+    du laver det rigtige tegn for et bogstav, g\xE5r Alfie videre til det n\xE6ste.
+    Dette forts\xE6tter, indtil du har stavet hele ordet, hvorefter Alfie \nviser
+    dig et nyt \nord at stave."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a761dd67545684b2b92fbace8951070b, type: 2}
   m_sharedMaterial: {fileID: -584055247241080723, guid: a761dd67545684b2b92fbace8951070b, type: 2}

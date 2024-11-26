@@ -4465,7 +4465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "De fleste \nbogstaver i det danske tegnsprog \ner statiske. N\xE5r \"navn\"
+  m_text: "De fleste \nbogstaver i det danske tegnsprog \ner statiske. N\xE5r Alfie
     viser dig dem, vil de dog blive vist i bev\xE6gelse for at demonstrere, hvordan
     tegnene udf\xF8res i praksis."
   m_isRightToLeft: 0
@@ -6636,7 +6636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &289183693876210151
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9270,8 +9270,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Dette er \"Navn\". \nDe vil guide dig i \nat l\xE6re det danske tegnsprogsalfabet.
-    Gennem forskellige opgaver vil \"navn\" vise dig, hvordan du udf\xF8rer de enkelte
+  m_text: "Dette er Alfie. \nDe vil guide dig i \nat l\xE6re det danske tegnsprogsalfabet.
+    Gennem forskellige opgaver vil Alfie vise dig, hvordan du udf\xF8rer de enkelte
     tegn, og hj\xE6lpe \ndig med at \xF8ve og huske dem."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a761dd67545684b2b92fbace8951070b, type: 2}

@@ -3596,7 +3596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8623015051158591192, guid: 281716615add740a1a8c2bf250aa8c5d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3611,14 +3611,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1319755734}
     m_Modifications:
-    - target: {fileID: 751538373814699937, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2996933638646047231, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3326771698634039773, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
       propertyPath: m_Name
       value: TutorialPanelStart
@@ -3626,18 +3618,6 @@ PrefabInstance:
     - target: {fileID: 3326771698634039773, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5035564516420636447, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5643960670626748928, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6042560896449619729, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6042769514540745385, guid: 7adc13564d1524f00b5347cf22949152, type: 3}
       propertyPath: m_Pivot.x
