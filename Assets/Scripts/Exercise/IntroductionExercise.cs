@@ -6,41 +6,91 @@ using TMPro; // For TextMeshPro UI components
 
 public class IntroductionExercise : Exercise
 {
-    //Done for now
-    public void Start()
+    private float timer = 0f; // Timer to track how long the correct hand sign is held
+    private const float holdTime = 1f; // Time required to hold the correct sign
+
+    public void LateUpdate()
     {
-        OrderPanels();
+        CheckInput();
     }
 
     public override void CheckInput()
     {
-        //Logic for checking input
-        DisplayLetter();
-        if (wordCompleted == true)
-        {
-            UpdateWord(); //Updates index to go to the next word in the word list
+        Debug.Log("Checks input");
+        // Ensure the UDP socket is set up and has a valid HandID
 
-            if (currentWordIndex < words.Count)
+        Debug.Log("UPD Socket handSign is " + udpSocket.handSignID);
+        if (udpSocket != null && udpSocket.handSignID > -1)
+        {
+            string currentWord = words[currentWordIndex];
+
+            Debug.Log(currentWord[currentCharIndex]);
+
+            int currentHandID = ConvertCharToInt(currentWord[currentCharIndex]);
+
+            Debug.Log("The correct handsign is " + currentHandID);
+
+            if (currentHandID == udpSocket.handSignID)
             {
-                // Display the letter for the next word
-                DisplayLetter();
-                UpdateProgress();
-                PlayHandAnimation(); //Plays the animations for that word.
+                Debug.Log("Hand sign matches");
+
+                timer += Time.deltaTime;
+
+                if (timer >= holdTime)
+                {
+                    Debug.Log("Holdtime reached");
+
+                    if (wordCompleted == true)
+                    {
+                        currentCharIndex++;
+                        isCorrect = true;
+                        ShowFeedback(isCorrect);
+                        UpdateWord(); //Updates wordIndex and sets wordCompleted = false;
+
+                        if (currentWordIndex < words.Count)
+                        {
+                            // Display the letter for the next word
+                            DisplayLetter();
+                            UpdateProgress();
+                            PlayHandAnimation();
+                        }
+                        else
+                        {
+                            GoToCompletionPanel();
+                            return; // Exit the function as there are no more words to process
+                        }
+                    }
+                    else
+                    {
+                        currentCharIndex++;
+                        isCorrect = true;
+                        ShowFeedback(isCorrect);
+                        Debug.Log("currentCharIndex updated to :" + currentCharIndex);
+                        DisplayLetter();
+                        PlayHandAnimation();
+                        UpdateProgress();
+                        Debug.Log("Letter displayed");
+                    }
+
+                    // Reset the timer after successful processing
+                    timer = 0f;
+                }
+
             }
             else
             {
-                // No more words left, mark the exercise as complete
-                GoToCompletionPanel();
-                return; // Exit the function as there are no more words to process
+                // Reset the timer if the hand sign is incorrect
+                timer = 0f;
             }
         }
+        else
+        {
+            // Reset the timer if there's no valid input
+            timer = 0f;
+        }
     }
-
     public override void GoToCompletionPanel()
     {
-        // Start the reset process
-        //ResetExercise();
-
         exercisePanel.SetActive(false);
         completedPanel.SetActive(true);
     }
@@ -72,6 +122,21 @@ public class IntroductionExercise : Exercise
             exercise.SetActive(false);
             navManager.ToggleLevelMenu();
         }
+    }
+
+    public int ConvertCharToInt(char currentCharacter)
+    {
+        // Ensure the character is in lowercase for uniformity
+        char lowerChar = char.ToLower(currentCharacter);
+
+        // Check if the character is between 'a' and 'z'
+        if (lowerChar >= 'a' && lowerChar <= 'z')
+        {
+            return lowerChar - 'a'; //Subtract 'a''s ASCII value from the given character's ASCII value to get the index.
+        }
+
+        // Return -1 if the character is not a valid letter
+        return -1;
     }
 
 

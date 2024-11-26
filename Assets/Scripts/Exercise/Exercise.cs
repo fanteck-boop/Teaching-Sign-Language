@@ -9,6 +9,8 @@ public class Exercise : MonoBehaviour
     //Managers
     [SerializeField] protected NavigationManager navManager;
     [SerializeField] protected AnimationManager animationManager;
+    [SerializeField] protected UdpSocket udpSocket;
+
 
     //Word variables
     [SerializeField] protected List<string> words; // List of letters
@@ -38,6 +40,21 @@ public class Exercise : MonoBehaviour
     protected bool isWordAChar = true;
     protected bool wordCompleted = false;
 
+    //Correct wrong logic
+    [SerializeField] protected GameObject checkMark;
+    [SerializeField] protected GameObject wrongMark;
+    [SerializeField] private AudioClip correctSound; // Sound for correct answer
+    [SerializeField] private AudioClip wrongSound; // Sound for incorrect answer
+    [SerializeField] private float feedbackDuration = 1.5f; // Duration for showing feedback
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] protected bool isCorrect;
+
+    public void Start()
+    { 
+        OrderPanels();
+        checkMark.SetActive(false);
+        wrongMark.SetActive(false);
+    }
     public void OrderPanels()
     {
         // Assign UI elements by finding them in the scene
@@ -58,16 +75,18 @@ public class Exercise : MonoBehaviour
         string currentWord = words[currentWordIndex];
 
         // Display the current character in the word
-        if (currentCharIndex < currentWord.Length)
+        Debug.Log("CurrentCharIndex:" + currentCharIndex);
+        Debug.Log("Current word lentgh:" + currentWord.Length);
+        if (currentCharIndex < currentWord.Length-1)
         {
             char currentChar = currentWord[currentCharIndex];
             letterDisplay.text = currentChar.ToString();
-            currentCharIndex++; // Move to the next character
         }
         else
         {
             wordCompleted = true;
-            currentCharIndex = 0;
+            char currentChar = currentWord[currentCharIndex];
+            letterDisplay.text = currentChar.ToString();
         }
 
     }
@@ -80,7 +99,6 @@ public class Exercise : MonoBehaviour
     public void ReplayAnimation()
     {
         animationManager.StopLetterAnimation();
-        //animationManager.ResetAnimationState();
         StartCoroutine(PlayLetterSequence());
     }
     
@@ -154,6 +172,7 @@ public class Exercise : MonoBehaviour
     public void UpdateWord()
     {
         currentWordIndex++;
+        currentCharIndex = 0;
         wordCompleted = false;
     }
 
@@ -213,6 +232,38 @@ public class Exercise : MonoBehaviour
     public void UpdateProgress()
     {
         progressText.text = $"Opgave {currentWordIndex + 1} / {words.Count}";
+    }
+
+    public void ShowFeedback(bool isCorrect)
+    {
+        StartCoroutine(ShowFeedbackCoroutine(isCorrect));
+    }
+
+    private IEnumerator ShowFeedbackCoroutine(bool isCorrect)
+    {
+        // First, deactivate both marks to reset any previous feedback
+        checkMark.SetActive(false);
+        wrongMark.SetActive(false);
+
+
+        if (isCorrect == true)
+        {
+            checkMark.SetActive(true);
+            audioSource.clip = correctSound;
+            audioSource.Play();
+        }
+        else if (isCorrect == false)
+        {
+            wrongMark.SetActive(true);
+            audioSource.clip = wrongSound;
+            audioSource.Play();
+        }
+
+        yield return new WaitForSeconds(feedbackDuration);
+
+        checkMark.SetActive(false);
+        wrongMark.SetActive(false);
+        this.isCorrect = false;
     }
 
 
