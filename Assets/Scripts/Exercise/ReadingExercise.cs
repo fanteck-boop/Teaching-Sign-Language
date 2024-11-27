@@ -14,31 +14,14 @@ public class ReadingExercise : Exercise
     [SerializeField] private Button checkAnswerButton; // Button to submit the input
     [SerializeField] private TextMeshProUGUI placeholder; // UI element for placeholder text
 
-    //Correct wrong logic
-    [SerializeField] private GameObject checkMark;
-    [SerializeField] private GameObject wrongMark;
-    [SerializeField] private AudioClip correctSound; // Sound for correct answer
-    [SerializeField] private AudioClip wrongSound; // Sound for incorrect answer
-    [SerializeField] private float feedbackDuration = 1.5f; // Duration for showing feedback
-    [SerializeField] private AudioSource audioSource;
-
     //Loading mechanics
     [SerializeField] private GameObject loadingIcon;
+    public GameObject handcam;
 
 
 
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
-
-    //Bool
-    private bool isCorrect;
-
-    public void Start()
-    {
-        OrderPanels();
-        checkMark.SetActive(false);
-        wrongMark.SetActive(false);
-    }
 
     private void Update()
     {
@@ -115,42 +98,9 @@ public class ReadingExercise : Exercise
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
         ResetInputField();
-        //animationManager.ResetAnimationState();
         PlayHandAnimation();
         UpdateProgress();
 
-    }
-
-    public void ShowFeedback(bool isCorrect)
-    {
-        StartCoroutine(ShowFeedbackCoroutine(isCorrect));
-    }
-
-    private IEnumerator ShowFeedbackCoroutine(bool isCorrect)
-    {
-        // First, deactivate both marks to reset any previous feedback
-        checkMark.SetActive(false);
-        wrongMark.SetActive(false);
-
-
-        if (isCorrect == true)
-        {
-            checkMark.SetActive(true);
-            audioSource.clip = correctSound;
-            audioSource.Play();
-        }
-        else if (isCorrect == false)
-        {
-            wrongMark.SetActive(true);
-            audioSource.clip = wrongSound;
-            audioSource.Play();
-        }
-
-        yield return new WaitForSeconds(feedbackDuration);
-
-        checkMark.SetActive(false);
-        wrongMark.SetActive(false);
-        isCorrect = false;
     }
 
     protected override IEnumerator PlayLetterSequence()
@@ -199,6 +149,48 @@ public class ReadingExercise : Exercise
         else
         {
             Debug.LogError($"currentWordIndex {currentWordIndex} is out of bounds for the words list (count: {words.Count}).");
+        }
+    }
+
+    public override IEnumerator ExitExercise()
+    {
+        // Start the reset process
+        ResetExercise();
+
+        // Optionally, wait for a frame to ensure the reset is processed, or for the animator to reset.
+        //yield return new WaitForSeconds(0.5f);
+        yield return new WaitForEndOfFrame();
+
+        // Now hide the exercise panel and reset the UI.
+        exercisePanel.SetActive(false);
+        startPanel.SetActive(true);
+        exercise.SetActive(false);
+
+        handcam.SetActive(true);
+
+        // Navigate back to the level menu
+        navManager.ToggleLevelMenu();
+    }
+
+    public override void CompleteExercise()
+    {
+        // Check if the exerciseObject is active
+        if (completedPanel.activeSelf)
+        {
+            if (isCompleted == false)
+            {
+                isCompleted = true;
+                associatedLock.AddCompletedExercises();
+                associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
+            }
+            // Hide the completion panel and the exercise, and go back to the level menu
+            //ResetExercise();
+            completedPanel.SetActive(false);
+            exercisePanel.SetActive(false);
+            startPanel.SetActive(true);
+            exercise.SetActive(false);
+            handcam.SetActive(true);
+            navManager.ToggleLevelMenu();
         }
     }
 
