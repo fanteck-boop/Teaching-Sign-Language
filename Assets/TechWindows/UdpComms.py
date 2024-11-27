@@ -1,13 +1,8 @@
-# Created by Youssef Elashry to allow two-way communication between Python3 and Unity to send and receive strings
+import socket
+import threading
 
-# Feel free to use this in your individual or commercial projects BUT make sure to reference me as: Two-way communication between Python 3 and Unity (C#) - Y. T. Elashry
-# It would be appreciated if you send me how you have used this in your projects (e.g. Machine Learning) at youssef.elashry@gmail.com
-
-# Use at your own risk
-# Use under the Apache License 2.0
-
-class UdpComms():
-    def __init__(self,udpIP,portTX,portRX,enableRX=False,suppressWarnings=True):
+class UdpComms:
+    def __init__(self, udpIP, portTX, portRX, enableRX=False, suppressWarnings=True):
         """
         Constructor
         :param udpIP: Must be string e.g. "127.0.0.1"
@@ -17,24 +12,21 @@ class UdpComms():
         :param suppressWarnings: Stop printing warnings if not connected to other application
         """
 
-        import socket
-
         self.udpIP = udpIP
         self.udpSendPort = portTX
         self.udpRcvPort = portRX
         self.enableRX = enableRX
-        self.suppressWarnings = suppressWarnings # when true warnings are suppressed
+        self.suppressWarnings = suppressWarnings  # when true warnings are suppressed
         self.isDataReceived = False
         self.dataRX = None
 
         # Connect via UDP
-        self.udpSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # internet protocol, udp (DGRAM) socket
-        self.udpSock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # allows the address/port to be reused immediately instead of it being stuck in the TIME_WAIT state waiting for late packets to arrive.
+        self.udpSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # internet protocol, udp (DGRAM) socket
+        self.udpSock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # allows the address/port to be reused immediately instead of it being stuck in the TIME_WAIT state waiting for late packets to arrive.
         self.udpSock.bind((udpIP, portRX))
 
         # Create Receiving thread if required
         if enableRX:
-            import threading
             self.rxThread = threading.Thread(target=self.ReadUdpThreadFunc, daemon=True)
             self.rxThread.start()
 
@@ -47,7 +39,7 @@ class UdpComms():
 
     def SendData(self, strToSend):
         # Use this function to send string to C#
-        self.udpSock.sendto(bytes(strToSend,'utf-8'), (self.udpIP, self.udpSendPort))
+        self.udpSock.sendto(bytes(strToSend, 'utf-8'), (self.udpIP, self.udpSendPort))
 
     def ReceiveData(self):
         """
@@ -59,25 +51,23 @@ class UdpComms():
             - Error: If user attempts to use this without enabling RX
         :return: returns None on failure or the received string on success
         """
-        if not self.enableRX: # if RX is not enabled, raise error
+        if not self.enableRX:  # if RX is not enabled, raise error
             raise ValueError("Attempting to receive data without enabling this setting. Ensure this is enabled from the constructor")
 
         data = None
         try:
             data, _ = self.udpSock.recvfrom(1024)
             data = data.decode('utf-8')
-        except WindowsError as e:
-            if e.winerror == 10054: # An error occurs if you try to receive before connecting to other application
+        except OSError as e:
+            if e.errno == 10054:  # Check for the specific error code, regardless of platform
                 if not self.suppressWarnings:
                     print("Are You connected to the other application? Connect to it!")
-                else:
-                    pass
             else:
-                raise ValueError("Unexpected Error. Are you sure that the received data can be converted to a string")
+                raise
 
         return data
 
-    def ReadUdpThreadFunc(self): # Should be called from thread
+    def ReadUdpThreadFunc(self):  # Should be called from thread
         """
         This function should be called from a thread [Done automatically via constructor]
                 (import threading -> e.g. udpReceiveThread = threading.Thread(target=self.ReadUdpNonBlocking, daemon=True))
@@ -86,11 +76,11 @@ class UdpComms():
 
         """
 
-        self.isDataReceived = False # Initially nothing received
+        self.isDataReceived = False  # Initially nothing received
 
         while True:
             data = self.ReceiveData()  # Blocks (in thread) until data is returned (OR MAYBE UNTIL SOME TIMEOUT AS WELL)
-            self.dataRX = data # Populate AFTER new data is received
+            self.dataRX = data  # Populate AFTER new data is received
             self.isDataReceived = True
             # When it reaches here, data received is available
 
@@ -104,9 +94,9 @@ class UdpComms():
 
         data = None
 
-        if self.isDataReceived: # if data has been received
+        if self.isDataReceived:  # if data has been received
             self.isDataReceived = False
             data = self.dataRX
-            self.dataRX = None # Empty receive buffer
+            self.dataRX = None  # Empty receive buffer
 
         return data

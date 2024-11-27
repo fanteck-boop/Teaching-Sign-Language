@@ -266,5 +266,27 @@ public class Exercise : MonoBehaviour
         this.isCorrect = false;
     }
 
+    protected int ConvertCharToInt(char currentCharacter)
+    {
+        // Ensure the character is in lowercase for uniformity
+        char lowerChar = char.ToLower(currentCharacter);
+
+        // Check if the character is between 'a' and 'z'
+        if (lowerChar >= 'a' && lowerChar <= 'z')
+        {
+            if (lowerChar >= 'k' && lowerChar <= 'y')
+            {
+                return lowerChar - 'a' - 1;
+            }
+            else
+            {
+                return lowerChar - 'a'; //Subtract 'a''s ASCII value from the given character's ASCII value to get the index.
+            }
+        }
+
+        // Return -1 if the character is not a valid letter
+        return -1;
+    }
+
 
 }

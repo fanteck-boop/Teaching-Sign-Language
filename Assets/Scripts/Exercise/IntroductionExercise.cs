@@ -124,20 +124,4 @@ public class IntroductionExercise : Exercise
         }
     }
 
-    public int ConvertCharToInt(char currentCharacter)
-    {
-        // Ensure the character is in lowercase for uniformity
-        char lowerChar = char.ToLower(currentCharacter);
-
-        // Check if the character is between 'a' and 'z'
-        if (lowerChar >= 'a' && lowerChar <= 'z')
-        {
-            return lowerChar - 'a'; //Subtract 'a''s ASCII value from the given character's ASCII value to get the index.
-        }
-
-        // Return -1 if the character is not a valid letter
-        return -1;
-    }
-
-
 }

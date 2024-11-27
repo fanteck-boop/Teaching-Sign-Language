@@ -19,7 +19,7 @@ import time
 import app
 
 # Create UDP socket to use for sending (and receiving)
-sock = U.UdpComms(udpIP="127.0.0.1", portTX=8000, portRX=8001, enableRX=True, suppressWarnings=True)
+sock = U.UdpComms(udpIP="127.0.0.1", portTX=8000, portRX=0, enableRX=True, suppressWarnings=True)
 
 def get_args():
     parser = argparse.ArgumentParser()
