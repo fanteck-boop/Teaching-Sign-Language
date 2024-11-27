@@ -2197,7 +2197,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000035763, y: 12}
+  m_AnchoredPosition: {x: -2, y: 0}
   m_SizeDelta: {x: 92.3156, y: 128.3941}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5927698988738108892
@@ -2228,9 +2228,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "De fleste bogstaver i dansk tegnsprog er statiske. I denne app vil h\xE5nden
-    dog bev\xE6ge sig ind i tegnene for at vise, hvordan de udf\xF8res i praksis
-    og tydeligg\xF8re bev\xE6gelserne."
+  m_text: "De fleste \nbogstaver i det danske tegnsprog \ner statiske. N\xE5r Alfie
+    viser dig dem, vil de dog blive vist i bev\xE6gelse for at demonstrere, hvordan
+    tegnene udf\xF8res i praksis."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a761dd67545684b2b92fbace8951070b, type: 2}
   m_sharedMaterial: {fileID: -584055247241080723, guid: a761dd67545684b2b92fbace8951070b, type: 2}
@@ -2293,7 +2293,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -9.496128, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10930,7 +10930,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8453468662719953211
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11242,7 +11242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &885758802196886795
 RectTransform:
   m_ObjectHideFlags: 0

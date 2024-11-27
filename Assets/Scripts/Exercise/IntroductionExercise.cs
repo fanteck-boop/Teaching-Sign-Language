@@ -9,9 +9,33 @@ public class IntroductionExercise : Exercise
     private float timer = 0f; // Timer to track how long the correct hand sign is held
     private const float holdTime = 1f; // Time required to hold the correct sign
 
+    enum State { NoCheck, Check}
+    private State state = State.NoCheck;
+
     public void LateUpdate()
     {
-        CheckInput();
+        switch (state)
+        {
+            case State.NoCheck:
+                // Start the introduction animation
+                break;
+            case State.Check:
+                CheckInput();
+                break;
+        }
+    }
+
+    public override void StartExercise()
+    {
+        // Hide the start panel and show the exercise panel
+        startPanel.SetActive(false);
+        exercisePanel.SetActive(true);
+        //animationManager.ResetAnimationState();
+        ResetExercise();
+        PlayHandAnimation();
+        DisplayLetter();
+        UpdateProgress();
+        state = State.Check;
     }
 
     public override void CheckInput()
@@ -93,6 +117,7 @@ public class IntroductionExercise : Exercise
     {
         exercisePanel.SetActive(false);
         completedPanel.SetActive(true);
+        state = State.NoCheck;
     }
 
     public override void CompleteExercise()
@@ -122,6 +147,12 @@ public class IntroductionExercise : Exercise
             exercise.SetActive(false);
             navManager.ToggleLevelMenu();
         }
+    }
+
+    public override void Exit()
+    {
+        state = State.NoCheck;
+        StartCoroutine(ExitExercise());
     }
 
 }

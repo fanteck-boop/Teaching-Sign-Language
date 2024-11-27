@@ -196,6 +196,7 @@ public class Exercise : MonoBehaviour
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
         //animationManager.ResetAnimationState();
+        ResetExercise();
         PlayHandAnimation();
         DisplayLetter();
         UpdateProgress();
