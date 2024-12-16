@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class AnimationManager : MonoBehaviour
 {
-    
-    public Animator handAnimator; // Animator to control the hand animations
-    private float displayDuration = 1.6f; // Duration for displaying each animation
-    private Dictionary<char, string> letterAnimations; // Dictionary to map letters to corresponding animation state names
-    private float crossFadeTime = 0.2f; // Duration for the smooth crossfade transition
+    public Animator handAnimator; // Reference to the hand's Animator
+    private float displayDuration = 1.6f; // How long each letter animation will play before the next
+    private Dictionary<char, string> letterAnimations; // Dictionary mapping each letter to its state name
+    private float crossFadeTime = 0.2f;
 
     void Awake()
     {
-        // Initialize the dictionary with mappings of letters to their animation state names
+        // Initialize the dictionary with state names for each letter
         letterAnimations = new Dictionary<char, string>
         {
             { 'A', "AnimateA" },
@@ -26,31 +25,45 @@ public class AnimationManager : MonoBehaviour
             { 'I', "AnimateI" },
             { 'K', "AnimateK" },
             { 'L', "AnimateL" },
-            { 'M', "AnimateM" } // Map more letters as needed
+            { 'M', "AnimateM" }
+            // Add more letters and corresponding state names here
         };
     }
 
+    //private bool cancelAnimation = false;
+
     public IEnumerator PlayLetterAnimation(char letter)
     {
-        // Convert the letter to uppercase to ensure case-insensitive matching
-        letter = char.ToUpper(letter); 
+        //Debug.Log(cancelAnimation);
+        letter = char.ToUpper(letter); // Ensure the letter is uppercase
 
-        // Wait for the specified duration before playing the animation
         yield return new WaitForSeconds(displayDuration);
 
-        // Check if the letter exists in the dictionary and retrieve its animation state name
+        // Check if a valid animation exists for the letter
         if (letterAnimations.TryGetValue(letter, out string stateName))
         {
-            // Play the animation using a smooth crossfade transition
+            Debug.Log(stateName);
+            // Play the animation state
             handAnimator.CrossFade(stateName, crossFadeTime);
+
+            // Wait for the animation to play completely
+            /*float elapsedTime = 0f;
+            while (elapsedTime < displayDuration)
+            {
+                if (cancelAnimation)
+                {
+                    Debug.Log("Animation cancelled.");
+                    yield break;
+                }
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }*/
         }
         else
         {
-            // Log a warning if no animation is found for the given letter
             Debug.LogWarning($"No animation found for letter: {letter}");
         }
     }
-
 
     // Function to cancel animations and reset to Idle
     public void StopLetterAnimation()

@@ -6,17 +6,10 @@ public class HandTracking : MonoBehaviour
 {
     public UdpSocket Landmarks;
     public GameObject[] handPoints;
+
+    // Optional: Adjust scaling and offset values
     private float scaleFactor = 0.01f;
     private Vector3 offset = new Vector3(0, 0, 1);
-
-    void Start()
-    {
-        //set the scale once, outside the loop
-        foreach (var point in handPoints)
-        {
-            point.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        } 
-    }
 
     void Update()
     {
@@ -30,6 +23,7 @@ public class HandTracking : MonoBehaviour
 
             // Set the position of the hand point
             handPoints[i].transform.localPosition = new Vector3(x, y, 0) + offset;
+            handPoints[i].transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         }
     }
 }

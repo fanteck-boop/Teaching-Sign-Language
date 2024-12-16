@@ -18,11 +18,10 @@ public class ReadingExercise : Exercise
     [SerializeField] private GameObject loadingIcon;
     public GameObject handcam;
 
+
+
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
-
-    public override void LateUpdate()
-    {}
 
     private void Update()
     {

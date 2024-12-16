@@ -7,6 +7,26 @@ public class SpellingExercise : Exercise
 {
     [SerializeField] private TextMeshProUGUI currentWordText;
 
+    private float timer = 0f; // Timer to track how long the correct hand sign is held
+    private const float holdTime = 1f; // Time required to hold the correct sign
+
+    enum State { NoCheck, Check}
+    private State state = State.NoCheck;
+
+    public void LateUpdate()
+    {
+        switch (state)
+        {
+            case State.NoCheck:
+                // Start the introduction animation
+                break;
+            case State.Check:
+                CheckInput();
+                break;
+        }
+    }
+
+
     public override void CheckInput()
     {
         Debug.Log("Checks input");

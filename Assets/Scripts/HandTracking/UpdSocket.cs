@@ -2,107 +2,106 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.Text;
-using System.Net; //makes us able to use IPEndPoint
-using System.Net.Sockets; //makes us able to use UdpClient
-using System.Threading; // makes us able to use Thread
+using System.Net;
+using System.Net.Sockets;
+using System.Threading;
 
 public class UdpSocket : MonoBehaviour
 {
-    [HideInInspector] public bool isTxStarted = false; // Public boolean variable to track whether transmission has started.
-    
-    [SerializeField] private string IP = "127.0.0.1"; // The IP address to connect to. Defaults to "127.0.0.1" (localhost).
-    [SerializeField] private int rxPort = 8000; // port to receive data from Python 
-    [SerializeField] private int txPort = 8001; // port to send data to Python
+    [HideInInspector] public bool isTxStarted = false;
 
-    // Declare the UdpClient and related variables for networking
-    private UdpClient client; // UdpClient for handling UDP communication
-    private IPEndPoint remoteEndPoint; // Represents the remote endpoint (local IP + port)    
-    private Thread receiveThread; // Thread for handling incoming data
+    [SerializeField] string IP = "127.0.0.1"; // local host
+    [SerializeField] int rxPort = 8000; // port to receive data from Python on
+    [SerializeField] int txPort = 8001; // port to send data to Python on
 
-    private float[] landmarks; // Array to store landmark positions as floats (X and Y coordinates)
-    public int handSignID; // Public variable to store the ID of the detected hand sign
+    // Create necessary UdpClient objects
+    UdpClient client;
+    IPEndPoint remoteEndPoint;
+    Thread receiveThread; // Receiving Thread
 
-    // Method to return the landmarks array
+    float[] landmarks;
+    public int handSignID;
     public float[] GetLandmarks()
     {
         return landmarks;
     }
-
     void Awake()
     {
-        // Initialize the remote endpoint with the specified IP and transmission port
-        remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), txPort); 
+        // Create remote endpoint (to Matlab)
+        remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), txPort);
 
-        // Initialize the UdpClient for receiving data on the specified receiving port
+        // Create local client
         client = new UdpClient(rxPort);
 
-        receiveThread = new Thread(new ThreadStart(ReceiveData)); // Create and start a new thread to handle incoming data
-        receiveThread.IsBackground = true; // Set as a background thread to stop automatically when the app exits
-        receiveThread.Start(); // Start the thread
+        // Create a new thread for reception of incoming messages
+        receiveThread = new Thread(new ThreadStart(ReceiveData));
+        receiveThread.IsBackground = true;
+        receiveThread.Start();
 
-        // Print a message to Unity's console for debugging
+        // Initialize (seen in comments window)
         print("UDP Comms Initialised");
     }
 
-    // Method to receive data from the UDP socket
+    // Receive data, update packets received
     private void ReceiveData()
     {
-        while (true) // Infinite loop to keep listening for incoming data
+        while (true)
         {
             try
             {
-                // Create a new endpoint to represent any incoming connection
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
-
-                // Receive the data as a byte array
                 byte[] data = client.Receive(ref anyIP);
-
-                // Convert the byte array into a UTF-8 encoded string
                 string receivedData = Encoding.UTF8.GetString(data);
 
-                // Split the received data into parts using the '|' delimiter
+                // Split the data based on the '|' delimiter
                 string[] parts = receivedData.Split('|');
 
-                // Extract and clean the landmarks string (removing any unnecessary prefix text)
-                string landmarksString = parts[0].Substring(parts[0].IndexOf(": ") + 2);
-
-                // Parse and store the hand sign ID as an integer
+                // Extract landmarks and hand sign ID
+                string landmarksString = parts[0].Substring(parts[0].IndexOf(": ") + 2); // Remove "from Python: "
                 handSignID = int.Parse(parts[1].Trim());
 
-                // Split the landmarks into pairs of X, Y coordinates using ';' as the delimiter
+                // Parse landmarks from the string
                 string[] landmarkPairs = landmarksString.Split(';');
-
-                // Allocate memory for the landmarks array (2 floats per coordinate pair)
                 landmarks = new float[landmarkPairs.Length * 2];
-
-                // Loop through each pair of coordinates, parsing and storing them in the landmarks array
                 for (int i = 0; i < landmarkPairs.Length; i++)
                 {
-                    // Split each coordinate pair into X and Y components
                     string[] xy = landmarkPairs[i].Split(',');
-
-                     // Parse and assign the X and Y values to the landmarks array
                     landmarks[2 * i] = float.Parse(xy[0]);
                     landmarks[2 * i + 1] = float.Parse(xy[1]);
                 }
 
+                // Process the received data
+                ProcessInput(landmarks, handSignID);
             }
-            catch (Exception err) // Catch any errors during data reception or parsing
+            catch (Exception err)
             {
-                // Print the error message to the Unity console for debugging
                 print(err.ToString());
             }
         }
     }
 
-    // Called when the MonoBehaviour is disabled or the game object is destroyed
+    private void ProcessInput(float[] landmarks, int handSignID)
+    {
+        // Print the landmarks and hand sign ID to the console
+        //Debug.Log("Received Landmarks:");
+        for (int i = 0; i < landmarks.Length; i += 2)
+        {
+            //Debug.Log($"Landmark {i / 2}: X={landmarks[i]}, Y={landmarks[i + 1]}");
+        }
+        //Debug.Log("Hand Sign ID: " + handSignID);
+
+        // You can now use these values for further processing, such as:
+        // - Visualizing landmarks in Unity
+        // - Recognizing hand gestures using machine learning
+        // - Triggering actions based on hand sign ID
+    }
+
+    //Prevent crashes - close clients and threads properly!
     void OnDisable()
     {
-        // If the receive thread is running, abort it to stop execution
         if (receiveThread != null)
             receiveThread.Abort();
-            
-        // Close the UDP client to release the port
+
         client.Close();
     }
 }
