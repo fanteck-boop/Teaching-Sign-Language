@@ -6,25 +6,6 @@ using TMPro; // For TextMeshPro UI components
 
 public class IntroductionExercise : Exercise
 {
-    private float timer = 0f; // Timer to track how long the correct hand sign is held
-    private const float holdTime = 1f; // Time required to hold the correct sign
-
-    enum State { NoCheck, Check}
-    private State state = State.NoCheck;
-
-    public void LateUpdate()
-    {
-        switch (state)
-        {
-            case State.NoCheck:
-                // Start the introduction animation
-                break;
-            case State.Check:
-                CheckInput();
-                break;
-        }
-    }
-
     public override void StartExercise()
     {
         // Hide the start panel and show the exercise panel
@@ -38,81 +19,67 @@ public class IntroductionExercise : Exercise
         state = State.Check;
     }
 
-    public override void CheckInput()
+   public override void CheckInput()
+{
+    if (udpSocket != null && udpSocket.handSignID > -1) // Check if the UDP socket is active and a valid hand sign ID is received
     {
-        Debug.Log("Checks input");
-        // Ensure the UDP socket is set up and has a valid HandID
+        string currentWord = words[currentWordIndex]; // Retrieve the current word from the list
+        int currentHandID = ConvertCharToInt(currentWord[currentCharIndex]); // Convert the current character to its corresponding hand sign ID
 
-        Debug.Log("UPD Socket handSign is " + udpSocket.handSignID);
-        if (udpSocket != null && udpSocket.handSignID > -1)
+        if (currentHandID == udpSocket.handSignID) // Check if the received hand sign ID matches the expected value
         {
-            string currentWord = words[currentWordIndex];
+            Debug.Log("Hand sign matches"); // Log a match confirmation
+            timer += Time.deltaTime; // Increment the timer based on elapsed time
 
-            Debug.Log(currentWord[currentCharIndex]);
-
-            int currentHandID = ConvertCharToInt(currentWord[currentCharIndex]);
-
-            Debug.Log("The correct handsign is " + currentHandID);
-
-            if (currentHandID == udpSocket.handSignID)
+            if (timer >= holdTime) // Check if the hold time requirement is met
             {
-                Debug.Log("Hand sign matches");
+                Debug.Log("Holdtime reached"); // Log that the hold time has been achieved
 
-                timer += Time.deltaTime;
-
-                if (timer >= holdTime)
+                if (wordCompleted == true) // Check if the current word is fully completed
                 {
-                    Debug.Log("Holdtime reached");
+                    currentCharIndex++; // Move to the next character in the word
+                    isCorrect = true; // Set the input as correct
+                    ShowFeedback(isCorrect); // Display positive feedback
+                    UpdateWord(); // Update the current word state
 
-                    if (wordCompleted == true)
+                    if (currentWordIndex < words.Count) // Verify if more words are available
                     {
-                        currentCharIndex++;
-                        isCorrect = true;
-                        ShowFeedback(isCorrect);
-                        UpdateWord(); //Updates wordIndex and sets wordCompleted = false;
-
-                        if (currentWordIndex < words.Count)
-                        {
-                            // Display the letter for the next word
-                            DisplayLetter();
-                            UpdateProgress();
-                            PlayHandAnimation();
-                        }
-                        else
-                        {
-                            GoToCompletionPanel();
-                            return; // Exit the function as there are no more words to process
-                        }
+                        DisplayLetter(); // Display the next letter
+                        UpdateProgress(); // Update the progress UI
+                        PlayHandAnimation(); // Trigger an animation for the new letter
                     }
                     else
                     {
-                        currentCharIndex++;
-                        isCorrect = true;
-                        ShowFeedback(isCorrect);
-                        Debug.Log("currentCharIndex updated to :" + currentCharIndex);
-                        DisplayLetter();
-                        PlayHandAnimation();
-                        UpdateProgress();
-                        Debug.Log("Letter displayed");
+                        GoToCompletionPanel(); // If no more words, show the completion panel
+                        return; // Exit the method to prevent further execution
                     }
-
-                    // Reset the timer after successful processing
-                    timer = 0f;
+                }
+                else
+                {
+                    currentCharIndex++; // Move to the next character
+                    isCorrect = true; // Set the input as correct
+                    ShowFeedback(isCorrect); // Display positive feedback
+                    DisplayLetter(); // Display the next letter
+                    PlayHandAnimation(); // Trigger the animation for the next letter
+                    UpdateProgress(); // Update progress indicators
                 }
 
-            }
-            else
-            {
-                // Reset the timer if the hand sign is incorrect
-                timer = 0f;
+                timer = 0f; // Reset the timer after processing the input
             }
         }
         else
         {
-            // Reset the timer if there's no valid input
-            timer = 0f;
+            timer = 0f; // Reset the timer if the hand sign ID is incorrect
         }
     }
+    else
+    {
+        timer = 0f; // Reset the timer if no valid input is provided
+    }
+}
+
+
+
     public override void GoToCompletionPanel()
     {
         exercisePanel.SetActive(false);

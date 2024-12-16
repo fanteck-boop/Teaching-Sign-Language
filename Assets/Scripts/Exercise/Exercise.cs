@@ -49,6 +49,25 @@ public class Exercise : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] protected bool isCorrect;
 
+    protected float timer = 0f; // Timer to track how long the correct hand sign is held
+    protected const float holdTime = 1f; // Time required to hold the correct sign
+
+    protected enum State { NoCheck, Check}
+    protected State state = State.NoCheck;
+
+    public virtual void LateUpdate()
+    {
+        switch (state)
+        {
+            case State.NoCheck:
+                // Start the introduction animation
+                break;
+            case State.Check:
+                CheckInput();
+                break;
+        }
+    }
+
     public void Start()
     { 
         OrderPanels();
