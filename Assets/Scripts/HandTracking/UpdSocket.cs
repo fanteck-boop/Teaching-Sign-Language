@@ -8,15 +8,13 @@ using System.Threading; // makes us able to use Thread
 
 public class UdpSocket : MonoBehaviour
 {
-    [HideInInspector] public bool isTxStarted = false; // Public boolean variable to track whether transmission has started.
     
     [SerializeField] private string IP = "127.0.0.1"; // The IP address to connect to. Defaults to "127.0.0.1" (localhost).
     [SerializeField] private int rxPort = 8000; // port to receive data from Python 
     [SerializeField] private int txPort = 8001; // port to send data to Python
 
     // Declare the UdpClient and related variables for networking
-    private UdpClient client; // UdpClient for handling UDP communication
-    private IPEndPoint remoteEndPoint; // Represents the remote endpoint (local IP + port)    
+    private UdpClient client; // UdpClient for handling UDP communication  
     private Thread receiveThread; // Thread for handling incoming data
 
     private float[] landmarks; // Array to store landmark positions as floats (X and Y coordinates)
@@ -30,9 +28,6 @@ public class UdpSocket : MonoBehaviour
 
     void Awake()
     {
-        // Initialize the remote endpoint with the specified IP and transmission port
-        remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), txPort); 
-
         // Initialize the UdpClient for receiving data on the specified receiving port
         client = new UdpClient(rxPort);
 

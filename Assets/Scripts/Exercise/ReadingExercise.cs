@@ -147,26 +147,5 @@ public class ReadingExercise : Exercise
         }
     }
 
-    public override void CompleteExercise()
-    {
-        // Check if the exerciseObject is active
-        if (completedPanel.activeSelf)
-        {
-            if (isCompleted == false)
-            {
-                isCompleted = true;
-                associatedLock.AddCompletedExercises();
-                associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
-            }
-            // Hide the completion panel and the exercise, and go back to the level menu
-            completedPanel.SetActive(false);
-            exercisePanel.SetActive(false);
-            startPanel.SetActive(true);
-            exercise.SetActive(false);
-            handcam.SetActive(true);
-            navManager.ToggleLevelMenu();
-        }
-    }
-
 }
 

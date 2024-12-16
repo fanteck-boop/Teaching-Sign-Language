@@ -94,8 +94,6 @@ public class Exercise : MonoBehaviour
         string currentWord = words[currentWordIndex];
 
         // Display the current character in the word
-        Debug.Log("CurrentCharIndex:" + currentCharIndex);
-        Debug.Log("Current word lentgh:" + currentWord.Length);
         if (currentCharIndex < currentWord.Length-1)
         {
             char currentChar = currentWord[currentCharIndex];
@@ -123,12 +121,9 @@ public class Exercise : MonoBehaviour
     
    protected virtual IEnumerator PlayLetterSequence()
    {
-       Debug.Log($"Starting PlayLetterSequence for word index {currentWordIndex}");
-
        if (isWordAChar == false)
        {
            animationManager.GoToIdle();
-            Debug.Log("Hello");
        }
 
        // Check if there are words left to animate
@@ -203,6 +198,7 @@ public class Exercise : MonoBehaviour
 
     public virtual void CheckInput()
     {
+
     }
 
     public virtual void ResetExercise()
@@ -211,8 +207,6 @@ public class Exercise : MonoBehaviour
         currentCharIndex = 0;
         UpdateProgress();
         animationManager.StopLetterAnimation();
-  
-
     }
 
     public virtual void StartExercise()
