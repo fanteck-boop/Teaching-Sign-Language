@@ -7,10 +7,9 @@ using TMPro; // For TextMeshPro UI components
 public class Exercise : MonoBehaviour
 {
     //Managers
-    [SerializeField] protected NavigationManager navManager;
+    [SerializeField] protected NavigationManager navManager; 
     [SerializeField] protected AnimationManager animationManager;
     [SerializeField] protected UdpSocket udpSocket;
-
 
     //Word variables
     [SerializeField] protected List<string> words; // List of letters
@@ -48,6 +47,7 @@ public class Exercise : MonoBehaviour
     [SerializeField] private float feedbackDuration = 1.5f; // Duration for showing feedback
     [SerializeField] private AudioSource audioSource;
     [SerializeField] protected bool isCorrect;
+    public GameObject handcam;
 
     protected float timer = 0f; // Timer to track how long the correct hand sign is held
     protected const float holdTime = 1f; // Time required to hold the correct sign
@@ -165,9 +165,13 @@ public class Exercise : MonoBehaviour
            Debug.LogError($"currentWordIndex {currentWordIndex} is out of bounds for the words list (count: {words.Count}).");
        }
    }
-    
 
     public virtual void CompleteExercise()
+    {
+        StartCoroutine(CompleteExerciseCoroutine());
+    }
+
+    public IEnumerator CompleteExerciseCoroutine()
     {
         // Check if the exerciseObject is active
         if (completedPanel.activeSelf)
@@ -179,7 +183,9 @@ public class Exercise : MonoBehaviour
                 associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
             }
             // Hide the completion panel and the exercise, and go back to the level menu
-            //ResetExercise();
+            ResetExercise();
+            yield return new WaitForEndOfFrame();
+
             completedPanel.SetActive(false);
             exercisePanel.SetActive(false);
             startPanel.SetActive(true);
@@ -214,7 +220,6 @@ public class Exercise : MonoBehaviour
         // Hide the start panel and show the exercise panel
         startPanel.SetActive(false);
         exercisePanel.SetActive(true);
-        //animationManager.ResetAnimationState();
         ResetExercise();
         PlayHandAnimation();
         DisplayLetter();
@@ -223,7 +228,9 @@ public class Exercise : MonoBehaviour
 
     public virtual void GoToCompletionPanel()
     {
-
+        exercisePanel.SetActive(false);
+        completedPanel.SetActive(true);
+        state = State.NoCheck;
     }
 
     public virtual void Exit()
@@ -233,20 +240,22 @@ public class Exercise : MonoBehaviour
 
     public virtual IEnumerator ExitExercise()
     {
+        state = State.NoCheck;
         // Start the reset process
         ResetExercise();
 
         // Optionally, wait for a frame to ensure the reset is processed, or for the animator to reset.
-        //yield return new WaitForSeconds(0.5f);
         yield return new WaitForEndOfFrame();
 
         // Now hide the exercise panel and reset the UI.
         exercisePanel.SetActive(false);
         startPanel.SetActive(true);
         exercise.SetActive(false);
+        handcam.SetActive(true);
 
         // Navigate back to the level menu
         navManager.ToggleLevelMenu();
+
     }
 
     public void UpdateProgress()

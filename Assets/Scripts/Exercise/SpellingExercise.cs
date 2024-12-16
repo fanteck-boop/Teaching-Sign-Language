@@ -9,33 +9,19 @@ public class SpellingExercise : Exercise
 
     public override void CheckInput()
     {
-        Debug.Log("Checks input");
-        // Ensure the UDP socket is set up and has a valid HandID
-
-        Debug.Log("UPD Socket handSign is " + udpSocket.handSignID);
         if (udpSocket != null && udpSocket.handSignID > -1)
         {
             string currentWord = words[currentWordIndex];
-
-            Debug.Log(currentWord[currentCharIndex]);
-
             int currentHandID = ConvertCharToInt(currentWord[currentCharIndex]);
-
-            Debug.Log("The correct handsign is "+ currentHandID);
 
             if (currentHandID == udpSocket.handSignID)
             {
-                Debug.Log("Hand sign matches");
-
                 timer += Time.deltaTime;
 
                 if (timer >= holdTime)
                 {
-                    Debug.Log("Holdtime reached");
-
                     if (wordCompleted == true)
                     {
-                        currentCharIndex++;
                         isCorrect = true;
                         ShowFeedback(isCorrect);
                         UpdateWord(); //Updates wordIndex and sets wordCompleted = false;
@@ -58,9 +44,7 @@ public class SpellingExercise : Exercise
                         currentCharIndex++;
                         isCorrect = true;
                         ShowFeedback(isCorrect);
-                        Debug.Log("currentCharIndex updated to :" + currentCharIndex);
                         DisplayLetter();
-                        Debug.Log("Letter displayed");
                     }
 
                     // Reset the timer after successful processing
@@ -100,13 +84,6 @@ public class SpellingExercise : Exercise
         }
     }
 
-    public override void GoToCompletionPanel()
-    {
-        exercisePanel.SetActive(false);
-        completedPanel.SetActive(true);
-        state = State.NoCheck;
-    }
-
     public override void StartExercise()
     {
         // Hide the start panel and show the exercise panel
@@ -117,23 +94,6 @@ public class SpellingExercise : Exercise
         ResetExercise();
         DisplayLetter();
         DisplayWord();
-        UpdateProgress();
         state = State.Check;
-    }
-    
-    public override void Exit()
-    {
-        // Start the reset process
-        ResetExercise();
-
-        // Now hide the exercise panel and reset the UI.
-        exercisePanel.SetActive(false);
-        startPanel.SetActive(true);
-        exercise.SetActive(false);
-
-        // Navigate back to the level menu
-        navManager.ToggleLevelMenu();
-        state = State.NoCheck;
-        
     }
 }

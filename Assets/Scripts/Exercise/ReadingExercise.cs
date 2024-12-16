@@ -16,13 +16,14 @@ public class ReadingExercise : Exercise
 
     //Loading mechanics
     [SerializeField] private GameObject loadingIcon;
-    public GameObject handcam;
 
     // Property for the player's input
     public string PlayerInput { get; private set; } // Public getter, private setter
 
     public override void LateUpdate()
-    {}
+    {
+        //Do nothing, should not check input in Lateupdate function based on state.
+    }
 
     private void Update()
     {
@@ -86,13 +87,6 @@ public class ReadingExercise : Exercise
         wrongMark.SetActive(false);
     }
 
-    public override void GoToCompletionPanel()
-    {
-        exercisePanel.SetActive(false);
-        completedPanel.SetActive(true);
-        ResetExercise();
-    }
-
     public override void StartExercise()
     {
         // Hide the start panel and show the exercise panel
@@ -153,26 +147,6 @@ public class ReadingExercise : Exercise
         }
     }
 
-    public override IEnumerator ExitExercise()
-    {
-        // Start the reset process
-        ResetExercise();
-
-        // Optionally, wait for a frame to ensure the reset is processed, or for the animator to reset.
-        //yield return new WaitForSeconds(0.5f);
-        yield return new WaitForEndOfFrame();
-
-        // Now hide the exercise panel and reset the UI.
-        exercisePanel.SetActive(false);
-        startPanel.SetActive(true);
-        exercise.SetActive(false);
-
-        handcam.SetActive(true);
-
-        // Navigate back to the level menu
-        navManager.ToggleLevelMenu();
-    }
-
     public override void CompleteExercise()
     {
         // Check if the exerciseObject is active
@@ -185,7 +159,6 @@ public class ReadingExercise : Exercise
                 associatedLock.MarkIconAsCompleted(unlockedIcon, completedIcon);
             }
             // Hide the completion panel and the exercise, and go back to the level menu
-            //ResetExercise();
             completedPanel.SetActive(false);
             exercisePanel.SetActive(false);
             startPanel.SetActive(true);
